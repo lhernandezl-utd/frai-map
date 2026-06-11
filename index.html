@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spine → Uplift Map · Future Ready AI</title>
+<style>
+  :root{
+    --green:#154734; --orange:#E87500; --mint:#5FE0B7;
+    --ink:#202020; --soft:#5C5C56; --pale:#F2F7F4; --grey:#E5E5E0;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Barlow","Avenir Next","Helvetica Neue",Arial,sans-serif; color:var(--ink); background:#fff; padding:28px 36px 110px;}
+  header{border-bottom:4px solid var(--green); padding-bottom:14px; margin-bottom:8px;}
+  .eyebrow{color:var(--orange); font-weight:700; letter-spacing:.12em; font-size:12px; text-transform:uppercase;}
+  h1{color:var(--green); font-size:30px; margin-top:4px;}
+  .meta{display:flex; gap:10px; align-items:center; margin-top:8px; flex-wrap:wrap;}
+  .pill{background:var(--mint); color:var(--green); font-weight:700; font-size:11.5px; padding:4px 12px; border-radius:99px;}
+  .pill.warn{background:#FDEBD7; color:var(--orange);}
+  .meta span.src{color:var(--soft); font-size:12px;}
+  .hint{color:var(--soft); font-size:13px; margin:10px 0 18px;}
+
+  /* ---- tabs ---- */
+  .tabs{display:flex; gap:8px; margin:18px 0 22px;}
+  .tab{font-family:inherit; font-size:14px; font-weight:700; padding:9px 22px; border-radius:8px 8px 0 0; border:2px solid var(--grey); border-bottom:none; background:var(--pale); color:var(--soft); cursor:pointer;}
+  .tab.on{background:var(--green); color:#fff; border-color:var(--green);}
+  .tabpane{display:none;} .tabpane.on{display:block;}
+
+  .cols{display:grid; grid-template-columns:1fr 64px 1.35fr; gap:0; align-items:start;}
+  h2{font-size:15px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:10px;}
+  .col-spine h2{color:var(--green);} .col-uplift h2{color:var(--orange);}
+  .group{margin-bottom:14px;}
+  .group-label{font-size:11px; font-weight:700; color:var(--soft); text-transform:uppercase; letter-spacing:.08em; margin-bottom:5px;}
+  .el{display:block; width:100%; text-align:left; background:var(--pale); border:2px solid transparent; border-left:5px solid var(--green);
+      border-radius:6px; padding:8px 10px; margin-bottom:5px; cursor:pointer; font-size:13.5px; font-family:inherit;}
+  .el b{color:var(--green);}
+  .el .spec{color:var(--soft); font-size:11.5px; display:block; margin-top:1px;}
+  .el:hover{border-color:var(--mint);}
+  .el.active{border-color:var(--green); background:#E2F2EA;}
+  .badge{display:inline-block; background:var(--orange); color:#fff; font-size:9.5px; font-weight:700; border-radius:3px; padding:1px 5px; vertical-align:2px; margin-left:6px;}
+  .arrowcol{display:flex; align-items:center; justify-content:center; height:100%; min-height:480px; color:var(--orange); font-size:34px; font-weight:700;}
+  .cell{background:var(--pale); border-radius:8px; border-top:6px solid var(--orange); padding:10px 12px; margin-bottom:10px; transition:box-shadow .15s, background .15s, opacity .15s;}
+  .cell.zone{border-top-color:var(--green);}
+  .cell h3{font-size:13px; color:var(--orange); text-transform:uppercase; letter-spacing:.05em; margin-bottom:6px;}
+  .cell.zone h3{color:var(--green);}
+  .cell ul{list-style:none;}
+  .cell li{font-size:13px; padding:3px 0 3px 14px; position:relative; color:var(--ink);}
+  .cell li::before{content:"•"; color:var(--mint); font-weight:700; position:absolute; left:0;}
+  .cell li i{color:var(--soft);}
+  .cell.dim{opacity:.30; filter:grayscale(.6);}
+  .cell.lit{background:#FFE3C2; box-shadow:0 0 0 4px var(--orange), 0 6px 22px rgba(232,117,0,.45); transform:scale(1.015); opacity:1; filter:none; position:relative;}
+  .cell.zone.lit{background:#CDEEDE; box-shadow:0 0 0 4px var(--green), 0 6px 22px rgba(21,71,52,.4);}
+  .cell.lit::after{content:"◀ LANDS HERE"; position:absolute; top:-11px; right:10px; background:var(--orange); color:#fff; font-size:10px; font-weight:700; letter-spacing:.06em; padding:2px 8px; border-radius:3px;}
+  .cell.zone.lit::after{background:var(--green);}
+  .ts{color:var(--orange); font-weight:700; font-size:11.5px;}
+  #mapbar{position:fixed; left:0; right:0; bottom:0; background:var(--green); color:#fff; padding:13px 36px; font-size:14px; min-height:52px;}
+  #mapbar b{color:var(--mint);}
+  .legend{display:flex; gap:18px; font-size:11.5px; color:var(--soft); margin-bottom:14px; flex-wrap:wrap;}
+
+  /* ---- worked example (their planner row) ---- */
+  .ex-note{background:#FDEBD7; border-left:5px solid var(--orange); border-radius:6px; padding:10px 14px; font-size:13px; color:var(--ink); margin-bottom:18px;}
+  .planner{display:grid; grid-template-columns:0.62fr 1.15fr 1.5fr 1.05fr; gap:0; border:2px solid var(--green); border-radius:8px; overflow:hidden;}
+  .pcell{border-right:1.5px solid var(--green); padding:0;}
+  .pcell:last-child{border-right:none;}
+  .pcell .phead{background:var(--green); color:#fff; font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; padding:7px 10px;}
+  .pcell .pbody{padding:10px 11px; font-size:12.5px; line-height:1.45;}
+  .pcell .pbody p{margin-bottom:7px;}
+  .pcell .pbody b{color:var(--green);}
+  .pcell .pbody .lbl{color:var(--green); font-weight:700;}
+  .pcell .pbody ul{list-style:none; margin:2px 0 7px;}
+  .pcell .pbody li{padding:1.5px 0 1.5px 11px; position:relative;}
+  .pcell .pbody li::before{content:"•"; color:var(--orange); position:absolute; left:0; font-weight:700;}
+  .pcell .pbody .open{color:var(--soft); font-style:italic; font-size:11.5px;}
+  .yellow .phead{background:#E8C547; color:var(--ink);}
+  .yellow .pbody{background:#FBF3D5;}
+  .supp{margin-top:26px;}
+  .supp h2{color:var(--green); margin-bottom:4px;}
+  .supp .sub{color:var(--soft); font-size:13px; margin-bottom:14px;}
+  .suppgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
+  .suppcard{background:var(--pale); border-radius:8px; border-top:5px solid var(--mint); padding:12px 14px;}
+  .suppcard h3{font-size:13px; color:var(--green); text-transform:uppercase; letter-spacing:.05em; margin-bottom:7px;}
+  .suppcard ul{list-style:none;}
+  .suppcard li{font-size:12.5px; padding:2.5px 0 2.5px 13px; position:relative;}
+  .suppcard li::before{content:"+"; color:var(--orange); font-weight:700; position:absolute; left:0;}
+  .suppcard li i{color:var(--soft);}
+  /* ---- definitions tab ---- */
+  .defgroup{margin-bottom:18px;}
+  .defgroup>h2{color:var(--green); border-bottom:2px solid var(--mint); padding-bottom:4px; margin-bottom:8px;}
+  details.def{background:var(--pale); border-radius:7px; border-left:5px solid var(--green); margin-bottom:6px; overflow:hidden;}
+  details.def summary{cursor:pointer; padding:9px 12px; font-weight:700; color:var(--green); font-size:14px; list-style:none; display:flex; align-items:center; gap:8px;}
+  details.def summary::before{content:"+"; color:var(--orange); font-weight:700; font-size:16px; width:14px;}
+  details.def[open] summary::before{content:"–";}
+  details.def summary .mini{font-weight:400; color:var(--soft); font-size:12px;}
+  details.def .defbody{padding:2px 14px 12px 34px; font-size:13px; line-height:1.5;}
+  details.def .defbody p{margin-bottom:6px;}
+  details.def .defbody b{color:var(--green);}
+  details.def .defbody .ex{background:#fff; border-left:3px solid var(--mint); padding:6px 10px; border-radius:4px; margin-top:5px; color:var(--soft); font-size:12.5px;}
+  .defnote{background:#E2F2EA; border-left:5px solid var(--green); border-radius:6px; padding:10px 14px; font-size:13px; margin-bottom:16px;}
+  /* ---- intake tab ---- */
+  .principles{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px;}
+  .principle{background:var(--green); color:#fff; font-size:12px; font-weight:700; padding:5px 14px; border-radius:99px;}
+  .stepper{display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-bottom:6px;}
+  .step{background:var(--pale); border-radius:8px; border-top:5px solid var(--grey); padding:9px 11px;}
+  .step.you{border-top-color:var(--orange); background:#FDEBD7;}
+  .step .ph{font-size:10px; font-weight:700; color:var(--soft); letter-spacing:.08em;}
+  .step h4{font-size:12.5px; color:var(--green); margin:2px 0 3px;}
+  .step p{font-size:11px; color:var(--soft); line-height:1.35;}
+  .step .youtag{display:inline-block; background:var(--orange); color:#fff; font-size:9px; font-weight:700; border-radius:3px; padding:1px 6px; margin-top:4px;}
+  .stephint{font-size:11.5px; color:var(--soft); margin-bottom:18px;}
+  .qa{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:18px;}
+  .q{background:var(--pale); border-left:5px solid var(--orange); border-radius:7px; padding:10px 12px;}
+  .q .qn{color:var(--orange); font-weight:700; font-size:12px;}
+  .q .qt{font-size:13.5px; font-weight:700; color:var(--ink); margin:2px 0 4px;}
+  .q .qs{font-size:11.5px; color:var(--soft); margin-bottom:6px;}
+  .q .feeds{display:flex; gap:4px; flex-wrap:wrap;}
+  .chip{background:var(--green); color:#fff; font-size:10px; font-weight:700; border-radius:99px; padding:2px 8px;}
+  .loop{display:flex; align-items:stretch; gap:0; margin:6px 0 18px; flex-wrap:wrap;}
+  .loopbox{background:var(--pale); border-radius:8px; padding:10px 13px; font-size:12px; flex:1; min-width:150px; border-top:5px solid var(--green);}
+  .loopbox.you{border-top-color:var(--orange); background:#FDEBD7;}
+  .loopbox b{display:block; color:var(--green); font-size:12.5px; margin-bottom:3px;}
+  .looparrow{display:flex; align-items:center; padding:0 7px; color:var(--orange); font-size:20px; font-weight:700;}
+  @media print{ #mapbar{position:static; margin-top:20px;} body{padding-bottom:20px;} .tab{display:none;} .tabpane{display:block !important; page-break-before:always;} details.def{page-break-inside:avoid;} details.def .defbody{display:block;} }
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Future Ready AI · UT Dallas, with Uplift Education</div>
+  <h1>The Module Spine → the Uplift Adaptation</h1>
+  <div class="meta">
+    <span class="pill warn">LIVING REFERENCE — update after every meeting, until locked</span>
+    <span class="pill">v1.4 · June 10, 2026</span>
+    <span class="src">Sources: <code>module-anatomy-and-deliverables.md</code> (spine) · <code>UPLIFT-ADAPTATION-SPEC.md</code> (mapping) · <code>module-element-definitions.md</code> (definitions)</span>
+  </div>
+</header>
+
+<div class="tabs">
+  <button class="tab on" data-pane="pane-map">① The Map — spine → landing zones</button>
+  <button class="tab" data-pane="pane-example">② Worked Example — Lesson 1 in their planner</button>
+  <button class="tab" data-pane="pane-defs">③ Element Definitions — for SMEs</button>
+  <button class="tab" data-pane="pane-intake">④ SME Intake — the easy path</button>
+</div>
+
+<!-- ================================================================ TAB 1: MAP -->
+<div class="tabpane on" id="pane-map">
+<p class="hint">Click any spine element on the left to see exactly where it lands on the Uplift side. <span class="badge">JUN 10</span> marks items added or changed by the partner's June 10 comments.</p>
+<div class="legend">
+  <span><b style="color:var(--green)">■</b> Spine (grant, UTD-owned, built once)</span>
+  <span><b style="color:var(--orange)">■</b> Uplift planner row (their four-cell format)</span>
+  <span><b style="color:var(--green)">■</b> Other landing zones (unit resources, linked package, internal)</span>
+</div>
+
+<div class="cols">
+  <div class="col-spine">
+    <h2>The Spine — 17 elements per module</h2>
+
+    <div class="group"><div class="group-label">Foundation</div>
+      <button class="el" data-t="c2" data-m="<b>Learning outcome</b> → Cell 2: condensed into one-sentence TWBAT and SWBAT. The full version stays in the grant module and Teacher Guide.">
+        <b>Learning outcome</b><span class="spec">1 sentence — what the scholar can now do</span></button>
+      <button class="el" data-t="c3" data-m="<b>Key concepts</b> → Cell 3: they become the Essential Questions and drive the lesson steps.">
+        <b>Key concepts</b><span class="spec">3–5 non-negotiable ideas</span></button>
+      <button class="el" data-t="tr" data-m="<b>Vocabulary</b> → the unit's Teacher Resources → 'Add Vocabulary here' slot. Beck's three-tier model: instructional focus on Tier 2 (academic words + cognates for EB scholars) and Tier 3 (AI domain terms). The list compiles across Lessons 1–5.">
+        <b>Vocabulary / glossary</b><span class="badge">JUN 10</span><span class="spec">Beck's tiers — focus on Tier 2 + Tier 3 (EB standard)</span></button>
+      <button class="el" data-t="c1" data-m="<b>TEKS mapping</b> → Cell 1: §127.19 strand code(s). Open: confirm coding pattern — (1)(A) per lesson or the launch lesson's 1ABCD.">
+        <b>TEKS mapping</b><span class="spec">§127.19 strand per lesson</span></button>
+    </div>
+
+    <div class="group"><div class="group-label">Scholar materials</div>
+      <button class="el" data-t="c3" data-m="<b>Student-facing content</b> → Cell 3: the timestamped lesson sequence, Do Now through Closing.">
+        <b>Student-facing content</b><span class="spec">fits the 90-min block (45-min splittable)</span></button>
+      <button class="el" data-t="c2 pkg" data-m="<b>Concept videos ×2</b> → named in Cell 2 Resources (with lengths); scripts shared in the linked package.">
+        <b>Concept videos ×2</b><span class="spec">60–90 sec each, captioned</span></button>
+      <button class="el" data-t="c2 pkg" data-m="<b>Scenario video</b> → Cell 2 Resources. Pathway version pending Uplift's pathway confirmation.">
+        <b>Scenario video</b><span class="spec">90–120 sec, pathway hook</span></button>
+      <button class="el" data-t="c3" data-m="<b>In-class activity</b> ('Stump the AI') → Cell 3: the Independent Practice step, timestamped 25–47.">
+        <b>In-class activity</b><span class="spec">hands-on, during the period</span></button>
+      <button class="el" data-t="c3" data-m="<b>Going-deeper segment</b> → Cell 3: the Group discussion step (50–60), now with linked talking points + sentence stems.">
+        <b>Going-deeper segment</b><span class="spec">keeps the period rich</span></button>
+      <button class="el" data-t="int" data-m="<b>Extension activity</b> ('AI in my field') → NOT in the planner row; it lives in the Teacher Guide and is offered on request.">
+        <b>Extension activity</b><span class="spec">optional, after class</span></button>
+    </div>
+
+    <div class="group"><div class="group-label">Teacher enablement</div>
+      <button class="el" data-t="c2 pkg" data-m="<b>Teacher Guide</b> → summarized in Cell 2's Instructional Note and linked; the full PDF ships in the linked package.">
+        <b>Teacher Guide</b><span class="spec">why + minute-by-minute how</span></button>
+      <button class="el" data-t="c2" data-m="<b>Teacher video</b> → Cell 2 Resources, marked 'for teacher prep' (not for class).">
+        <b>Teacher video</b><span class="spec">~2.5 min, prep summary</span></button>
+    </div>
+
+    <div class="group"><div class="group-label">Assessment &amp; data</div>
+      <button class="el" data-t="c4 pkg" data-m="<b>Formative assessment</b> → summarized in Cell 4; full exit ticket as a printable PDF in the linked package.">
+        <b>Formative assessment</b><span class="spec">5–7 items (exit ticket)</span></button>
+      <button class="el" data-t="c4 pkg" data-m="<b>Answer key / rubric</b> → referenced in Cell 4; full key lives in the Teacher Guide.">
+        <b>Answer key / rubric</b><span class="spec">scoring, 7 points</span></button>
+      <button class="el" data-t="pre" data-m="<b>Pre-assessment</b> → administered BEFORE Lesson 1. Items mirror the exit-ticket banks (comparable pre/post). Placement + data path to agree with Uplift: collection in THEIR systems, de-identified aggregates to UTD.">
+        <b>Pre-assessment / baseline</b><span class="badge">JUN 10</span><span class="spec">~10–15 items per unit · partner + grant data</span></button>
+    </div>
+
+    <div class="group"><div class="group-label">Supports &amp; future</div>
+      <button class="el" data-t="c3 pkg" data-m="<b>Discussion scaffolds</b> → linked from Cell 3's Group discussion step: teacher talking points + scholar sentence stems, bilingual-friendly (EB/MLL support).">
+        <b>Discussion scaffolds</b><span class="badge">JUN 10</span><span class="spec">talking points + sentence stems</span></button>
+      <button class="el" data-t="int" data-m="<b>AI-tutor knowledge base</b> → internal only until the tutor ships; never appears in the planner.">
+        <b>AI-tutor knowledge base</b><span class="spec">concepts + misconception corrections</span></button>
+    </div>
+  </div>
+
+  <div class="arrowcol">→</div>
+
+  <div class="col-uplift">
+    <h2>Uplift — their planner row + landing zones</h2>
+
+    <div class="cell" id="c1"><h3>Cell 1 · Content Flow</h3>
+      <ul><li>Lesson [N]</li><li>TEKS: §127.19 strand(s) <i>(coding pattern: confirm)</i></li><li>MYP phase (Inquiry &amp; Analysis → … → Evaluation)</li></ul>
+    </div>
+
+    <div class="cell" id="c2"><h3>Cell 2 · Teaching/Learning Objectives</h3>
+      <ul>
+        <li>TWBAT — ONE sentence <span class="badge">JUN 10</span></li>
+        <li>SWBAT — ONE sentence <span class="badge">JUN 10</span></li>
+        <li>Resources: deck · handout · videos · Teacher Guide link · Design Journal · AI tool</li>
+        <li>Instructional Note → summarizes + links the Teacher Guide</li>
+      </ul>
+    </div>
+
+    <div class="cell" id="c3"><h3>Cell 3 · Key Points</h3>
+      <ul>
+        <li>Essential Questions (2–3)</li>
+        <li>Lesson — every step timestamped <span class="badge">JUN 10</span>:</li>
+        <li><span class="ts">0–5</span> Do Now (Design Journal)</li>
+        <li><span class="ts">5–25</span> Guided Investigation (videos + demo)</li>
+        <li><span class="ts">25–47</span> Independent Practice (activity + chart)</li>
+        <li><span class="ts">47–50</span> Checkpoint <i>← 45-min split</i></li>
+        <li><span class="ts">50–60</span> Group discussion + scaffolds link <span class="badge">JUN 10</span></li>
+        <li><span class="ts">60–90</span> Closing → feeds the capstone</li>
+      </ul>
+    </div>
+
+    <div class="cell" id="c4"><h3>Cell 4 · Assessment / Product / Checkpoint</h3>
+      <ul><li>Checkpoint (quick write; marks the split)</li><li>Assessment: MYP Design Criteria A–D</li><li>Exit-ticket summary <i>(full version + key in the Teacher Guide)</i></li></ul>
+    </div>
+
+    <div class="cell zone" id="pre"><h3>Before the unit</h3>
+      <ul><li>Pre-assessment <span class="badge">JUN 10</span> — placement TBD: first 10 min of Lesson 1, or a prior sitting</li><li>Data collected in Uplift's systems; UTD gets de-identified aggregates</li></ul>
+    </div>
+
+    <div class="cell zone" id="tr"><h3>Teacher Resources (unit level)</h3>
+      <ul><li>Vocabulary — the "Add Vocabulary here" slot (compiles across Lessons 1–5)</li><li>Citations · IB command terms (theirs)</li></ul>
+    </div>
+
+    <div class="cell zone" id="pkg"><h3>Linked package (shared files)</h3>
+      <ul><li>Teacher Guide PDF · slide deck · scholar handout · exit ticket · video scripts · discussion scaffolds</li><li><i>Hosting decision pending: one home, stable links, always-current copies</i></li></ul>
+    </div>
+
+    <div class="cell zone" id="int"><h3>Internal only (not shared yet)</h3>
+      <ul><li>AI-tutor knowledge base (until the tutor ships)</li><li>Extension activity (lives in the Teacher Guide; offer on request)</li></ul>
+    </div>
+  </div>
+</div>
+</div><!-- /pane-map -->
+
+<!-- ================================================================ TAB 2: WORKED EXAMPLE -->
+<div class="tabpane" id="pane-example">
+  <p class="hint">This is <b>Lesson 1 — What Is AI?</b> exactly as it reads in Uplift's Content Flow row, in their wording, with the partner's June 10 comments applied: condensed TWBAT/SWBAT, timestamps on every step, and scaffolds linked. Below the row: everything that exists for this lesson but does NOT go into the Google Doc.</p>
+  <div class="ex-note"><b>Status: v1.1 DRAFT</b> — incorporates the June 10 comments; pending team ratification, then it replaces the version pasted June 9 and answers the partner's comments. <span class="badge">JUN 10</span> marks what changed because of her feedback.</div>
+
+  <div class="planner">
+    <div class="pcell yellow">
+      <div class="phead">Content Flow</div>
+      <div class="pbody">
+        <p><b>Lesson 1</b></p>
+        <p><span class="lbl">TEKS:</span> §127.19(1)(A) — research and select a problem, issue, or interest within a selected profession or across disciplines.</p>
+        <p class="open">[Confirm: (1)(A) alone, or mirror the launch lesson's 1ABCD coding]</p>
+        <p><b>Inquiry &amp; Analysis</b></p>
+      </div>
+    </div>
+
+    <div class="pcell">
+      <div class="phead">Teaching/Learning Objectives</div>
+      <div class="pbody">
+        <p><span class="lbl">TWBAT</span> facilitate the unit launch and establish the core concept: AI predicts, it doesn't know. <span class="badge">JUN 10</span></p>
+        <p><span class="lbl">SWBAT</span> explain how generative AI produces an answer and identify one strength and one limitation of AI tools. <span class="badge">JUN 10</span></p>
+        <p class="lbl">Resources</p>
+        <ul>
+          <li>U1L1 Slide Deck (13 slides)</li>
+          <li>Scholar Launch Page (one-page handout)</li>
+          <li>Concept Video 1: "The three kinds of AI" (~75s, captioned)</li>
+          <li>Concept Video 2: "It predicts, it doesn't know" (~80s, captioned)</li>
+          <li>Scenario video (~100s) <i class="open">[confirm pathway]</i></li>
+          <li>Module 1 Teacher Guide <i class="open">[link when hosted]</i></li>
+          <li>Discussion scaffolds: talking points + sentence stems <span class="badge">JUN 10</span></li>
+          <li>MYP YR5 S1 Design Journal</li>
+          <li>Class-approved AI chatbot <i class="open">[confirm district tool]</i></li>
+        </ul>
+        <p><span class="lbl">Instructional Note:</span> Protect the one idea — AI predicts, it doesn't know. Keep it concrete; no neural-network math. "Stump the AI" is where the idea lands and it seeds Lesson 4 (Verify). Full run-of-show, misconceptions, and EB/SPED differentiation in the Teacher Guide.</p>
+      </div>
+    </div>
+
+    <div class="pcell">
+      <div class="phead">Key Points</div>
+      <div class="pbody">
+        <p><b>Inquiry &amp; Analysis</b></p>
+        <p><span class="lbl">Essential Questions:</span> What is AI? How does generative AI actually produce an answer? What is it good at, and what is it bad at?</p>
+        <p class="lbl">Lesson: <span class="badge">JUN 10 — timestamped</span></p>
+        <p><span class="ts">0–5</span> <b>Do Now:</b> (Design Journal) One human-written and one AI-written text; scholars vote which is which, in complete sentences. Reveal it is hard to tell; that is the hook.</p>
+        <p><span class="ts">5–25</span> <b>Guided Investigation:</b> Concept Video 1; scholars name a traditional, generative, and agentic example from their own life. Concept Video 2, then the autocomplete demo: type a sentence start on the board; scholars predict the next word. "That's what AI does, at scale."</p>
+        <p><span class="ts">25–47</span> <b>Independent Practice:</b> "Stump the AI." Pairs give the AI three prompts and label each result trustworthy / not trustworthy / made-up: (1) something it should do well; (2) a fact you can check, then verify it; (3) something it cannot know. Build the class Good at / Bad at chart from what scholars actually saw.</p>
+        <p><span class="ts">47–50</span> <b>Checkpoint</b> <i class="open">← 45-minute campuses split here</i></p>
+        <p><span class="ts">50–60</span> <b>Group discussion:</b> Going Deeper — trained on patterns, not a memorized database; one agentic-AI example; AI's energy and water footprint; one true failure case. <b>Talking points + sentence stems provided.</b> <span class="badge">JUN 10</span></p>
+        <p><span class="ts">60–90</span> <b>Closing:</b> In the Design Journal, scholars name one industry they might investigate for the AI Industry Solution Proposal and one thing they would check about how it uses AI.</p>
+      </div>
+    </div>
+
+    <div class="pcell">
+      <div class="phead">Assessment / Product / Checkpoint</div>
+      <div class="pbody">
+        <p><span class="lbl">Checkpoint:</span> In your own words, explain how generative AI produces an answer, and name one thing it cannot be trusted to do.</p>
+        <p><span class="lbl">Assessment:</span> MYP Design Criteria A (Inquiring and Analyzing)</p>
+        <ul>
+          <li>analyze a range of existing products that inspire a solution to the problem</li>
+          <li>supports: explain and justify the need for a solution to a problem for a specified client/target audience</li>
+        </ul>
+        <p><span class="lbl">Exit ticket</span> (5 items, 7 points; full version + answer key in the Teacher Guide): how generative AI answers (MCQ); match the three types; why it can be confidently wrong (MCQ); what to do before using an AI-given fact (scenario); one good-at and one bad-at with reasons.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="supp">
+    <h2>Supplemental resources — exists for this lesson, NOT in the Google Doc</h2>
+    <p class="sub">Everything below is already built (or scripted) on the spine. It ships alongside the planner row; the partner gets it as links, not as planner text.</p>
+    <div class="suppgrid">
+      <div class="suppcard"><h3>Shared as linked files</h3>
+        <ul>
+          <li>Module 1 Teacher Guide (PDF, 4 pp): run-of-show 90/45, misconceptions, differentiation, answer key</li>
+          <li>Slide deck (PPTX, 13 slides, speaker notes)</li>
+          <li>Scholar Launch Page (PDF)</li>
+          <li>Exit Ticket, printable (PDF)</li>
+          <li>Vocabulary one-pager (PDF) <i>— the table itself also goes into Teacher Resources</i></li>
+          <li>Discussion scaffolds (to build: talking points + sentence stems) <i>JUN 10 request</i></li>
+        </ul>
+      </div>
+      <div class="suppcard"><h3>In production</h3>
+        <ul>
+          <li>4 video scripts, storyboard-ready: 2 concept, 1 scenario, 1 teacher prep <i>(rendering awaits avatar-tool authorization)</i></li>
+          <li>Pre-assessment, ~10–15 items mirroring the exit-ticket banks <i>JUN 10 request; placement + data path to agree</i></li>
+        </ul>
+      </div>
+      <div class="suppcard"><h3>Internal (not shared yet)</h3>
+        <ul>
+          <li>Grant module master (the full spine document for Module 1)</li>
+          <li>Extension activity "AI in my field" <i>— lives in the Teacher Guide; offer on request</i></li>
+          <li>AI-tutor knowledge base <i>— until the tutor ships</i></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div><!-- /pane-example -->
+
+<!-- ================================================================ TAB 3: DEFINITIONS -->
+<div class="tabpane" id="pane-defs">
+  <p class="hint">What each spine element IS, what the SME provides versus what the design team builds, and a Module 1 example. Condensed from the canonical document <code>module-element-definitions.md</code> — give that document to every SME at intake. Click any element to expand.</p>
+  <div class="defnote"><b>The audience everything is written for:</b> 10th grade, ~15 years old, high AI usage / low training, attention in 10–12 minute chunks, mixed reading levels with many emergent bilingual (EB) scholars, Chromebooks, little homework. <b>Reading-level rule:</b> scholar-facing prose drafts at grade 7–9 readability; every video captioned; nothing depends on sound or idioms.</div>
+
+  <div class="defgroup"><h2>Foundation</h2>
+    <details class="def"><summary>1 · Learning outcome <span class="mini">— one observable sentence</span></summary><div class="defbody">
+      <p>What a scholar can <b>DO</b> after the module, in observable verbs (explain, identify, evaluate, produce); never "understand" or "know." SME names the capability; design team phrases it and aligns the assessment to it.</p>
+      <div class="ex"><b>Module 1:</b> Scholars can explain what AI is, name the three types, describe how generative AI produces answers (it predicts, it doesn't know), and give one thing it does well and one it does badly.</div>
+    </div></details>
+    <details class="def"><summary>2 · Key concepts <span class="mini">— the 3–5 ideas that must survive</span></summary><div class="defbody">
+      <p>If a scholar remembers only these, the module worked. Each maps to at least one assessment item and usually one video. SME provides the concepts <b>and the misconceptions that fight them</b>.</p>
+      <div class="ex"><b>Module 1:</b> generative AI is the kind you use · traditional/generative/agentic · prediction, not knowing · capabilities vs. limits.</div>
+    </div></details>
+    <details class="def"><summary>3 · Vocabulary — Beck's three tiers <span class="badge">JUN 10</span> <span class="mini">— EB instruction standard</span></summary><div class="defbody">
+      <p>Organized by <b>Beck, McKeown &amp; Kucan's tiered model</b>: <b>Tier 1</b> everyday words (gloss/cognate support for newcomers only) · <b>Tier 2</b> high-utility academic words across domains (<i>predict, evaluate, reliable, verify, bias</i>) — <b>the instructional sweet spot for EB scholars</b>, taught explicitly with Spanish cognates where they exist (<i>predecir, evaluar, verificar</i>) · <b>Tier 3</b> domain terms (<i>generative AI, LLM, training data, prompt</i>), taught at point of use.</p>
+      <p><b>Focus: Tiers 2 and 3.</b> Every term gets a one-sentence scholar-facing definition at grade 7–9 readability.</p>
+      <div class="ex"><b>Module 1 reclassified:</b> Tier 2 = predict, pattern, reliable, verify · Tier 3 = AI, generative AI, agentic AI, training data, prompt, model/LLM, algorithm.</div>
+    </div></details>
+    <details class="def"><summary>4 · TEKS mapping <span class="mini">— one code per module</span></summary><div class="defbody">
+      <p>The TEKS strand the module satisfies, cited by code. Host course: 19 TAC §127.19 (CTE Project-Based Capstone). Partner confirms the local coding pattern. Design-team task; SME provides nothing.</p>
+      <div class="ex"><b>Module 1:</b> §127.19(1)(A).</div>
+    </div></details>
+  </div>
+
+  <div class="defgroup"><h2>Scholar materials</h2>
+    <details class="def"><summary>5 · Student-facing content <span class="mini">— the lesson body, in 10–12 min chunks</span></summary><div class="defbody">
+      <p>Structure: hook → concept (with video) → guided try → independent try → close. Never one long read; concrete before abstract; a career/real-world hook every time; grade 7–9 readability. SME supplies substance + a worked example via intake; AI drafts to the audience profile; SME signs off.</p>
+    </div></details>
+    <details class="def"><summary>6 · Concept videos ×2 <span class="mini">— 60–90 sec, one idea each</span></summary><div class="defbody">
+      <p>One short captioned video per key-concept cluster: one idea, one analogy, ends restating the idea. The videos carry the teaching so the teacher need not be an AI expert. Script template: narration + on-screen text + visual direction + length (four-column storyboard).</p>
+      <div class="ex"><b>Module 1:</b> "The three kinds of AI" (~75s) · "It predicts, it doesn't know" (~80s).</div>
+    </div></details>
+    <details class="def"><summary>7 · Scenario video <span class="mini">— 90–120 sec, the idea in THEIR industry</span></summary><div class="defbody">
+      <p>The core idea working or failing in a real moment of the scholars' pathway industry: near-peer character, concrete task, consequence. Answers "why does this matter to ME." Pathway versions swap the setting, not the concept.</p>
+      <div class="ex"><b>Module 1:</b> Jordan almost submits an AI answer with one invented "fact," then catches it.</div>
+    </div></details>
+    <details class="def"><summary>8 · In-class activity <span class="mini">— do or catch, not watch</span></summary><div class="defbody">
+      <p>Hands-on practice during the period. House styles: <b>stump it</b> (make the AI fail) · <b>catch it</b> (find the planted error) · <b>fix it</b> (rewrite a weak prompt/output) · <b>judge it</b> (label outputs trustworthy / not / made-up). Pairs on Chromebooks, or facilitator demo when devices are shared. SME says what practice should look like and what failure looks like.</p>
+      <div class="ex"><b>Module 1:</b> "Stump the AI" — 12 min, three prompts, label each result.</div>
+    </div></details>
+    <details class="def"><summary>9 · Going-deeper segment <span class="mini">— one step past the free intro</span></summary><div class="defbody">
+      <p>The layer that keeps the period rich and strong scholars engaged, at 10th-grade depth. SME provides the one "most people don't know this" insight they wish students knew. Now carries the discussion scaffolds (element 16).</p>
+      <div class="ex"><b>Module 1:</b> trained on patterns (not a memorized database) · a concrete agentic example · energy/water footprint · one true failure case.</div>
+    </div></details>
+    <details class="def"><summary>10 · Extension activity <span class="mini">— optional, after class</span></summary><div class="defbody">
+      <p>A deeper optional task for scholars who want more; differentiates without depending on homework; usually feeds the pathway connection or portfolio.</p>
+      <div class="ex"><b>Module 1:</b> "AI in my field" — one real AI use in your pathway's industry, its type, one limit, 3 sentences.</div>
+    </div></details>
+  </div>
+
+  <div class="defgroup"><h2>Teacher enablement</h2>
+    <details class="def"><summary>11 · Teacher Guide <span class="mini">— template, 11 sections</span></summary><div class="defbody">
+      <p>Makes the lesson teachable by a non-expert. <b>Canonical sections, in order:</b> the one idea that must stick · why this lesson matters · prep checklist · run of show (minute-by-minute, 90-min + 45-min split) · teacher moves that make it land · misconceptions (claim → correction → how to surface) · differentiation (EB/MLL, SPED, extension) · materials · assessment + answer key · capstone connection · open items. SME provides the misconceptions, the "why," and pitfalls.</p>
+    </div></details>
+    <details class="def"><summary>12 · Teacher video <span class="mini">— 2–3 min, the guide's elevator version</span></summary><div class="defbody">
+      <p><b>Script structure:</b> why this lesson matters (30s) → the one idea to protect (20s) → the analogies/moves to lean on (40s) → the activity moment that makes it land (30s) → the misconception to watch (20s) → how to read the exit ticket (20s). Watched once before teaching; never shown in class.</p>
+    </div></details>
+  </div>
+
+  <div class="defgroup"><h2>Assessment &amp; data</h2>
+    <details class="def"><summary>13 · Formative assessment <span class="mini">— exit ticket, 5–7 items, online-friendly</span></summary><div class="defbody">
+      <p><b>Item mix built to auto-grade where possible:</b> 2–3 MCQs whose distractors are the real misconceptions · 1 matching/classification · 1 scenario judgment · 1 short constructed response (teacher- or AI-assisted scoring). Every item maps to a key concept; EB scholars may answer open items in their stronger language. SME provides one assessment idea + the misconceptions that become distractors.</p>
+      <div class="ex"><b>Module 1:</b> the 5-item / 7-point exit ticket.</div>
+    </div></details>
+    <details class="def"><summary>14 · Answer key / rubric <span class="mini">— scoring + how to read results</span></summary><div class="defbody">
+      <p>Scoring for every item, what 1-point vs 2-point open responses look like, and <b>which misses signal which reteach</b>. Lives in the Teacher Guide, never in scholar materials.</p>
+    </div></details>
+    <details class="def"><summary>15 · Pre-assessment / baseline <span class="badge">JUN 10</span> <span class="mini">— pre/post data</span></summary><div class="defbody">
+      <p>Short baseline BEFORE the module/unit; items mirror the formative banks so pre/post is directly comparable. Produces the partner's data points and the grant's evaluation evidence.</p>
+      <p><b>Administration &amp; data (pending decisions):</b> runs in the partner's systems so identifiable student data never leaves their environment; UTD receives <b>de-identified aggregates</b>. Timing: first ~10 min of Lesson 1, or a standalone sitting. Ties to the hosting decision.</p>
+    </div></details>
+  </div>
+
+  <div class="defgroup"><h2>Supports &amp; future</h2>
+    <details class="def"><summary>16 · Discussion scaffolds <span class="badge">JUN 10</span> <span class="mini">— talking points + sentence stems</span></summary><div class="defbody">
+      <p>Half a page per discussion segment: <b>teacher talking points</b> (3–4 moves that keep the discussion alive) + <b>scholar sentence stems</b>, bilingual-friendly. Stem styles: claim ("I think ___ because ___") · evidence ("In the activity I saw ___, which shows ___") · counter ("I see it differently; ___") · connection ("This matters in [industry] because ___"). Stems deliberately use Tier 2 vocabulary so academic language gets rehearsed, not just content.</p>
+    </div></details>
+    <details class="def"><summary>17 · AI-tutor knowledge base <span class="mini">— RAG foundation, internal</span></summary><div class="defbody">
+      <p>The module's content distilled into <b>structured, retrievable chunks</b>: concept summaries, worked examples, misconception → correction pairs. Chunks are <b>embedded into a vector database</b>; when a scholar asks the future AI tutor a question, the system retrieves the relevant chunks and the tutor answers <b>grounded in approved course content</b> (Retrieval-Augmented Generation) instead of improvising. Also the control surface: the tutor only stands on SME-approved content. SME checks accuracy; design team handles chunking, embeddings, retrieval. Internal until the tutor ships.</p>
+    </div></details>
+  </div>
+
+  <div class="defnote"><b>How an SME uses this:</b> at intake you provide the learning outcome, key concepts + misconceptions, Tier 3 terms + the Tier 2 verbs you lean on, one or two real cases from your field, what practice should look like, your going-deeper layer, and one assessment idea. The design team builds everything else and returns it for your review; <b>nothing ships without your sign-off.</b></div>
+</div><!-- /pane-defs -->
+
+<!-- ================================================================ TAB 4: SME INTAKE -->
+<div class="tabpane" id="pane-intake">
+  <p class="hint"><b>The expert never builds the 17 elements — they answer simple questions.</b> This tab shows the SME's actual workload: ~10 plain-language prompts (60–90 minutes, async, on their schedule), then a review pass. AI and the design team expand the answers into the full module; the expert approves every gate. Built on the five-phase content-mining workflow (<code>09-presentations/utdallas-content-mining-workflow.html</code>).</p>
+
+  <div class="principles">
+    <span class="principle">Audience comes first</span>
+    <span class="principle">SME owns the content</span>
+    <span class="principle">Human validates every gate</span>
+    <span class="principle">AI accelerates production</span>
+  </div>
+
+  <div class="stepper">
+    <div class="step"><div class="ph">PHASE 1</div><h4>Briefing &amp; Setup</h4><p>We send the brief: audience profile, constraints, the intake questions, deadlines. 1–2 days, async.</p></div>
+    <div class="step you"><div class="ph">PHASE 2</div><h4>Faculty Authoring</h4><p>The expert answers the questions below, on their own schedule, toward a deadline.</p><span class="youtag">THE SME WORKS HERE</span></div>
+    <div class="step"><div class="ph">PHASE 3</div><h4>AI-Assisted Drafting</h4><p>We expand the answers into all 17 elements, calibrated to the audience profile.</p></div>
+    <div class="step you"><div class="ph">PHASE 4</div><h4>Faculty Review &amp; Approval</h4><p>The expert corrects and signs off. Nothing ships without this.</p><span class="youtag">AND HERE</span></div>
+    <div class="step"><div class="ph">PHASE 5</div><h4>Production &amp; Deploy</h4><p>We render videos, PDFs, decks; adapt to the partner format; deploy.</p></div>
+  </div>
+  <p class="stephint">Orange = the only two phases where the expert spends time. Everything else is the design team and AI.</p>
+
+  <h2 style="color:var(--green); margin-bottom:8px;">The intake questions — what we actually ask the expert</h2>
+  <p class="hint" style="margin-top:0;">Each answer feeds specific spine elements (the chips reference Tab ③). Delivered as a form or a recorded 60–90 minute conversation, whichever the expert prefers.</p>
+
+  <div class="qa">
+    <div class="q"><div class="qn">Q1</div><div class="qt">After this lesson, what should a scholar be able to DO, in one sentence?</div><div class="qs">Action verbs help: explain, identify, evaluate, build.</div><div class="feeds"><span class="chip">1 · Outcome</span></div></div>
+    <div class="q"><div class="qn">Q2</div><div class="qt">What are the 3–5 ideas that must stick, even if everything else is forgotten?</div><div class="qs">These become the videos and the assessment.</div><div class="feeds"><span class="chip">2 · Key concepts</span><span class="chip">6 · Concept videos</span></div></div>
+    <div class="q"><div class="qn">Q3</div><div class="qt">What do people usually get WRONG about this topic?</div><div class="qs">Misconceptions become quiz distractors, teacher warnings, and tutor corrections.</div><div class="feeds"><span class="chip">13 · Assessment</span><span class="chip">11 · Teacher Guide</span><span class="chip">17 · Tutor KB</span></div></div>
+    <div class="q"><div class="qn">Q4</div><div class="qt">Which technical terms matter here, and which academic verbs do you lean on?</div><div class="qs">We classify them into Beck's tiers and add cognates for EB scholars.</div><div class="feeds"><span class="chip">3 · Vocabulary</span></div></div>
+    <div class="q"><div class="qn">Q5</div><div class="qt">Give us one real example or scenario from your field.</div><div class="qs">Remember the audience: ~15-year-olds choosing a career path. A moment, a task, a consequence.</div><div class="feeds"><span class="chip">7 · Scenario video</span><span class="chip">5 · Content</span></div></div>
+    <div class="q"><div class="qn">Q6</div><div class="qt">Walk us through one worked example, the way you would show a beginner.</div><div class="qs">Step by step; your reasoning out loud is the gold.</div><div class="feeds"><span class="chip">5 · Content</span></div></div>
+    <div class="q"><div class="qn">Q7</div><div class="qt">What would hands-on practice look like? What does failure look like?</div><div class="qs">We shape it into one of the house activity styles (stump it, catch it, fix it, judge it).</div><div class="feeds"><span class="chip">8 · Activity</span></div></div>
+    <div class="q"><div class="qn">Q8</div><div class="qt">What is one thing most people don't know about this that you wish they did?</div><div class="qs">This becomes the going-deeper segment that keeps the period rich.</div><div class="feeds"><span class="chip">9 · Going deeper</span></div></div>
+    <div class="q"><div class="qn">Q9</div><div class="qt">What would you suggest for a scholar who wants to go further?</div><div class="qs">One optional task; we format it.</div><div class="feeds"><span class="chip">10 · Extension</span></div></div>
+    <div class="q"><div class="qn">Q10</div><div class="qt">What does a teacher need to remember when teaching this?</div><div class="qs">Pitfalls, sequencing, the moment that makes it land.</div><div class="feeds"><span class="chip">11 · Teacher Guide</span><span class="chip">12 · Teacher video</span></div></div>
+    <div class="q"><div class="qn">Q11</div><div class="qt">How would you check whether they got it? One assessment idea is enough.</div><div class="qs">We build the full item set, the key, and the pre-assessment from it.</div><div class="feeds"><span class="chip">13 · Assessment</span><span class="chip">14 · Key</span><span class="chip">15 · Pre-assessment</span></div></div>
+    <div class="q"><div class="qn">Q12</div><div class="qt">Any sources we must use or cite? Any preference on voice and framing?</div><div class="qs">Optional; protects your expert voice across everything we draft.</div><div class="feeds"><span class="chip">All elements</span></div></div>
+  </div>
+
+  <h2 style="color:var(--green); margin-bottom:8px;">What the expert never has to build</h2>
+  <p class="hint" style="margin-top:0;">Derived by AI + the design team from the answers above, calibrated to the audience profile (grade 7–9 readability, 10–12 min chunks, EB supports): TEKS mapping · the full student-facing lesson body · all four video scripts · the Teacher Guide assembly · exit-ticket items and answer key · the pre-assessment · discussion scaffolds and sentence stems · vocabulary definitions and cognates · the AI-tutor knowledge base · all branding, rendering, and the partner-format adaptation.</p>
+
+  <h2 style="color:var(--green); margin-bottom:8px;">The approval loop — the expert is always in control</h2>
+  <div class="loop">
+    <div class="loopbox you"><b>1 · Your answers</b>~10 questions, async, 60–90 min, your schedule.</div>
+    <div class="looparrow">→</div>
+    <div class="loopbox"><b>2 · AI + design team draft</b>All 17 elements, written to the audience profile.</div>
+    <div class="looparrow">→</div>
+    <div class="loopbox you"><b>3 · You review &amp; correct</b>Accuracy, emphasis, voice. Structured review form.</div>
+    <div class="looparrow">→</div>
+    <div class="loopbox you"><b>4 · You sign off</b>Nothing ships without it.</div>
+    <div class="looparrow">→</div>
+    <div class="loopbox"><b>5 · Production &amp; deploy</b>Videos, PDFs, partner adaptation, LMS.</div>
+  </div>
+  <div class="ex-note"><b>Why this works:</b> one expert submission produces every deliverable; the expert's time is spent only where expertise is irreplaceable — supplying the knowledge and validating the result. Same model scales to a dual-audience build (10th grade + undergraduate) from a single intake.</div>
+</div><!-- /pane-intake -->
+
+<div id="mapbar">Click a spine element on the Map tab to trace where it lands.</div>
+
+<script>
+  // tabs
+  document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
+    document.querySelectorAll('.tabpane').forEach(x => x.classList.remove('on'));
+    t.classList.add('on');
+    document.getElementById(t.dataset.pane).classList.add('on');
+    document.getElementById('mapbar').style.display = (t.dataset.pane === 'pane-map') ? '' : 'none';
+  }));
+  // map interactions
+  const els = document.querySelectorAll('.el');
+  const bar = document.getElementById('mapbar');
+  els.forEach(el => el.addEventListener('click', () => {
+    els.forEach(e => e.classList.remove('active'));
+    el.classList.add('active');
+    const targets = el.dataset.t.split(' ');
+    document.querySelectorAll('#pane-map .cell').forEach(c => {
+      c.classList.remove('lit');
+      c.classList.toggle('dim', !targets.includes(c.id));
+    });
+    let first = null;
+    targets.forEach(id => {
+      const c = document.getElementById(id);
+      if (c) { c.classList.add('lit'); if (!first) first = c; }
+    });
+    if (first) first.scrollIntoView({behavior:'smooth', block:'nearest'});
+    bar.innerHTML = el.dataset.m;
+  }));
+</script>
+</body>
+</html>
