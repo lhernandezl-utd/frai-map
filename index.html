@@ -122,7 +122,7 @@
   .looparrow{display:flex; align-items:center; padding:0 7px; color:var(--orange); font-size:20px; font-weight:700;}
 
   /* ---- deploy / LMS targets tab ---- */
-  .lmsgrid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:6px 0 18px;}
+  .lmsgrid{display:grid; grid-template-columns:repeat(auto-fit, minmax(290px, 1fr)); gap:16px; margin:6px 0 18px;}
   .lmscard{background:var(--pale); border-radius:10px; border-top:6px solid var(--orange); padding:16px 18px;}
   .lmscard.confirmed{border-top-color:var(--green);}
   .lmscard h3{font-size:17px; color:var(--green); margin-bottom:2px;}
@@ -145,7 +145,7 @@
   <h1>The Module Spine → the Partner Adaptation</h1>
   <div class="meta">
     <span class="pill warn">LIVING REFERENCE — update after every meeting, until locked</span>
-    <span class="pill">v1.6 · June 17, 2026</span>
+    <span class="pill">v1.7 · June 17, 2026</span>
     <span class="src">Sources: the module anatomy (spine) · the adaptation spec (mapping) · the element definitions</span>
   </div>
 </header>
@@ -554,9 +554,21 @@
         <a class="alt" href="https://codehs.com/curriculum" target="_blank" rel="noopener">Curriculum &amp; pathways</a>
       </div>
     </div>
+
+    <div class="lmscard">
+      <h3>ManageBac</h3>
+      <div class="kind">IB programme &amp; curriculum platform</div>
+      <span class="st eval">Under evaluation · IB Diploma (TOK)</span>
+      <p><span class="lbl">What it is:</span> the platform many schools use to run International Baccalaureate programmes (planning, assessment, reporting), with curriculum and classroom features built around the IB model. It is IB-specific rather than a general LMS.</p>
+      <p><span class="lbl">Still to decide:</span> whether the IB / Theory of Knowledge channel needs the AI content delivered here in addition to the general LMS. To confirm with the partner.</p>
+      <div class="lmslinks">
+        <a href="https://www.managebac.com/" target="_blank" rel="noopener">Website</a>
+        <a class="alt" href="https://help.managebac.com/" target="_blank" rel="noopener">Documentation</a>
+      </div>
+    </div>
   </div>
 
-  <div class="defnote"><b>Two platforms, two roles.</b> Schoology is a <b>general LMS</b> where any course can live; CodeHS is a <b>CS/CTE curriculum platform</b> with LMS-like classroom tools. They are not the same kind of system, which is why each is described here. More target platforms are added to this tab as partner schools are confirmed.</div>
+  <div class="defnote"><b>Three platforms, three roles.</b> Schoology is a <b>general LMS</b> where any course can live; CodeHS is a <b>CS/CTE curriculum platform</b> with LMS-like classroom tools; ManageBac is an <b>IB-specific platform</b> for International Baccalaureate programmes. They are not the same kind of system, which is why each is described here. More target platforms are added to this tab as partner schools are confirmed.</div>
 
   <div class="defnote"><b>Data stays where it belongs.</b> However we deploy, student records and grades remain in the school's own systems; the project site stays content-only and non-PII, and nothing is used to train any outside model.</div>
 </div><!-- /pane-deploy -->
