@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The SME Workflow · Internal</title>
+<style>
+  :root{ --green:#154734; --orange:#E87500; --mint:#5FE0B7; --ink:#202020; --soft:#5C5C56; --pale:#F2F7F4; --grey:#E5E5E0; }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Barlow","Avenir Next","Helvetica Neue",Arial,sans-serif; color:var(--ink); background:#fff; padding:28px 36px 60px;}
+  header{border-bottom:4px solid var(--orange); padding-bottom:14px; margin-bottom:8px;}
+  .eyebrow{color:var(--orange); font-weight:700; letter-spacing:.12em; font-size:12px; text-transform:uppercase;}
+  h1{color:var(--green); font-size:27px; margin-top:4px;}
+  .meta{display:flex; gap:10px; align-items:center; margin-top:8px; flex-wrap:wrap;}
+  .pill{background:var(--mint); color:var(--green); font-weight:700; font-size:11.5px; padding:4px 12px; border-radius:99px;}
+  .pill.int{background:var(--orange); color:#fff;}
+  .meta span.src{color:var(--soft); font-size:12px;}
+  .hint{color:var(--soft); font-size:13px; margin:10px 0 18px;}
+  .tabs{display:flex; gap:8px; margin:18px 0 22px; flex-wrap:wrap;}
+  .tab{font-family:inherit; font-size:13.5px; font-weight:700; padding:9px 18px; border-radius:8px 8px 0 0; border:2px solid var(--grey); border-bottom:none; background:var(--pale); color:var(--soft); cursor:pointer;}
+  .tab.on{background:var(--orange); color:#fff; border-color:var(--orange);}
+  .tabpane{display:none;} .tabpane.on{display:block;}
+  h2{font-size:16px; color:var(--green); margin:6px 0 10px;}
+  .sub{color:var(--soft); font-size:14px; margin-bottom:14px;}
+  .callout{background:#FDEBD7; border-left:5px solid var(--orange); border-radius:6px; padding:13px 16px; font-size:14px; margin:4px 0 16px;}
+  .callout.green{background:#E2F2EA; border-left-color:var(--green);}
+  /* spine cards */
+  .spinegrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:13px; margin:6px 0 14px;}
+  .scard{background:var(--pale); border-radius:10px; border-left:5px solid var(--green); padding:16px 19px;}
+  .scard h3{font-size:14px; color:var(--soft); text-transform:uppercase; letter-spacing:.06em; margin-bottom:10px;}
+  .scard ul{list-style:none;} .scard li{font-size:15px; padding:6px 0 6px 18px; position:relative; line-height:1.55;}
+  .scard li::before{content:"•"; color:var(--orange); font-weight:700; position:absolute; left:0;} .scard li b{color:var(--green);}
+  /* lanes */
+  .lanes{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:6px 0 16px;}
+  .lane{background:var(--pale); border-radius:10px; border-top:6px solid var(--green); padding:12px 14px;}
+  .lane.rec{border-top-color:var(--orange); background:#FDEBD7;}
+  .lane h3{font-size:14px; color:var(--green); margin-bottom:5px;} .lane.rec h3{color:var(--orange);}
+  .lane p{font-size:13.5px; line-height:1.5;}
+  /* questions */
+  .qtable{width:100%; border-collapse:collapse; margin:6px 0 14px; font-size:13.5px;}
+  .qtable th{background:var(--green); color:#fff; text-align:left; padding:9px 12px; font-size:12.5px;}
+  .qtable td{border-bottom:1.5px solid var(--grey); padding:9px 12px; vertical-align:top; line-height:1.45;}
+  .qtable tr:nth-child(even) td{background:var(--pale);}
+  .qtable td.feeds{color:var(--orange); font-weight:700; white-space:nowrap;}
+  /* phases + loop */
+  .phases{display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin:6px 0 6px;}
+  .phase{background:var(--pale); border-radius:9px; border-top:5px solid var(--grey); padding:10px 12px;}
+  .phase.sme{border-top-color:var(--orange); background:#FDEBD7;}
+  .phase .pn{font-size:10.5px; font-weight:700; color:var(--soft); letter-spacing:.07em;} .phase h4{font-size:13.5px; color:var(--green); margin:2px 0 3px;} .phase p{font-size:12px; color:var(--soft); line-height:1.4;}
+  .phase .smetag{display:inline-block; background:var(--orange); color:#fff; font-size:9px; font-weight:700; border-radius:3px; padding:1px 6px; margin-top:4px;}
+  .note{font-size:11.5px; color:var(--soft); margin-top:6px;}
+  .loop{display:flex; align-items:stretch; gap:0; margin:8px 0 14px; flex-wrap:wrap;}
+  .loopbox{background:var(--pale); border-radius:8px; padding:11px 13px; font-size:13px; flex:1; min-width:150px; border-top:5px solid var(--green);}
+  .loopbox.sme{border-top-color:var(--orange); background:#FDEBD7;} .loopbox b{display:block; color:var(--green); font-size:12.5px; margin-bottom:3px;}
+  .looparrow{display:flex; align-items:center; padding:0 7px; color:var(--orange); font-size:20px; font-weight:700;}
+  .formbtn{display:inline-block; font-size:12.5px; font-weight:700; text-decoration:none; color:#fff; background:var(--orange); padding:8px 15px; border-radius:7px;}
+  @media(max-width:820px){ .lanes{grid-template-columns:1fr;} .phases{grid-template-columns:1fr 1fr;} }
+  @media print{ .tab{display:none;} .tabpane{display:block !important; page-break-before:always;} .scard,.lane,.phase{page-break-inside:avoid;} }
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Future Ready AI</div>
+  <h1>The SME Workflow</h1>
+  <div class="meta">
+    <span class="pill int">Internal</span>
+    <span class="pill">v1.0 · June 24, 2026</span>
+    <span class="src">How we get content from a subject-matter expert and turn it into the 17 deliverables. The partner-facing element definitions live on the grade pages; this page is the part the partner does not need.</span>
+  </div>
+</header>
+
+<div class="tabs">
+  <button class="tab on" data-pane="pane-spine">① The Spine (what the SME provides)</button>
+  <button class="tab" data-pane="pane-intake">② SME Intake</button>
+  <button class="tab" data-pane="pane-workflow">③ The Workflow</button>
+</div>
+
+<!-- ============ TAB 1: SPINE ============ -->
+<div class="tabpane on" id="pane-spine">
+  <h2>The 17 deliverables, and who does what</h2>
+  <p class="sub">The expert never builds these. They answer about 15 questions; the design team and AI expand the answers into all 17, and the expert approves every gate. The full element definitions are on the grade pages (shared with everyone); this is the at-a-glance "what the expert provides."</p>
+  <div class="spinegrid">
+    <div class="scard"><h3>Foundation</h3><ul>
+      <li><b>1 Learning outcome</b> expert names the capability</li>
+      <li><b>2 Key concepts</b> expert gives the 3 to 5 ideas + the misconceptions</li>
+      <li><b>3 Vocabulary</b> expert gives the domain terms; we tier them</li>
+      <li><b>4 Standards</b> design-team task; expert provides nothing</li>
+    </ul></div>
+    <div class="scard"><h3>Scholar materials</h3><ul>
+      <li><b>5 Student-facing lesson</b> expert gives substance + a worked example</li>
+      <li><b>6 Concept videos ×2</b> we script from the key concepts</li>
+      <li><b>7 Scenario video</b> expert gives one real field moment</li>
+      <li><b>8 In-class activity</b> expert says what practice and failure look like</li>
+      <li><b>9 Going-deeper</b> expert gives the one "most people don't know" insight</li>
+      <li><b>10 Extension</b> we derive from the real-life connection</li>
+    </ul></div>
+    <div class="scard"><h3>Teacher enablement</h3><ul>
+      <li><b>11 Teacher Guide</b> expert gives misconceptions, the why, pitfalls</li>
+      <li><b>12 Teacher video</b> we build from the guide</li>
+    </ul></div>
+    <div class="scard"><h3>Assessment &amp; data</h3><ul>
+      <li><b>13 Formative assessment</b> expert gives one check idea + the misconceptions</li>
+      <li><b>14 Answer key / rubric</b> we build, expert confirms</li>
+      <li><b>15 Pre-assessment</b> we mirror the formative banks</li>
+    </ul></div>
+    <div class="scard"><h3>Supports &amp; future</h3><ul>
+      <li><b>16 Discussion scaffolds</b> we build talking points + sentence stems</li>
+      <li><b>17 AI-tutor knowledge base</b> we chunk + embed; expert checks accuracy</li>
+    </ul></div>
+  </div>
+  <div class="callout green"><b>The expert does not care how it lands in the partner's lesson plan.</b> That mapping (Tab ① of each grade page) is the design team's job. The expert cares about what they provide and how, which is the intake on the next tab.</div>
+</div>
+
+<!-- ============ TAB 2: SME INTAKE ============ -->
+<div class="tabpane" id="pane-intake">
+  <h2>How the expert gives us the content · three ways</h2>
+  <p class="sub">Every path feeds the same 17 deliverables and the same approval loop. Nothing ships without the expert's sign-off.</p>
+  <div class="lanes">
+    <div class="lane"><h3>1 · Answer the questions</h3><p>About 15 short prompts in a Microsoft Form, async, on the expert's own schedule (60 to 90 minutes).</p></div>
+    <div class="lane"><h3>2 · Just send materials</h3><p>Hand us a lesson plan, decks, notes, or a recorded class, and answer nothing. We mine them and draft the answers; the expert does a quick confirm-and-correct pass.</p></div>
+    <div class="lane rec"><h3>3 · Both (recommended)</h3><p>Answer what you like and attach materials. The questions capture intent; the documents become cited source references and seed the AI tutor.</p></div>
+  </div>
+  <h2>The intake questions, and what each one builds</h2>
+  <table class="qtable">
+    <tr><th>What we ask the expert</th><th>Feeds</th></tr>
+    <tr><td>Your name and role; which class this intake is for.</td><td class="feeds">Setup</td></tr>
+    <tr><td>After this class, what should a scholar be able to DO, and why does it matter?</td><td class="feeds">1 · Outcome</td></tr>
+    <tr><td>The 3 to 5 ideas that must stick even if all else is forgotten.</td><td class="feeds">2 · Concepts · 6 · Videos</td></tr>
+    <tr><td>What do scholars usually get wrong, or believe that is not true?</td><td class="feeds">13 · Assessment · 11 · Guide · 17 · Tutor</td></tr>
+    <tr><td>Which technical terms must scholars learn here?</td><td class="feeds">3 · Vocabulary</td></tr>
+    <tr><td>Which thinking verbs does the lesson lean on?</td><td class="feeds">3 · Vocabulary</td></tr>
+    <tr><td>One real moment from your field where this idea matters, fails, or works.</td><td class="feeds">7 · Scenario · 5 · Content</td></tr>
+    <tr><td>What should scholars DO to practice, and what does getting it wrong look like?</td><td class="feeds">8 · Activity</td></tr>
+    <tr><td>How does this connect to a scholar's real life or future work?</td><td class="feeds">5 · Content · 10 · Extension</td></tr>
+    <tr><td>The one thing most people do not know that you wish scholars knew.</td><td class="feeds">9 · Going deeper</td></tr>
+    <tr><td>One way to check whether they got it.</td><td class="feeds">13 · Assessment · 14 · Key · 15 · Pre-assessment</td></tr>
+    <tr><td>Anything debatable, a question with no single clear answer.</td><td class="feeds">16 · Discussion scaffolds</td></tr>
+    <tr><td>Links to, and copies of, any reference materials.</td><td class="feeds">Reference · 17 · Tutor</td></tr>
+  </table>
+  <div class="callout"><b>The form.</b> A short Microsoft Form with file upload, inside the university's Microsoft 365 environment (Teams/OneDrive), not Google. Everything stays in M365 and is never used to train any outside model.
+    <div style="margin-top:9px;"><a class="formbtn" href="#">Open the intake Form in Teams →</a> <span class="note">(paste the live Form link here once it is published)</span></div>
+  </div>
+</div>
+
+<!-- ============ TAB 3: WORKFLOW ============ -->
+<div class="tabpane" id="pane-workflow">
+  <h2>Five phases · the expert spends time in only two</h2>
+  <div class="phases">
+    <div class="phase"><div class="pn">PHASE 1</div><h4>Briefing &amp; Setup</h4><p>We send the brief: audience profile, constraints, the questions, deadlines. Async, 1 to 2 days.</p></div>
+    <div class="phase sme"><div class="pn">PHASE 2</div><h4>SME Authoring</h4><p>The expert answers the questions, on their own schedule.</p><span class="smetag">EXPERT WORKS HERE</span></div>
+    <div class="phase"><div class="pn">PHASE 3</div><h4>AI-Assisted Drafting</h4><p>We expand the answers into all 17 elements, calibrated to the audience.</p></div>
+    <div class="phase sme"><div class="pn">PHASE 4</div><h4>SME Review &amp; Approval</h4><p>The expert corrects and signs off. Nothing ships without this.</p><span class="smetag">AND HERE</span></div>
+    <div class="phase"><div class="pn">PHASE 5</div><h4>Production &amp; Deploy</h4><p>We render videos, PDFs, decks; adapt to each grade's format; deploy to the LMS.</p></div>
+  </div>
+  <p class="note">Orange marks the only two phases where the expert spends time. Everything else is the design team and AI.</p>
+  <h2 style="margin-top:18px;">The approval loop · the expert is always in control</h2>
+  <div class="loop">
+    <div class="loopbox sme"><b>1 · Expert answers</b>About 15 questions, async, 60 to 90 min.</div>
+    <div class="looparrow">→</div>
+    <div class="loopbox"><b>2 · AI + team draft</b>All 17 elements, written to the audience.</div>
+    <div class="looparrow">→</div>
+    <div class="loopbox sme"><b>3 · Expert reviews</b>Accuracy, emphasis, voice.</div>
+    <div class="looparrow">→</div>
+    <div class="loopbox sme"><b>4 · Expert signs off</b>Nothing ships without it.</div>
+    <div class="looparrow">→</div>
+    <div class="loopbox"><b>5 · Produce &amp; deploy</b>Render, adapt to format, deliver.</div>
+  </div>
+  <div class="callout green"><b>Why it works.</b> One expert submission produces every deliverable; the expert's time is spent only where expertise is irreplaceable, supplying the knowledge and validating the result. The same model scales across grades 10, 11, and 12 from a single intake.</div>
+</div>
+
+<script>
+  document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
+    document.querySelectorAll('.tabpane').forEach(x => x.classList.remove('on'));
+    t.classList.add('on'); document.getElementById(t.dataset.pane).classList.add('on');
+  }));
+</script>
+</body>
+</html>

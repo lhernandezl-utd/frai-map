@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module Spine → Partner Adaptation · Grade 11 (TOK)</title>
+<style>
+  :root{ --green:#154734; --orange:#E87500; --mint:#5FE0B7; --ink:#202020; --soft:#5C5C56; --pale:#F2F7F4; --grey:#E5E5E0; }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Barlow","Avenir Next","Helvetica Neue",Arial,sans-serif; color:var(--ink); background:#fff; padding:28px 36px 90px;}
+  header{border-bottom:4px solid var(--green); padding-bottom:14px; margin-bottom:8px;}
+  .eyebrow{color:var(--orange); font-weight:700; letter-spacing:.12em; font-size:12px; text-transform:uppercase;}
+  h1{color:var(--green); font-size:28px; margin-top:4px;}
+  .meta{display:flex; gap:10px; align-items:center; margin-top:8px; flex-wrap:wrap;}
+  .pill{background:var(--mint); color:var(--green); font-weight:700; font-size:11.5px; padding:4px 12px; border-radius:99px;}
+  .pill.grade{background:var(--green); color:#fff;} .pill.draft{background:#FDEBD7; color:var(--orange);}
+  .meta span.src{color:var(--soft); font-size:12px;}
+  .hint{color:var(--soft); font-size:14px; margin:10px 0 18px;}
+  .tabs{display:flex; gap:8px; margin:18px 0 22px; flex-wrap:wrap;}
+  .tab{font-family:inherit; font-size:13.5px; font-weight:700; padding:9px 18px; border-radius:8px 8px 0 0; border:2px solid var(--grey); border-bottom:none; background:var(--pale); color:var(--soft); cursor:pointer;}
+  .tab.on{background:var(--green); color:#fff; border-color:var(--green);}
+  .tabpane{display:none;} .tabpane.on{display:block;}
+  h2{font-size:16px; letter-spacing:.06em; text-transform:uppercase; margin-bottom:10px; color:var(--green);}
+  .cols{display:grid; grid-template-columns:1fr 56px 1.35fr; gap:0; align-items:start;}
+  .col-spine h2{color:var(--green);} .col-partner h2{color:var(--orange);}
+  .group{margin-bottom:14px;} .group-label{font-size:11px; font-weight:700; color:var(--soft); text-transform:uppercase; letter-spacing:.08em; margin-bottom:5px;}
+  .el{display:block; width:100%; text-align:left; background:var(--pale); border:2px solid transparent; border-left:5px solid var(--green); border-radius:6px; padding:9px 12px; margin-bottom:5px; cursor:pointer; font-size:14.5px; font-family:inherit;}
+  .el b{color:var(--green);} .el .spec{color:var(--soft); font-size:12.5px; display:block; margin-top:1px;}
+  .el:hover{border-color:var(--mint);} .el.active{border-color:var(--green); background:#E2F2EA;}
+  .badge.ib{display:inline-block; background:var(--green); color:#fff; font-size:9.5px; font-weight:700; border-radius:3px; padding:1px 5px; vertical-align:2px; margin-left:6px;}
+  .arrowcol{display:flex; align-items:center; justify-content:center; min-height:460px; color:var(--orange); font-size:30px; font-weight:700;}
+  .cell{background:var(--pale); border-radius:8px; border-top:6px solid var(--orange); padding:10px 12px; margin-bottom:10px; transition:box-shadow .15s, background .15s, opacity .15s;}
+  .cell.zone{border-top-color:var(--green);}
+  .cell h3{font-size:14px; color:var(--orange); text-transform:uppercase; letter-spacing:.05em; margin-bottom:6px;} .cell.zone h3{color:var(--green);}
+  .cell ul{list-style:none;} .cell li{font-size:14px; padding:4px 0 4px 14px; position:relative; line-height:1.45;} .cell li::before{content:"•"; color:var(--mint); font-weight:700; position:absolute; left:0;} .cell li i{color:var(--soft);}
+  .cell.dim{opacity:.30; filter:grayscale(.6);}
+  .cell.lit{background:#FFE3C2; box-shadow:0 0 0 4px var(--orange), 0 6px 22px rgba(232,117,0,.45); opacity:1; filter:none; position:relative;}
+  .cell.zone.lit{background:#CDEEDE; box-shadow:0 0 0 4px var(--green), 0 6px 22px rgba(21,71,52,.4);}
+  .cell.lit::after{content:"◀ LANDS HERE"; position:absolute; top:-11px; right:10px; background:var(--orange); color:#fff; font-size:10px; font-weight:700; padding:2px 8px; border-radius:3px;} .cell.zone.lit::after{background:var(--green);}
+  .ts{color:var(--orange); font-weight:700; font-size:11.5px;}
+  #mapbar{position:fixed; left:0; right:0; bottom:0; background:var(--green); color:#fff; padding:13px 36px; font-size:14px; min-height:52px;} #mapbar b{color:var(--mint);}
+  .legend{display:flex; gap:18px; font-size:12.5px; color:var(--soft); margin-bottom:14px; flex-wrap:wrap;}
+  /* TOK lesson plan (work sample) */
+  .ex-note{background:#FDEBD7; border-left:5px solid var(--orange); border-radius:6px; padding:11px 15px; font-size:14px; margin-bottom:14px;}
+  .ib-note{background:#E2F2EA; border-left:5px solid var(--green); border-radius:6px; padding:11px 15px; font-size:14px; margin-bottom:14px;}
+  .legend2{display:flex; gap:16px; font-size:12.5px; color:var(--soft); margin:0 0 14px; flex-wrap:wrap;}
+  .lp{border:2px solid var(--green); border-radius:10px; overflow:hidden;}
+  .lp .lphead{background:var(--green); color:#fff; padding:11px 15px; font-size:14px; font-weight:700;}
+  .lp .lphead small{display:block; font-weight:400; color:var(--mint); font-size:11.5px; margin-top:2px;}
+  .lprow{display:grid; grid-template-columns:0.95fr 2fr; border-top:1.5px solid var(--grey);} .lprow:first-of-type{border-top:none;}
+  .lprow .f{background:var(--pale); padding:9px 13px; font-size:13px; font-weight:700; color:var(--green); border-right:1.5px solid var(--grey);}
+  .lprow .f small{display:block; font-weight:400; color:var(--soft); font-size:10.5px; margin-top:2px;}
+  .lprow .v{padding:10px 13px; font-size:13.5px; line-height:1.5;} .lprow .v b{color:var(--green);}
+  .lprow .v ul{list-style:none; margin:3px 0 0;} .lprow .v li{padding:2px 0 2px 13px; position:relative;} .lprow .v li::before{content:"•"; color:var(--orange); position:absolute; left:0; font-weight:700;}
+  .lprow.flow .f{background:#E2F2EA;} .lprow.ai .v{background:#FFF6ED;}
+  .tag{display:inline-block; background:var(--mint); color:var(--green); font-size:10px; font-weight:700; border-radius:99px; padding:1px 8px; margin-left:4px;} .tag.ai{background:var(--orange); color:#fff;} .tag.real{background:var(--green); color:#fff;}
+  /* element definitions (shared) */
+  .defnote{background:#E2F2EA; border-left:5px solid var(--green); border-radius:6px; padding:11px 15px; font-size:14px; margin-bottom:16px;}
+  .defgroup{margin-bottom:18px;} .defgroup>h3{color:var(--green); border-bottom:2px solid var(--mint); padding-bottom:4px; margin-bottom:8px; font-size:15px;}
+  details.def{background:var(--pale); border-radius:7px; border-left:5px solid var(--green); margin-bottom:6px; overflow:hidden;}
+  details.def summary{cursor:pointer; padding:10px 13px; font-weight:700; color:var(--green); font-size:15px; list-style:none; display:flex; align-items:center; gap:8px;}
+  details.def summary::before{content:"+"; color:var(--orange); font-weight:700; font-size:16px; width:14px;} details.def[open] summary::before{content:"-";}
+  details.def summary .mini{font-weight:400; color:var(--soft); font-size:12px;}
+  details.def .defbody{padding:2px 14px 12px 34px; font-size:14px; line-height:1.5;} details.def .defbody p{margin-bottom:6px;} details.def .defbody b{color:var(--green);}
+  details.def .defbody .ex{background:#fff; border-left:3px solid var(--mint); padding:6px 10px; border-radius:4px; margin-top:5px; color:var(--soft); font-size:12.5px;}
+  /* deploy */
+  .lmsgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; margin:6px 0 18px;}
+  .lmscard{background:var(--pale); border-radius:10px; border-top:6px solid var(--orange); padding:15px 17px;} .lmscard.primary{border-top-color:var(--green);}
+  .lmscard h3{font-size:17px; color:var(--green); margin-bottom:2px;} .lmscard .kind{font-size:12px; font-weight:700; color:var(--soft); text-transform:uppercase; letter-spacing:.06em; margin-bottom:9px;}
+  .lmscard .st{display:inline-block; font-size:10.5px; font-weight:700; border-radius:99px; padding:3px 11px; margin-bottom:10px;} .st.ok{background:var(--mint); color:var(--green);} .st.back{background:#FBF3D5; color:#7a6a16;} .st.eval{background:#FDEBD7; color:var(--orange);}
+  .lmscard p{font-size:13.8px; margin-bottom:7px; line-height:1.5;} .lmscard .lbl{font-weight:700; color:var(--green);}
+  /* curriculum */
+  .unitgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); gap:14px; margin:6px 0 14px;}
+  .unit{background:var(--pale); border-radius:10px; border-top:6px solid var(--orange); padding:13px 16px;}
+  .unit h3{font-size:15px; color:var(--green);} .unit .u-meta{font-size:11.5px; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:.05em; margin:1px 0 8px;}
+  details.les{margin-bottom:5px; border-left:3px solid var(--mint); background:#fff; border-radius:5px;}
+  details.les summary{cursor:pointer; padding:7px 11px; font-size:14px; font-weight:700; color:var(--green); list-style:none;} details.les summary::before{content:"+ "; color:var(--orange);} details.les[open] summary::before{content:"- ";}
+  details.les .lb{padding:2px 12px 9px 12px; font-size:13.5px; line-height:1.5;} details.les .lb b{color:var(--green);}
+  .gradenav{margin-top:34px; border-top:2px solid var(--grey); padding-top:14px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+  .gradenav span{font-size:10.5px; color:var(--soft); font-weight:700; text-transform:uppercase; letter-spacing:.06em;}
+  .gradenav a{font-size:11.5px; font-weight:700; text-decoration:none; color:var(--green); background:var(--pale); border:2px solid var(--grey); padding:5px 11px; border-radius:7px;} .gradenav a.here{background:var(--green); color:#fff; border-color:var(--green);}
+  @media(max-width:820px){ .cols{grid-template-columns:1fr;} .arrowcol{display:none;} .lprow{grid-template-columns:1fr;} .lprow .f{border-right:none;} }
+  @media print{ #mapbar{position:static;} .tab{display:none;} .tabpane{display:block !important; page-break-before:always;} details.def,details.les,.lmscard,.unit,.lp{page-break-inside:avoid;} }
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Future Ready AI · a university + partner high schools collaborative</div>
+  <h1>The Module Spine → the Partner Adaptation · Grade 11</h1>
+  <div class="meta">
+    <span class="pill grade">GRADE 11 · IB DP Theory of Knowledge (Year 1)</span>
+    <span class="pill draft">DRAFT, for your feedback</span>
+    <span class="pill">v0.1 · June 24, 2026</span>
+    <span class="src">How the grant module spine lands in the TOK lesson-plan format, with a worked sample, the elements, where it deploys, and the proposed curriculum.</span>
+  </div>
+</header>
+
+<div class="tabs">
+  <button class="tab on" data-pane="pane-map">① The Map</button>
+  <button class="tab" data-pane="pane-work">② Work Sample</button>
+  <button class="tab" data-pane="pane-defs">③ Element Definitions</button>
+  <button class="tab" data-pane="pane-deploy">④ Where it Deploys</button>
+  <button class="tab" data-pane="pane-curric">⑤ The Curriculum</button>
+</div>
+
+<!-- ============ TAB 1: MAP ============ -->
+<div class="tabpane on" id="pane-map">
+<p class="hint">Click any element on the left to see where it lands in the TOK lesson plan on the right. <span class="badge ib">IB</span> marks the zones unique to TOK that the grade-10 course does not foreground.</p>
+<div class="legend">
+  <span><b style="color:var(--green)">■</b> The module spine (built once per lesson)</span>
+  <span><b style="color:var(--orange)">■</b> The TOK lesson-plan fields</span>
+  <span><b style="color:var(--green)">■</b> The IB-graded pieces and teacher-only zones</span>
+</div>
+<div class="cols">
+  <div class="col-spine"><h2>The AI content · 17 elements</h2>
+    <div class="group"><div class="group-label">Foundation</div>
+      <button class="el" data-t="zhead" data-m="<b>Learning outcome</b> → the TOK <b>Objective (SWBAT)</b> + <b>Why It Matters</b>."><b>Learning outcome</b><span class="spec">1 sentence, what the scholar can now do</span></button>
+      <button class="el" data-t="zib zcontent" data-m="<b>Key concepts</b> → the TOK <b>Conceptual / Knowledge Question</b> and the <b>Key Points</b>. In TOK the ideas are framed as a knowledge question."><b>Key concepts</b><span class="spec">3 to 5 ideas, as a knowledge question</span></button>
+      <button class="el" data-t="zcontent" data-m="<b>Vocabulary</b> → the <b>Central Vocabulary / Command Term</b> field, AI terms beside the IB command terms."><b>Vocabulary / glossary</b><span class="spec">AI terms beside IB command terms</span></button>
+    </div>
+    <div class="group"><div class="group-label">Scholar materials</div>
+      <button class="el" data-t="zflow" data-m="<b>Student-facing content</b> → the TOK lesson flow: Do Now → Teacher Model → Guided → Independent."><b>Student-facing content</b><span class="spec">fits the TOK period, gradual release</span></button>
+      <button class="el" data-t="zflow" data-m="<b>Concept videos ×2</b> → named in the Introduction to New Material; short captioned explainers."><b>Concept videos ×2</b><span class="spec">60 to 90 sec each, captioned</span></button>
+      <button class="el" data-t="zflow ztok" data-m="<b>Scenario video</b> → the Teacher Model / Guided hook; in TOK it also seeds a knowledge question."><b>Scenario video</b><span class="spec">90 to 120 sec, real AI moment</span></button>
+      <button class="el" data-t="zflow" data-m="<b>In-class activity</b> → the Guided / Independent blocks, with the required scholar discourse."><b>In-class activity</b><span class="spec">do or judge, not watch</span></button>
+      <button class="el" data-t="ztok" data-m="<b>Going-deeper segment</b> → the knowledge-question debate that feeds the Essay and Exhibition."><b>Going-deeper segment</b><span class="spec">the knowledge-question debate</span></button>
+    </div>
+    <div class="group"><div class="group-label">Teacher enablement</div>
+      <button class="el" data-t="zint" data-m="<b>Teacher Guide</b> → teacher-only: the why, the minute-by-minute how, misconceptions, differentiation."><b>Teacher Guide</b><span class="spec">why + minute-by-minute how</span></button>
+      <button class="el" data-t="zint" data-m="<b>Teacher video</b> → teacher prep only (~2.5 min); never shown in class."><b>Teacher video</b><span class="spec">~2.5 min, prep summary</span></button>
+    </div>
+    <div class="group"><div class="group-label">Assessment &amp; IB-graded pieces</div>
+      <button class="el" data-t="zassess" data-m="<b>Formative assessment</b> → the TOK Formative Assessment / Exit Ticket field, with the exemplar response."><b>Formative assessment</b><span class="spec">exit ticket + exemplar</span></button>
+      <button class="el" data-t="ztok" data-m="<b>Knowledge-question scaffold</b> → drafts a knowledge question beside a real IA prompt or prescribed title, feeding the Exhibition and Essay."><b>Knowledge-question scaffold</b><span class="badge ib">IB</span><span class="spec">mirrors a real prompt / title</span></button>
+      <button class="el" data-t="ztok zint" data-m="<b>Academic-integrity guardrail</b> → AI as a disclosed, cited research aid; never for generating submission text."><b>Academic-integrity guardrail</b><span class="badge ib">IB</span><span class="spec">disclosed, cited, process not output</span></button>
+    </div>
+    <div class="group"><div class="group-label">Future</div>
+      <button class="el" data-t="zint" data-m="<b>AI-tutor knowledge base</b> → internal until the tutor ships; never appears in the lesson plan."><b>AI-tutor knowledge base</b><span class="spec">concepts + misconception fixes</span></button>
+    </div>
+  </div>
+  <div class="arrowcol">→</div>
+  <div class="col-partner"><h2>The TOK lesson plan · the fields</h2>
+    <div class="cell" id="zhead"><h3>Lesson header</h3><ul><li>Date · Unit / Anchor text</li><li>Objective, one SWBAT sentence</li><li>Why It Matters</li></ul></div>
+    <div class="cell zone" id="zib"><h3>IB Framework <span class="badge ib">IB</span></h3><ul><li>Conceptual / Knowledge Question (DP)</li><li>Learner Profile attribute(s)</li><li>Approaches to Scholar Learning (ATLs)</li></ul></div>
+    <div class="cell" id="zcontent"><h3>Content map</h3><ul><li>Key Points</li><li>Central Vocabulary / Command Term</li><li>Potential Misunderstandings</li></ul></div>
+    <div class="cell" id="zflow"><h3>Lesson flow · gradual release</h3><ul><li><span class="ts">Do First</span> Do Now (low-stakes write)</li><li><span class="ts">I do</span> Introduction to New Material &amp; Teacher Model</li><li><span class="ts">we do</span> Guided Practice (scholar discourse required)</li><li><span class="ts">you do</span> Independent Practice</li><li>Accommodations menu on every block</li></ul></div>
+    <div class="cell" id="zassess"><h3>Formative Assessment / Exit Ticket</h3><ul><li>Daily check + exemplar response</li><li>Homework &amp; due date (often none in TOK)</li></ul></div>
+    <div class="cell zone" id="ztok"><h3>Feeds the IB-graded TOK pieces <span class="badge ib">IB</span></h3><ul><li>TOK Exhibition, 1 of 35 IA prompts, 3 objects, about a 950-word commentary</li><li>TOK Essay, 1 of 6 prescribed titles, up to 1,600 words</li><li>Knowledge questions scaffolded here, never in place of the graded work</li></ul></div>
+    <div class="cell zone" id="zint"><h3>Teacher-only / internal</h3><ul><li>Teacher Guide · teacher prep video</li><li>Academic-integrity guidance (disclosure + citation)</li><li>AI-tutor knowledge base (until the tutor ships)</li></ul></div>
+  </div>
+</div>
+</div>
+
+<!-- ============ TAB 2: WORK SAMPLE ============ -->
+<div class="tabpane" id="pane-work">
+  <p class="hint">An opening TOK Year 1 lesson in the partner's lesson-plan fields. The <b>structure is the partner's</b>; the <b>content is AI literacy</b>, framed as a knowledge question. This is a <b>draft for your feedback</b>: tell us if this is how you want it to look.</p>
+  <div class="legend2"><span><span class="tag real">PARTNER ROUTINE</span> reuses a real Year 1 opening move</span><span><span class="tag ai">AI CONTENT</span> what we bring</span></div>
+  <div class="lp">
+    <div class="lphead">TOK Year 1 (Grade 11) · Lesson plan <small>Anchor: "Knowledge and technology" optional theme · placement: early Year 1, alongside truth / certainty / ways of knowing</small></div>
+    <div class="lprow"><div class="f">Unit / Anchor text</div><div class="v">Knowledge and technology: <b>Is AI a way of knowing?</b></div></div>
+    <div class="lprow"><div class="f">Objective <small>SWBAT…</small></div><div class="v">Scholars will be able to define AI in their own words, distinguish rule-based automation, narrow AI, and general AI, and explain why an AI system can sound certain yet be wrong.</div></div>
+    <div class="lprow"><div class="f">Why It Matters</div><div class="v">AI now shapes much of what we read, watch, and believe. TOK is about judging knowledge claims, so a knower has to understand where AI knowledge comes from and how far to trust it.</div></div>
+    <div class="lprow"><div class="f">IB Framework</div><div class="v"><b>Conceptual / Knowledge Question:</b> To what extent can we trust knowledge produced by AI?<br><b>Learner Profile:</b> Thinkers · Knowledgeable<br><b>ATLs:</b> Thinking (critical) · Research · Communication</div></div>
+    <div class="lprow"><div class="f">Key Points</div><div class="v"><ul><li>AI does tasks we once thought needed human intelligence.</li><li>Almost all AI today is narrow; general AI does not yet exist.</li><li>Generative AI predicts likely text; it does not "know" or verify.</li><li>Confident wording is not evidence of truth.</li></ul></div></div>
+    <div class="lprow"><div class="f">Central Vocabulary / Command Term</div><div class="v"><b>Command terms:</b> define · distinguish · evaluate. <span class="tag ai">AI</span> <b>AI terms:</b> automation · narrow AI · general AI · generative AI · hallucination.</div></div>
+    <div class="lprow"><div class="f">Potential Misunderstandings</div><div class="v"><ul><li>"AI understands what it says." It predicts patterns; it does not understand.</li><li>"If it sounds confident, it is correct." Fluency is not reliability.</li></ul></div></div>
+    <div class="lprow flow"><div class="f">Do First · Do Now <small>10 min</small></div><div class="v"><span class="tag real">ROUTINE</span> The Year 1 "I know…" opener: scholars write knowledge claims they hold to be true. <span class="tag ai">AI</span> One claim on the board is an answer copied from an AI chatbot. Is it true? How would you check?</div></div>
+    <div class="lprow flow"><div class="f">Introduction to New Material &amp; Teacher Model <small>20 min · I do</small></div><div class="v"><span class="tag ai">AI</span> Concept Video 1 ("Automation, narrow AI, and generative AI", ~88s). The teacher models judging one AI answer against the partner's own truth criteria: does it correspond to the facts, is it coherent, does it work in practice?</div></div>
+    <div class="lprow flow"><div class="f">Guided Practice <small>15 min · we do</small></div><div class="v"><span class="tag real">ROUTINE</span> Their "refute or confirm the claim" structure. <span class="tag ai">AI</span> In two teams, scholars evaluate three AI outputs and decide AI or not, reliable or not, using the three truth criteria.</div></div>
+    <div class="lprow flow"><div class="f">Independent Practice <small>10 min · you do</small></div><div class="v"><span class="tag ai">AI</span> In pairs, scholars draft one TOK-style knowledge question about AI that could become an Exhibition prompt.</div></div>
+    <div class="lprow"><div class="f">Formative Assessment / Exit Ticket</div><div class="v">Classify three everyday tools as automation, narrow AI, or general AI, justify one; and write one knowledge question about trusting AI. <i>Exemplar in the Teacher Guide.</i></div></div>
+    <div class="lprow ai"><div class="f">Feeds the IB-graded pieces <small>IB</small></div><div class="v"><b>Exhibition:</b> the drafted knowledge question sits beside the real IA prompt "What counts as good evidence for a claim?" <b>Essay:</b> seeds reliability-of-knowledge arguments. Scaffolds toward both; replaces neither.</div></div>
+  </div>
+</div>
+
+<!-- ============ TAB 3: ELEMENT DEFINITIONS (shared) ============ -->
+<div class="tabpane" id="pane-defs">
+  <p class="hint">What each of the 17 elements IS, what the expert provides, and what the design team builds. This is for everyone, the partner and the expert alike, so we share one definition of what the map asks for. Examples are from a foundations lesson; the elements are the same for every grade.</p>
+  <div class="defnote"><b>Reading-level rule:</b> scholar-facing prose at grade 7 to 9 readability; every video captioned; academic vocabulary taught with cognates for emergent bilingual scholars; nothing depends on sound or idioms.</div>
+  <div class="defgroup"><h3>Foundation</h3>
+    <details class="def"><summary>1 · Learning outcome <span class="mini">one observable sentence</span></summary><div class="defbody"><p>What a scholar can <b>do</b> after the lesson, in observable verbs; never "understand" or "know." The expert names the capability; the design team phrases it and aligns the assessment.</p></div></details>
+    <details class="def"><summary>2 · Key concepts <span class="mini">the 3 to 5 ideas that must survive</span></summary><div class="defbody"><p>If a scholar remembers only these, the lesson worked. Each maps to an assessment item and usually a video. The expert provides the concepts and the misconceptions that fight them. In TOK these become a knowledge question.</p></div></details>
+    <details class="def"><summary>3 · Vocabulary, Beck's three tiers <span class="mini">EB instruction standard</span></summary><div class="defbody"><p>Tier 1 everyday words · <b>Tier 2</b> high-utility academic words (the sweet spot for EB scholars, with cognates) · <b>Tier 3</b> domain terms. Focus on Tiers 2 and 3. In TOK, AI terms sit beside the IB command terms.</p></div></details>
+    <details class="def"><summary>4 · Standards mapping <span class="mini">one code per lesson</span></summary><div class="defbody"><p>The standard the lesson satisfies, cited by code. For TOK the alignment is to the existing TOK course (TEKS being confirmed). Design-team task; the expert provides nothing.</p></div></details>
+  </div>
+  <div class="defgroup"><h3>Scholar materials</h3>
+    <details class="def"><summary>5 · Student-facing content <span class="mini">the lesson body, in chunks</span></summary><div class="defbody"><p>Hook → concept (with video) → guided try → independent try → close. Concrete before abstract; a real-world hook every time. The expert supplies substance and a worked example; AI drafts to the audience; the expert signs off.</p></div></details>
+    <details class="def"><summary>6 · Concept videos ×2 <span class="mini">60 to 90 sec, one idea each</span></summary><div class="defbody"><p>One short captioned video per key-concept cluster: one idea, one analogy. The videos carry the teaching so the teacher need not be an AI expert.</p></div></details>
+    <details class="def"><summary>7 · Scenario video <span class="mini">90 to 120 sec, a real moment</span></summary><div class="defbody"><p>The idea working or failing in a real moment: near-peer character, concrete task, consequence. In TOK it also seeds a knowledge question.</p></div></details>
+    <details class="def"><summary>8 · In-class activity <span class="mini">do or judge, not watch</span></summary><div class="defbody"><p>Hands-on practice during the period: stump it · catch it · fix it · judge it. The expert says what practice should look like and what failure looks like.</p></div></details>
+    <details class="def"><summary>9 · Going-deeper segment <span class="mini">one step past the intro</span></summary><div class="defbody"><p>The layer that keeps the period rich. In TOK this is the knowledge-question debate that feeds the Essay and Exhibition. The expert provides the one insight they wish scholars knew.</p></div></details>
+    <details class="def"><summary>10 · Extension activity <span class="mini">optional, after class</span></summary><div class="defbody"><p>A deeper optional task for scholars who want more; differentiates without depending on homework.</p></div></details>
+  </div>
+  <div class="defgroup"><h3>Teacher enablement</h3>
+    <details class="def"><summary>11 · Teacher Guide <span class="mini">template, 11 sections</span></summary><div class="defbody"><p>Makes the lesson teachable by a non-expert: the one idea, why it matters, prep, run of show, teacher moves, misconceptions, differentiation, materials, assessment + key, connection, open items. The expert provides the misconceptions, the why, and the pitfalls.</p></div></details>
+    <details class="def"><summary>12 · Teacher video <span class="mini">2 to 3 min</span></summary><div class="defbody"><p>The guide's elevator version: why it matters, the one idea to protect, the moves to lean on, the activity moment, the misconception to watch, how to read the exit ticket. Watched once before teaching.</p></div></details>
+  </div>
+  <div class="defgroup"><h3>Assessment, supports &amp; future</h3>
+    <details class="def"><summary>13 · Formative assessment <span class="mini">exit ticket</span></summary><div class="defbody"><p>Built to auto-grade where possible; every item maps to a key concept. The expert provides one assessment idea and the misconceptions that become distractors.</p></div></details>
+    <details class="def"><summary>14 · Answer key / rubric <span class="mini">scoring</span></summary><div class="defbody"><p>Scoring for every item and which misses signal which reteach. Lives in the Teacher Guide.</p></div></details>
+    <details class="def"><summary>15 · Pre-assessment / baseline <span class="mini">pre/post data</span></summary><div class="defbody"><p>Short baseline before the unit; items mirror the formative banks. Runs in the partner's systems; the university receives de-identified aggregates.</p></div></details>
+    <details class="def"><summary>16 · Discussion scaffolds <span class="mini">talking points + sentence stems</span></summary><div class="defbody"><p>Teacher talking points + scholar sentence stems, bilingual-friendly, using Tier 2 vocabulary so academic language gets rehearsed.</p></div></details>
+    <details class="def"><summary>17 · AI-tutor knowledge base <span class="mini">RAG, internal</span></summary><div class="defbody"><p>The content distilled into retrievable chunks, embedded so the future tutor answers grounded in approved content. The expert checks accuracy. Internal until the tutor ships.</p></div></details>
+  </div>
+</div>
+
+<!-- ============ TAB 4: WHERE IT DEPLOYS ============ -->
+<div class="tabpane" id="pane-deploy">
+  <p class="hint">Where these lessons run. We author once and export. Student records stay in your systems; the project stays content-only.</p>
+  <div class="lmsgrid">
+    <div class="lmscard primary"><h3>Toddle</h3><div class="kind">IB-oriented LMS / planner</div><span class="st ok">Primary, the platform you are moving to</span><p><span class="lbl">What it is:</span> the platform the partner is transitioning to. TOK content deploys here like the grade-10 lessons; access is being arranged.</p></div>
+    <div class="lmscard"><h3>Schoology</h3><div class="kind">General K-12 LMS</div><span class="st back">Backup</span><p><span class="lbl">What it is:</span> retained as a backup through the migration to Toddle.</p></div>
+    <div class="lmscard"><h3>CodeHS</h3><div class="kind">CS / CTE curriculum platform</div><span class="st eval">In review</span><p><span class="lbl">What it is:</span> under evaluation for CTE pathways (more relevant to the grade-10 CTE side).</p></div>
+  </div>
+  <div class="ib-note"><b>Academic integrity note.</b> Across TOK we teach AI as a disclosed, cited research aid, never to generate IB submission text. The deployment platform carries the lessons; it does not change that guardrail.</div>
+</div>
+
+<!-- ============ TAB 5: CURRICULUM ============ -->
+<div class="tabpane" id="pane-curric">
+  <p class="hint">The proposed 11th-grade curriculum (TOK): <b>4 units, 16 lessons, one semester</b>, the first half of a two-year TOK sequence. Lessons run about 45 minutes; the AI segment runs about 3+ weeks. <b>This is a projected draft for your feedback</b>; 11th and 12th grade do not run in units the way 10th does, so the final shape may change. Click a lesson to expand.</p>
+  <div class="unitgrid">
+    <div class="unit"><h3>Unit 1 · Foundations of AI</h3><div class="u-meta">Lessons 1 to 4</div>
+      <details class="les"><summary>1 · What Is AI, Really?</summary><div class="lb"><b>EQ:</b> What separates intelligence from automation? <b>Flow:</b> hook game (10) · definitions lecture (15) · discussion (10) · exit ticket (10).</div></details>
+      <details class="les"><summary>2 · How Computers "Think" + ML Basics</summary><div class="lb"><b>EQ:</b> How do machines learn from data? <b>Flow:</b> pattern demo (10) · mini-lecture (15) · dataset activity (15) · reflection (5).</div></details>
+      <details class="les"><summary>3 · Neural Networks &amp; Deep Learning, Simplified</summary><div class="lb"><b>EQ:</b> How do layered networks "learn"? <b>Flow:</b> visual demo (10) · mini-lecture (20) · concept-mapping (15).</div></details>
+      <details class="les"><summary>4 · Generative AI Decoded</summary><div class="lb"><b>EQ:</b> How does AI create new content? <b>Flow:</b> GenAI walkthrough (15) · hands-on (20) · discussion (10).</div></details>
+    </div>
+    <div class="unit"><h3>Unit 2 · Using AI Effectively &amp; Responsibly</h3><div class="u-meta">Lessons 5 to 8</div>
+      <details class="les"><summary>5 · Prompt Engineering 101 &amp; 201</summary><div class="lb"><b>EQ:</b> How does how we ask change the output? <b>Flow:</b> demo (10) · guided prompt lab (25) · challenge + share (10).</div></details>
+      <details class="les"><summary>6 · When AI Gets It Wrong: Hallucinations &amp; Fact-Checking</summary><div class="lb"><b>EQ:</b> How do we catch AI mistakes? <b>Flow:</b> spot-the-error (15) · mini-lecture (15) · fact-check lab (15).</div></details>
+      <details class="les"><summary>7 · Bias in AI</summary><div class="lb"><b>EQ:</b> Where does AI bias come from? <b>Flow:</b> case examples (15) · mini-lecture (15) · discussion (15).</div></details>
+      <details class="les"><summary>8 · Your Data, Their Model: Privacy</summary><div class="lb"><b>EQ:</b> What happens to the data we give AI? <b>Flow:</b> data-trail activity (15) · mini-lecture (15) · checklist creation (15).</div></details>
+    </div>
+    <div class="unit"><h3>Unit 3 · AI Ethics &amp; Society</h3><div class="u-meta">Lessons 9 to 12</div>
+      <details class="les"><summary>9 · Who's Responsible? Accountability &amp; Decision-Making</summary><div class="lb"><b>EQ:</b> Who is accountable when AI decides? <b>Flow:</b> scenario debate (15) · framework lecture (15) · group analysis (15).</div></details>
+      <details class="les"><summary>10 · Academic Integrity + Deepfakes &amp; Synthetic Media</summary><div class="lb"><b>EQ:</b> Can we trust what we see, and use AI honestly? <b>Flow:</b> integrity discussion (15) · deepfake detection (15) · reflection (15).</div></details>
+      <details class="les"><summary>11 · Who Owns AI-Generated Work?</summary><div class="lb"><b>EQ:</b> Who is the author of AI output? <b>Flow:</b> mini-lecture (15) · case debate (20) · position write-up (10).</div></details>
+      <details class="les"><summary>12 · Case Study Lab: AI Dilemmas in the Real World</summary><div class="lb"><b>EQ:</b> How do we reason through real AI dilemmas? <b>Flow:</b> case lab (35) · group findings share (10).</div></details>
+    </div>
+    <div class="unit"><h3>Unit 4 · AI Across Industries &amp; Applied Skills</h3><div class="u-meta">Lessons 13 to 16</div>
+      <details class="les"><summary>13 · AI Across Industries: Healthcare, Business &amp; Creative</summary><div class="lb"><b>EQ:</b> How is AI reshaping major fields? <b>Flow:</b> examples (15) · mini-lecture (20) · discussion (10).</div></details>
+      <details class="les"><summary>14 · AI in Science &amp; the Future of Work</summary><div class="lb"><b>EQ:</b> How is AI changing discovery and careers? <b>Flow:</b> discovery case (15) · mini-lecture (15) · skills mapping (15).</div></details>
+      <details class="les"><summary>15 · No-Code AI Build + Choosing the Right Tool</summary><div class="lb"><b>EQ:</b> How do I build with and select AI tools? <b>Flow:</b> build walkthrough (20) · hands-on build (20) · tool comparison (5).</div></details>
+      <details class="les"><summary>16 · Designing Responsible AI + The Road Ahead</summary><div class="lb"><b>EQ:</b> How do we shape a responsible AI future? <b>Flow:</b> principles (15) · design activity (20) · reflection (10).</div></details>
+    </div>
+  </div>
+</div>
+
+<nav class="gradenav">
+  <span>Grade level pages:</span>
+  <a href="grade-10.html">Grade 10</a>
+  <a class="here" href="grade-11.html">Grade 11</a>
+  <a href="grade-12.html">Grade 12</a>
+</nav>
+
+<div id="mapbar">Click an element on the Map tab to trace where it lands in the TOK lesson.</div>
+<script>
+  document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
+    document.querySelectorAll('.tabpane').forEach(x => x.classList.remove('on'));
+    t.classList.add('on'); document.getElementById(t.dataset.pane).classList.add('on');
+    document.getElementById('mapbar').style.display = (t.dataset.pane === 'pane-map') ? '' : 'none';
+  }));
+  const els = document.querySelectorAll('#pane-map .el'); const bar = document.getElementById('mapbar');
+  els.forEach(el => el.addEventListener('click', () => {
+    els.forEach(e => e.classList.remove('active')); el.classList.add('active');
+    const targets = el.dataset.t.split(' ');
+    document.querySelectorAll('#pane-map .cell').forEach(c => { c.classList.remove('lit'); c.classList.toggle('dim', !targets.includes(c.id)); });
+    let first=null; targets.forEach(id => { const c=document.getElementById(id); if(c){ c.classList.add('lit'); if(!first) first=c; } });
+    if(first) first.scrollIntoView({behavior:'smooth', block:'nearest'}); bar.innerHTML = el.dataset.m;
+  }));
+  document.getElementById('mapbar').style.display='';
+</script>
+</body>
+</html>
