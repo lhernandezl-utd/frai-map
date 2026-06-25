@@ -91,7 +91,7 @@
   <div class="meta">
     <span class="pill grade">GRADE 11 · IB DP Theory of Knowledge (Year 1)</span>
     <span class="pill draft">DRAFT, for your feedback</span>
-    <span class="pill">v0.1 · June 24, 2026</span>
+    <span class="pill">v0.2 · June 25, 2026</span>
     <span class="src">How the grant module spine lands in the TOK lesson-plan format, with a worked sample, the elements, where it deploys, and the proposed curriculum.</span>
   </div>
 </header>
@@ -106,18 +106,19 @@
 
 <!-- ============ TAB 1: MAP ============ -->
 <div class="tabpane on" id="pane-map">
-<p class="hint">Click any element on the left to see where it lands in the TOK lesson plan on the right. <span class="badge ib">IB</span> marks the zones unique to TOK that the grade-10 course does not foreground.</p>
+<p class="hint">Click any element on the left to see where it lands in the TOK lesson plan on the right. The 17 elements are the same for every grade; the two <span class="badge ib">IB</span>-badged items are TOK adaptations on top of them, and <span class="badge ib">IB</span> marks the zones unique to TOK.</p>
 <div class="legend">
   <span><b style="color:var(--green)">■</b> The module spine (built once per lesson)</span>
   <span><b style="color:var(--orange)">■</b> The TOK lesson-plan fields</span>
   <span><b style="color:var(--green)">■</b> The IB-graded pieces and teacher-only zones</span>
 </div>
 <div class="cols">
-  <div class="col-spine"><h2>The AI content · 17 elements</h2>
+  <div class="col-spine"><h2>The AI content · the 17 elements</h2>
     <div class="group"><div class="group-label">Foundation</div>
       <button class="el" data-t="zhead" data-m="<b>Learning outcome</b> → the TOK <b>Objective (SWBAT)</b> + <b>Why It Matters</b>."><b>Learning outcome</b><span class="spec">1 sentence, what the scholar can now do</span></button>
       <button class="el" data-t="zib zcontent" data-m="<b>Key concepts</b> → the TOK <b>Conceptual / Knowledge Question</b> and the <b>Key Points</b>. In TOK the ideas are framed as a knowledge question."><b>Key concepts</b><span class="spec">3 to 5 ideas, as a knowledge question</span></button>
       <button class="el" data-t="zcontent" data-m="<b>Vocabulary</b> → the <b>Central Vocabulary / Command Term</b> field, AI terms beside the IB command terms."><b>Vocabulary / glossary</b><span class="spec">AI terms beside IB command terms</span></button>
+      <button class="el" data-t="zhead" data-m="<b>Standards mapping</b> → the lesson header: alignment to the existing IB DP TOK course (TEKS being confirmed). Design-team task; the expert provides nothing."><b>Standards mapping</b><span class="spec">aligned to the TOK course</span></button>
     </div>
     <div class="group"><div class="group-label">Scholar materials</div>
       <button class="el" data-t="zflow" data-m="<b>Student-facing content</b> → the TOK lesson flow: Do Now → Teacher Model → Guided → Independent."><b>Student-facing content</b><span class="spec">fits the TOK period, gradual release</span></button>
@@ -125,18 +126,24 @@
       <button class="el" data-t="zflow ztok" data-m="<b>Scenario video</b> → the Teacher Model / Guided hook; in TOK it also seeds a knowledge question."><b>Scenario video</b><span class="spec">90 to 120 sec, real AI moment</span></button>
       <button class="el" data-t="zflow" data-m="<b>In-class activity</b> → the Guided / Independent blocks, with the required scholar discourse."><b>In-class activity</b><span class="spec">do or judge, not watch</span></button>
       <button class="el" data-t="ztok" data-m="<b>Going-deeper segment</b> → the knowledge-question debate that feeds the Essay and Exhibition."><b>Going-deeper segment</b><span class="spec">the knowledge-question debate</span></button>
+      <button class="el" data-t="zint" data-m="<b>Extension activity</b> → an optional deeper task offered in the Teacher Guide; differentiates without depending on homework."><b>Extension activity</b><span class="spec">optional, after class</span></button>
     </div>
     <div class="group"><div class="group-label">Teacher enablement</div>
       <button class="el" data-t="zint" data-m="<b>Teacher Guide</b> → teacher-only: the why, the minute-by-minute how, misconceptions, differentiation."><b>Teacher Guide</b><span class="spec">why + minute-by-minute how</span></button>
       <button class="el" data-t="zint" data-m="<b>Teacher video</b> → teacher prep only (~2.5 min); never shown in class."><b>Teacher video</b><span class="spec">~2.5 min, prep summary</span></button>
     </div>
-    <div class="group"><div class="group-label">Assessment &amp; IB-graded pieces</div>
+    <div class="group"><div class="group-label">Assessment &amp; data</div>
       <button class="el" data-t="zassess" data-m="<b>Formative assessment</b> → the TOK Formative Assessment / Exit Ticket field, with the exemplar response."><b>Formative assessment</b><span class="spec">exit ticket + exemplar</span></button>
+      <button class="el" data-t="zassess zint" data-m="<b>Answer key / rubric</b> → referenced in the Formative Assessment field; the full key and reteach notes live in the Teacher Guide."><b>Answer key / rubric</b><span class="spec">scoring + how to read results</span></button>
+      <button class="el" data-t="zassess" data-m="<b>Pre-assessment / baseline</b> → a short baseline before the unit; items mirror the exit-ticket banks. Runs in the partner's systems; the university gets de-identified aggregates."><b>Pre-assessment / baseline</b><span class="spec">pre/post data</span></button>
+    </div>
+    <div class="group"><div class="group-label">Supports &amp; future</div>
+      <button class="el" data-t="zflow zint" data-m="<b>Discussion scaffolds</b> → support the Guided and Independent discourse: teacher talking points + scholar sentence stems, bilingual-friendly."><b>Discussion scaffolds</b><span class="spec">talking points + sentence stems</span></button>
+      <button class="el" data-t="zint" data-m="<b>AI-tutor knowledge base</b> → internal until the tutor ships; never appears in the lesson plan."><b>AI-tutor knowledge base</b><span class="spec">concepts + misconception fixes</span></button>
+    </div>
+    <div class="group"><div class="group-label">TOK adaptations (on top of the 17)</div>
       <button class="el" data-t="ztok" data-m="<b>Knowledge-question scaffold</b> → drafts a knowledge question beside a real IA prompt or prescribed title, feeding the Exhibition and Essay."><b>Knowledge-question scaffold</b><span class="badge ib">IB</span><span class="spec">mirrors a real prompt / title</span></button>
       <button class="el" data-t="ztok zint" data-m="<b>Academic-integrity guardrail</b> → AI as a disclosed, cited research aid; never for generating submission text."><b>Academic-integrity guardrail</b><span class="badge ib">IB</span><span class="spec">disclosed, cited, process not output</span></button>
-    </div>
-    <div class="group"><div class="group-label">Future</div>
-      <button class="el" data-t="zint" data-m="<b>AI-tutor knowledge base</b> → internal until the tutor ships; never appears in the lesson plan."><b>AI-tutor knowledge base</b><span class="spec">concepts + misconception fixes</span></button>
     </div>
   </div>
   <div class="arrowcol">→</div>
@@ -155,10 +162,11 @@
 <!-- ============ TAB 2: WORK SAMPLE ============ -->
 <div class="tabpane" id="pane-work">
   <p class="hint">An opening TOK Year 1 lesson in the partner's lesson-plan fields. The <b>structure is the partner's</b>; the <b>content is AI literacy</b>, framed as a knowledge question. This is a <b>draft for your feedback</b>: tell us if this is how you want it to look.</p>
+  <div class="ex-note"><b>This is a template for your feedback, not final content.</b> What we ask you to approve is the <b>structure and the flow</b>: how the lesson is shaped and how the grant's 17 elements land in your TOK lesson-plan format. The specific knowledge questions, activities, prompts, and text shown are <b>placeholders that will change</b>. Once you approve the structure, we build every lesson and its content with subject-matter experts and produce all the resources in this same format.</div>
   <div class="legend2"><span><span class="tag real">PARTNER ROUTINE</span> reuses a real Year 1 opening move</span><span><span class="tag ai">AI CONTENT</span> what we bring</span></div>
   <div class="lp">
-    <div class="lphead">TOK Year 1 (Grade 11) · Lesson plan <small>Anchor: "Knowledge and technology" optional theme · placement: early Year 1, alongside truth / certainty / ways of knowing</small></div>
-    <div class="lprow"><div class="f">Unit / Anchor text</div><div class="v">Knowledge and technology: <b>Is AI a way of knowing?</b></div></div>
+    <div class="lphead">TOK Year 1 (Grade 11) · Lesson plan <small>Anchor: "Knowledge and technology" optional theme · placement: early Year 1, alongside questions of truth, certainty, and how knowledge is justified</small></div>
+    <div class="lprow"><div class="f">Unit / Anchor text</div><div class="v">Knowledge and technology: <b>Can AI be a source of knowledge?</b></div></div>
     <div class="lprow"><div class="f">Objective <small>SWBAT…</small></div><div class="v">Scholars will be able to define AI in their own words, distinguish rule-based automation, narrow AI, and general AI, and explain why an AI system can sound certain yet be wrong.</div></div>
     <div class="lprow"><div class="f">Why It Matters</div><div class="v">AI now shapes much of what we read, watch, and believe. TOK is about judging knowledge claims, so a knower has to understand where AI knowledge comes from and how far to trust it.</div></div>
     <div class="lprow"><div class="f">IB Framework</div><div class="v"><b>Conceptual / Knowledge Question:</b> To what extent can we trust knowledge produced by AI?<br><b>Learner Profile:</b> Thinkers · Knowledgeable<br><b>ATLs:</b> Thinking (critical) · Research · Communication</div></div>
@@ -172,12 +180,13 @@
     <div class="lprow"><div class="f">Formative Assessment / Exit Ticket</div><div class="v">Classify three everyday tools as automation, narrow AI, or general AI, justify one; and write one knowledge question about trusting AI. <i>Exemplar in the Teacher Guide.</i></div></div>
     <div class="lprow ai"><div class="f">Feeds the IB-graded pieces <small>IB</small></div><div class="v"><b>Exhibition:</b> the drafted knowledge question sits beside the real IA prompt "What counts as good evidence for a claim?" <b>Essay:</b> seeds reliability-of-knowledge arguments. Scaffolds toward both; replaces neither.</div></div>
   </div>
+  <div class="ib-note"><b>How this becomes finished lessons.</b> For each lesson we first build the <b>17 elements the grant requires</b> (videos, in-class activity, teacher guide, assessment, and so on) with subject-matter input, then deliver the lesson to you <b>in this exact format</b> for your approval. Once you approve this model, we continue through the course the same way. The <b>Map</b> tab shows how each of the 17 elements connects to what scholars do in the lesson.</div>
 </div>
 
 <!-- ============ TAB 3: ELEMENT DEFINITIONS (shared) ============ -->
 <div class="tabpane" id="pane-defs">
   <p class="hint">What each of the 17 elements IS, what the expert provides, and what the design team builds. This is for everyone, the partner and the expert alike, so we share one definition of what the map asks for. Examples are from a foundations lesson; the elements are the same for every grade.</p>
-  <div class="defnote"><b>Reading-level rule:</b> scholar-facing prose at grade 7 to 9 readability; every video captioned; academic vocabulary taught with cognates for emergent bilingual scholars; nothing depends on sound or idioms.</div>
+  <div class="defnote"><b>The audience everything is written for:</b> IB Diploma Theory of Knowledge juniors (grade 11), about 16 to 17 years old, mixed reading levels with emergent bilingual scholars, 45-minute periods, Chromebooks; the course carries 1 TOK credit. <b>Reading-level rule:</b> scholar-facing prose at grade 7 to 9 readability; every video captioned; academic vocabulary taught with cognates for emergent bilingual scholars; nothing depends on sound or idioms.</div>
   <div class="defgroup"><h3>Foundation</h3>
     <details class="def"><summary>1 · Learning outcome <span class="mini">one observable sentence</span></summary><div class="defbody"><p>What a scholar can <b>do</b> after the lesson, in observable verbs; never "understand" or "know." The expert names the capability; the design team phrases it and aligns the assessment.</p></div></details>
     <details class="def"><summary>2 · Key concepts <span class="mini">the 3 to 5 ideas that must survive</span></summary><div class="defbody"><p>If a scholar remembers only these, the lesson worked. Each maps to an assessment item and usually a video. The expert provides the concepts and the misconceptions that fight them. In TOK these become a knowledge question.</p></div></details>
@@ -224,7 +233,7 @@
       <details class="les"><summary>1 · What Is AI, Really?</summary><div class="lb"><b>EQ:</b> What separates intelligence from automation? <b>Flow:</b> hook game (10) · definitions lecture (15) · discussion (10) · exit ticket (10).</div></details>
       <details class="les"><summary>2 · How Computers "Think" + ML Basics</summary><div class="lb"><b>EQ:</b> How do machines learn from data? <b>Flow:</b> pattern demo (10) · mini-lecture (15) · dataset activity (15) · reflection (5).</div></details>
       <details class="les"><summary>3 · Neural Networks &amp; Deep Learning, Simplified</summary><div class="lb"><b>EQ:</b> How do layered networks "learn"? <b>Flow:</b> visual demo (10) · mini-lecture (20) · concept-mapping (15).</div></details>
-      <details class="les"><summary>4 · Generative AI Decoded</summary><div class="lb"><b>EQ:</b> How does AI create new content? <b>Flow:</b> GenAI walkthrough (15) · hands-on (20) · discussion (10).</div></details>
+      <details class="les"><summary>4 · Generative AI Decoded</summary><div class="lb"><b>EQ:</b> How does AI create new content? <b>Flow:</b> GenAI walkthrough (15) · hands-on exploration (20) · discussion (10).</div></details>
     </div>
     <div class="unit"><h3>Unit 2 · Using AI Effectively &amp; Responsibly</h3><div class="u-meta">Lessons 5 to 8</div>
       <details class="les"><summary>5 · Prompt Engineering 101 &amp; 201</summary><div class="lb"><b>EQ:</b> How does how we ask change the output? <b>Flow:</b> demo (10) · guided prompt lab (25) · challenge + share (10).</div></details>
