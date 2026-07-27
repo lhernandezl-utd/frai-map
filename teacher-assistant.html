@@ -8,6 +8,15 @@
 <!--
   VERSION HISTORY  (Teacher Assistant showcase page)
 
+  v1.2  2026-07-27
+     Tab 2 rewritten to Luis's direction: it now states the TWO GOALS positively
+        (① everything the grant delivers, ② a specialist in the content we teach,
+        grounded in the SME's material) instead of opening on two "problems."
+        The old copy described teachers as not having been taught AI, which is not
+        something to put in front of the teachers who will read this page.
+        Access section trimmed and reframed as "Using it at your campus."
+        Worked excerpt tightened. Tabs 4 and 5 left as they were; they tested well.
+
   v1.1  2026-07-27
      LIVE CHAT EMBEDDED, by Luis's explicit decision on 2026-07-27, made after the
         exposure was raised and restated three times. Tab 1 is now the working agent.
@@ -110,7 +119,7 @@
   <h1>The Teacher Assistant</h1>
   <div class="meta">
     <span class="pill grade">FOR TEACHERS · GRADES 10, 11, 12</span>
-    <span class="pill">v1.1 · July 27, 2026</span>
+    <span class="pill">v1.2 · July 27, 2026</span>
     <span class="src">A chat assistant that answers questions about the lessons, and explains the AI content itself to the teacher delivering them.</span>
   </div>
 </header>
@@ -119,7 +128,7 @@
 
 <div class="tabs">
   <button class="tab on" data-pane="pane-try">① Try it now</button>
-  <button class="tab" data-pane="pane-why">② Why it exists</button>
+  <button class="tab" data-pane="pane-why">② What it is for</button>
   <button class="tab" data-pane="pane-lesson">③ Ask it about a lesson</button>
   <button class="tab" data-pane="pane-concept">④ Ask it about the AI itself</button>
   <button class="tab" data-pane="pane-limits">⑤ Limits and access</button>
@@ -149,40 +158,26 @@
 <!-- ============ TAB 2 ============ -->
 <div class="tabpane" id="pane-why">
 
-<h2>Two problems, one answer box</h2>
-
-<p><b>The first problem is volume.</b> Each lesson arrives with a teacher guide, a slide deck, a student handout, an activity, an exit ticket, an answer key, discussion scaffolds, a glossary, and video scripts. All of it is needed. None of it is what a teacher wants at 7:50 in the morning, when the real question is "what do I print, and did I need to cut those cards last night?"</p>
-
-<p><b>The second problem is the one that matters more.</b> These lessons ask teachers to teach how machine learning works, what a weight is, why a language model invents a convincing false sentence, and how bias enters a system that holds no opinions. Many of the teachers delivering them are teaching AI for the first time and were never taught it themselves. The materials tell them what to say. They do not, on their own, make them understand it.</p>
-
-<p>Both problems have the same solution: put the whole curriculum behind a question box, and let it answer either kind of question.</p>
-
-<h2>So it does two jobs</h2>
+<h2>Two goals, one place to ask</h2>
 
 <div class="jobs">
   <div class="job">
-    <h3>① It helps you run the lesson</h3>
-    <p class="tagline">Everything in the materials, on demand.</p>
-    <p>Objectives, the run of show at 45 and at 90 minutes, activity steps, exactly what to print and how many, exit tickets and their answer keys with reteach signals, common misconceptions and how to respond to each, differentiation and language supports, vocabulary, and what each video says.</p>
+    <h3>① Everything the grant delivers</h3>
+    <p class="tagline">Ask about any deliverable, and get the detail that is in it.</p>
+    <p>The lessons and their full teacher packages, what to print and how many, the run of show at 45 and at 90 minutes, the activities, the exit tickets and their answer keys, the assessments, how a lesson is built, and how the three grades fit together.</p>
   </div>
   <div class="job two">
-    <h3>② It helps you understand the subject</h3>
-    <p class="tagline">This is the part teachers ask for and rarely get.</p>
-    <p>Ask it what a weight actually is, where the numbers come from, why a chatbot makes things up, or whether a neural network really works like a brain. It explains the concept to <i>you</i>, one layer deeper than the lesson asks scholars to know, and then gives you the classroom version separately.</p>
+    <h3>② A specialist in the content we teach</h3>
+    <p class="tagline">Grounded in this curriculum, not the open internet.</p>
+    <p>Ask about any concept in the course, at whatever depth you want it. The answer comes back consistent with how this curriculum teaches it, drawn from the subject-matter expert's material and the built lessons, so what you read matches what your scholars will meet in class.</p>
   </div>
 </div>
 
-<div class="ib-note"><b>Why one layer deeper matters.</b> A teacher who understands exactly as much as the scholars can deliver the lesson but cannot survive the unexpected question, and the unexpected question is where these lessons live. The assistant is built so that a teacher always knows more than they need to say.</div>
-
-<h2>The design rule that makes it trustworthy</h2>
-
-<p><b>It answers only from the curriculum materials.</b> It has no general knowledge and no web access. When something is not in the materials, it says so plainly instead of guessing, and it will not invent a lesson, an activity, an exit-ticket item, a rubric line, a standard, a file name, or a runtime.</p>
-
-<p>That restraint is the whole point. An assistant that occasionally invents a plausible answer is worse than no assistant at all, because a teacher will act on it in front of a class. This one would rather tell you it does not know.</p>
+<div class="ib-note"><b>It answers only from the curriculum materials.</b> No general knowledge, no web search. When something is not in the materials it says so plainly rather than guessing, and it will not invent a lesson, an activity, an exit-ticket item, a rubric line, a standard, or a file name. That restraint is what makes the answers it does give worth trusting.</div>
 
 </div>
 
-<!-- ============ TAB 2 ============ -->
+<!-- ============ TAB 3 ============ -->
 <div class="tabpane" id="pane-lesson">
 
 <p class="hint">Real questions, and what comes back. Tell it which grade you teach, because grades 10, 11, and 12 cover the same topics at different depths; if you forget, it will ask before answering rather than guess.</p>
@@ -228,7 +223,7 @@
 
 </div>
 
-<!-- ============ TAB 3 ============ -->
+<!-- ============ TAB 4 ============ -->
 <div class="tabpane" id="pane-concept">
 
 <div class="ex-note"><b>This is the tab worth showing people.</b> Anyone can build a search box over lesson plans. The questions below are the ones a teacher is least likely to ask a colleague out loud, and they are exactly the ones that decide whether a lesson survives contact with a curious class.</div>
@@ -295,8 +290,7 @@
       <li>It nudges every weight a little, in whichever direction would have made that gap smaller.</li>
       <li>It repeats this millions of times, across enormous numbers of examples.</li>
     </ol>
-    <p>Slowly, the weights settle into a configuration that gets the answer right most of the time. <b>That entire loop is what the word "learning" means in machine learning.</b> No understanding is involved at any point. It is repeated adjustment toward less wrongness.</p>
-    <p>Modern systems have billions of these numbers. There is no person who chose them and no document listing them, which is also why nobody can fully explain why a system produced one specific answer. That is an open research problem, not a gap in your knowledge.</p>
+    <p>Slowly, the weights settle into a configuration that gets the answer right most of the time. <b>That entire loop is what the word "learning" means in machine learning.</b> No understanding is involved at any point. Modern systems have billions of these numbers, and nobody chose them individually.</p>
     <div class="split"><b>In the classroom, though:</b> stop at "training data sets the weights" and point back to the earlier lesson. If a scholar asks how they get set, celebrate the question, then move on, because the arithmetic on the sheet is what has to land in that period.</div>
   </div>
 </div>
@@ -305,7 +299,7 @@
 
 </div>
 
-<!-- ============ TAB 4 ============ -->
+<!-- ============ TAB 5 ============ -->
 <div class="tabpane" id="pane-limits">
 
 <h2>What it will and will not do</h2>
@@ -340,23 +334,21 @@
 
 <div class="ib-note"><b>Two answers that are correct rather than missing.</b> There is no state standards code for the two older grades, because that course is governed by its own international subject guide. And the materials for those two grades are drafts open to your feedback, not final. The assistant will tell you both rather than papering over them.</div>
 
-<h2>Who it is for, and how access works</h2>
-
-<p><b>It is for teachers, and it contains the full answer keys, exit-ticket items, and rubrics.</b> That was a deliberate decision: an assistant without the keys cannot answer half of what a teacher actually asks. The consequence is that it is not for scholars, and access has to be handled accordingly.</p>
+<h2>Using it at your campus</h2>
 
 <ul class="plain">
-  <li><b>It needs no sign-in and no account</b>, which is what makes it work for every teacher on any device.</li>
-  <li><b>It embeds anywhere that accepts a standard web embed</b>, so it can live in a teacher-only area of your learning platform, a staff team or channel, a teacher resource page, or a professional development session.</li>
-  <li><b>It does not go on a page scholars open.</b> A teacher resource page is right; a lesson page scholars open is not. Because there is no sign-in, wherever it is placed <i>is</i> the access control.</li>
-  <li><b>When you pass it to a teacher, say so out loud:</b> it holds the answer keys, so please do not forward it to scholars.</li>
+  <li><b>It needs no sign-in</b>, so it works for every teacher on any device.</li>
+  <li><b>It embeds anywhere that takes a standard web embed:</b> a teacher area of your learning platform, a staff team or channel, a teacher resource page, or a professional development session.</li>
+  <li><b>It is a teacher resource, and it holds the answer keys</b>, so keep it to teacher spaces rather than pages scholars open.</li>
+  <li><b>Nothing is required on your side to keep it current.</b> The content is maintained centrally and refreshed whenever the lesson materials change, and the embed code never changes.</li>
 </ul>
 
-<p><b>To arrange access</b>, or to ask for a version aimed at a different audience, contact the university team. Nothing is required on your side to keep it current: the content is maintained centrally and refreshed whenever the lesson materials change, and the embed code stays the same.</p>
+<p>Contact the university team to arrange access, or to ask for a version aimed at a different audience.</p>
 
 </div>
 
 <footer>
-  Future Ready AI Collaborative · Teacher Assistant · v1.1, July 27, 2026 · The assistant is live on the first tab.
+  Future Ready AI Collaborative · Teacher Assistant · v1.2, July 27, 2026 · The assistant is live on the first tab.
 </footer>
 
 <script>
