@@ -8,6 +8,17 @@
 <!--
   VERSION HISTORY  (Teacher Assistant showcase page)
 
+  v1.4  2026-07-27
+     FIX: the chat errored after you visited another tab and came back. Cause was the
+        tab system putting display:none on the chat pane, which collapses the iframe
+        to zero size; the widget loses its connection and surfaces a javascript error
+        on return. The iframe markup itself never changed (git confirms byte-identical
+        from v1.1 to v1.3), so this was never an edit to the embed.
+        Fix 1: #pane-try is parked off-screen instead of display:none, so the iframe
+        stays mounted at full size. NEVER put display:none on a pane holding a chat.
+        Fix 2: a Start over button, matching the standalone embed page, so a dead
+        session is one click to recover.
+
   v1.3  2026-07-27
      Example questions rewritten so every one makes sense to a reader who has never
         seen the lessons. The trigger was "Should I tell students that Round 2 is
@@ -71,6 +82,11 @@
   .tab{font-family:inherit; font-size:13.5px; font-weight:700; padding:9px 18px; border-radius:8px 8px 0 0; border:2px solid var(--grey); border-bottom:none; background:var(--pale); color:var(--soft); cursor:pointer;}
   .tab.on{background:var(--green); color:#fff; border-color:var(--green);}
   .tabpane{display:none;} .tabpane.on{display:block;}
+  /* The chat must never be display:none. A hidden iframe collapses to zero size and the
+     chat widget loses its connection, which surfaces later as a javascript error. Park
+     the pane off-screen instead so it stays mounted and full size while other tabs read. */
+  #pane-try{display:block; position:absolute; top:0; left:-99999px; width:calc(100% - 72px);}
+  #pane-try.on{position:static; left:auto; width:auto;}
   h2{font-size:16px; letter-spacing:.06em; text-transform:uppercase; margin:22px 0 10px; color:var(--green);}
   h2:first-child{margin-top:0;}
   p{font-size:15px; margin-bottom:11px; max-width:78ch;}
@@ -116,6 +132,10 @@
   ul.plain{list-style:none; margin-bottom:12px;}
   ul.plain li{font-size:15px; padding:4px 0 4px 15px; position:relative; max-width:78ch;}
   ul.plain li::before{content:"•"; color:var(--mint); font-weight:700; position:absolute; left:0;}
+  .tryhead{display:flex; justify-content:space-between; align-items:flex-start; gap:16px;}
+  .tryhead .hint{margin:0 0 12px;}
+  .startover{flex-shrink:0; font-family:inherit; font-size:13px; font-weight:700; color:#fff; background:var(--green); border:none; border-radius:8px; padding:8px 15px; cursor:pointer;}
+  .startover:hover{background:#0e3525;}
   .chatwrap{border:2px solid var(--green); border-radius:10px; overflow:hidden; height:70vh; min-height:520px; background:var(--pale);}
   .chatwrap iframe{width:100%; height:100%; border:0; display:block;}
   .trybar{margin-top:11px; font-size:12.5px; color:var(--soft);}
@@ -131,7 +151,7 @@
   <h1>The Teacher Assistant</h1>
   <div class="meta">
     <span class="pill grade">FOR TEACHERS · GRADES 10, 11, 12</span>
-    <span class="pill">v1.3 · July 27, 2026</span>
+    <span class="pill">v1.4 · July 27, 2026</span>
     <span class="src">A chat assistant that answers questions about the lessons, and explains the AI content itself to the teacher delivering them.</span>
   </div>
 </header>
@@ -148,9 +168,12 @@
 
 <!-- ============ TAB 1: THE LIVE AGENT ============ -->
 <div class="tabpane on" id="pane-try">
-<p class="hint">Ask it anything about the lessons or about the AI content itself. <b>Tell it which grade you teach</b>, because grades 10, 11, and 12 cover the same topics at different depths; if you forget, it will ask before answering rather than guess.</p>
+<div class="tryhead">
+  <p class="hint">Ask it anything about the lessons or about the AI content itself. <b>Tell it which grade you teach</b>, because grades 10, 11, and 12 cover the same topics at different depths; if you forget, it will ask before answering rather than guess.</p>
+  <button class="startover" onclick="startOver()" title="Clear the conversation and start fresh">&#8635; Start over</button>
+</div>
 <div class="chatwrap">
-  <iframe
+  <iframe id="chatframe"
     src="https://copilotstudio.microsoft.com/environments/Default-8d281d1d-9c4d-4bf7-b16e-032d15de9f6c/bots/cr3c9_AICurriculumTeacherAssistant/webchat?__version__=2"
     frameborder="0"
     title="AI Curriculum Teacher Assistant">
@@ -360,10 +383,12 @@
 </div>
 
 <footer>
-  Future Ready AI Collaborative · Teacher Assistant · v1.3, July 27, 2026 · The assistant is live on the first tab.
+  Future Ready AI Collaborative · Teacher Assistant · v1.4, July 27, 2026 · The assistant is live on the first tab.
 </footer>
 
 <script>
+  var CHAT_SRC = document.getElementById('chatframe').src;
+  function startOver(){ document.getElementById('chatframe').src = CHAT_SRC; }
   document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
     document.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
     document.querySelectorAll('.tabpane').forEach(x => x.classList.remove('on'));
