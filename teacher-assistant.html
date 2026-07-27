@@ -8,18 +8,30 @@
 <!--
   VERSION HISTORY  (Teacher Assistant showcase page)
 
-  v1.0  2026-07-27
-     First published. Showcase only: what the assistant is, why it exists, the two
-        jobs (running the lesson, and explaining the AI content to the teacher), a
-        set of questions teachers can try, one worked excerpt, the honest limits,
-        and how access is arranged.
+  v1.1  2026-07-27
+     LIVE CHAT EMBEDDED, by Luis's explicit decision on 2026-07-27, made after the
+        exposure was raised and restated three times. Tab 1 is now the working agent.
 
-  DELIBERATE OMISSION, do not "fix" this:
-     This page carries NO chat link and NO embed code, and it must never carry one.
-     The assistant uses no sign-in and contains the full answer keys, so the link is
-     the only access control there is. Publishing the link here would publish the
-     answer keys to the open web. The link travels privately, to named people.
-     Anonymized: no person names, no institution names, no district name.
+     WHAT THAT DECISION MEANS, recorded so nobody has to reconstruct it later:
+        The agent uses NO sign-in and its corpus contains the full answer keys, the
+        complete exit-ticket items, rubrics, and activity keys for all three grades.
+        On a public page, the URL is not a control, so anyone who reaches this page
+        can reach the keys. The page carries noindex, so it is unlisted rather than
+        indexed, which is not the same as private.
+        The agent's own instructions (rule 8) decline keys to anyone presenting as a
+        student and offer the concept explanation instead. That is a soft guard, and
+        it is now the only guard.
+        To reverse: delete the pane-try block and its tab, restore the omission note
+        above, and re-add the four URL patterns to the publish script's guard list.
+        The safe alternative, if it is ever wanted, is a second agent with the keyed
+        material stripped; the concept-explanation demo needs no keys at all.
+
+  v1.0  2026-07-27
+     First published. Showcase only, no chat link: what the assistant is, why it
+        exists, the two jobs, questions teachers can try, one worked excerpt, the
+        honest limits, and how access is arranged.
+
+  Anonymized throughout: no person names, no institution names, no district name.
 -->
 
 <style>
@@ -83,6 +95,11 @@
   ul.plain{list-style:none; margin-bottom:12px;}
   ul.plain li{font-size:15px; padding:4px 0 4px 15px; position:relative; max-width:78ch;}
   ul.plain li::before{content:"•"; color:var(--mint); font-weight:700; position:absolute; left:0;}
+  .chatwrap{border:2px solid var(--green); border-radius:10px; overflow:hidden; height:70vh; min-height:520px; background:var(--pale);}
+  .chatwrap iframe{width:100%; height:100%; border:0; display:block;}
+  .trybar{margin-top:11px; font-size:12.5px; color:var(--soft);}
+  .trybar b{color:var(--green);}
+  .trybar span{display:inline-block; background:var(--pale); border-radius:5px; padding:3px 9px; margin:4px 5px 0 0;}
   footer{margin-top:30px; padding-top:14px; border-top:2px solid var(--grey); color:var(--soft); font-size:12.5px;}
   @media (max-width:820px){ body{padding:20px 18px 50px;} .jobs{grid-template-columns:1fr;} }
 </style>
@@ -93,22 +110,44 @@
   <h1>The Teacher Assistant</h1>
   <div class="meta">
     <span class="pill grade">FOR TEACHERS · GRADES 10, 11, 12</span>
-    <span class="pill">v1.0 · July 27, 2026</span>
+    <span class="pill">v1.1 · July 27, 2026</span>
     <span class="src">A chat assistant that answers questions about the lessons, and explains the AI content itself to the teacher delivering them.</span>
   </div>
 </header>
 
-<div class="ex-note"><b>How to read this:</b> This page shows what the assistant does and what to ask it. It is not the assistant itself. Access is arranged through the university team, because the assistant holds the answer keys and is for teachers only.</div>
+<div class="ex-note"><b>How to read this:</b> The assistant is live on the first tab, so you can ask it something right now. The other tabs explain why it exists, what to ask it, and what it deliberately will not do. It is built for the teachers delivering these lessons.</div>
 
 <div class="tabs">
-  <button class="tab on" data-pane="pane-why">① Why it exists</button>
-  <button class="tab" data-pane="pane-lesson">② Ask it about a lesson</button>
-  <button class="tab" data-pane="pane-concept">③ Ask it about the AI itself</button>
-  <button class="tab" data-pane="pane-limits">④ Limits and access</button>
+  <button class="tab on" data-pane="pane-try">① Try it now</button>
+  <button class="tab" data-pane="pane-why">② Why it exists</button>
+  <button class="tab" data-pane="pane-lesson">③ Ask it about a lesson</button>
+  <button class="tab" data-pane="pane-concept">④ Ask it about the AI itself</button>
+  <button class="tab" data-pane="pane-limits">⑤ Limits and access</button>
 </div>
 
-<!-- ============ TAB 1 ============ -->
-<div class="tabpane on" id="pane-why">
+<!-- ============ TAB 1: THE LIVE AGENT ============ -->
+<div class="tabpane on" id="pane-try">
+<p class="hint">Ask it anything about the lessons or about the AI content itself. <b>Tell it which grade you teach</b>, because grades 10, 11, and 12 cover the same topics at different depths; if you forget, it will ask before answering rather than guess.</p>
+<div class="chatwrap">
+  <iframe
+    src="https://copilotstudio.microsoft.com/environments/Default-8d281d1d-9c4d-4bf7-b16e-032d15de9f6c/bots/cr3c9_AICurriculumTeacherAssistant/webchat?__version__=2"
+    frameborder="0"
+    title="AI Curriculum Teacher Assistant">
+  </iframe>
+</div>
+<div class="trybar">
+  <b>Try one of these:</b>
+  <span>I teach grade 10 Lesson 2. What do I need to print?</span>
+  <span>Should I tell students that Round 2 is rigged?</span>
+  <span>I don't really understand what a weight is. Explain it to me.</span>
+  <span>Where do the weights actually come from? Who picks the numbers?</span>
+  <span>Why does it make things up? Is it broken?</span>
+  <span>Okay, so should I teach that to my students?</span>
+</div>
+</div>
+
+<!-- ============ TAB 2 ============ -->
+<div class="tabpane" id="pane-why">
 
 <h2>Two problems, one answer box</h2>
 
@@ -308,8 +347,8 @@
 <ul class="plain">
   <li><b>It needs no sign-in and no account</b>, which is what makes it work for every teacher on any device.</li>
   <li><b>It embeds anywhere that accepts a standard web embed</b>, so it can live in a teacher-only area of your learning platform, a staff team or channel, a teacher resource page, or a professional development session.</li>
-  <li><b>It does not go on a page scholars open</b>, and it does not go on a public page. Because there is no sign-in, wherever the link is placed <i>is</i> the access control.</li>
-  <li><b>The link is not on this page and never will be.</b> It travels privately, to named people, with the embed instructions.</li>
+  <li><b>It does not go on a page scholars open.</b> A teacher resource page is right; a lesson page scholars open is not. Because there is no sign-in, wherever it is placed <i>is</i> the access control.</li>
+  <li><b>When you pass it to a teacher, say so out loud:</b> it holds the answer keys, so please do not forward it to scholars.</li>
 </ul>
 
 <p><b>To arrange access</b>, or to ask for a version aimed at a different audience, contact the university team. Nothing is required on your side to keep it current: the content is maintained centrally and refreshed whenever the lesson materials change, and the embed code stays the same.</p>
@@ -317,7 +356,7 @@
 </div>
 
 <footer>
-  Future Ready AI Collaborative · Teacher Assistant showcase · v1.0, July 27, 2026 · This page describes the assistant; it is not the assistant.
+  Future Ready AI Collaborative · Teacher Assistant · v1.1, July 27, 2026 · The assistant is live on the first tab.
 </footer>
 
 <script>
