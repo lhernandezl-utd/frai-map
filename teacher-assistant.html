@@ -8,6 +8,18 @@
 <!--
   VERSION HISTORY  (Teacher Assistant showcase page)
 
+  v1.3  2026-07-27
+     Example questions rewritten so every one makes sense to a reader who has never
+        seen the lessons. The trigger was "Should I tell students that Round 2 is
+        rigged?", which is meaningless without the grade 10 Lesson 2 activity in
+        front of you. Same failure ran through the tab: questions that began with a
+        bare "it", and a follow-up ("should I teach that?") that depended on the
+        question above it. RULE FOR THIS PAGE: an example question must be readable
+        cold, with no prior knowledge of the curriculum.
+     Tab 4 intro rewritten; the old one pitched the tab to an internal audience.
+     Tab 5: stopped being coy. TEKS and the IB TOK Guide are named, matching the
+        grade maps, which already name IB and TOK on the public site.
+
   v1.2  2026-07-27
      Tab 2 rewritten to Luis's direction: it now states the TWO GOALS positively
         (① everything the grant delivers, ② a specialist in the content we teach,
@@ -119,7 +131,7 @@
   <h1>The Teacher Assistant</h1>
   <div class="meta">
     <span class="pill grade">FOR TEACHERS · GRADES 10, 11, 12</span>
-    <span class="pill">v1.2 · July 27, 2026</span>
+    <span class="pill">v1.3 · July 27, 2026</span>
     <span class="src">A chat assistant that answers questions about the lessons, and explains the AI content itself to the teacher delivering them.</span>
   </div>
 </header>
@@ -147,11 +159,11 @@
 <div class="trybar">
   <b>Try one of these:</b>
   <span>I teach grade 10 Lesson 2. What do I need to print?</span>
-  <span>Should I tell students that Round 2 is rigged?</span>
+  <span>Is there anything in the grade 10 Lesson 2 activity I should not reveal to my class?</span>
   <span>I don't really understand what a weight is. Explain it to me.</span>
   <span>Where do the weights actually come from? Who picks the numbers?</span>
   <span>Why does it make things up? Is it broken?</span>
-  <span>Okay, so should I teach that to my students?</span>
+  <span>Should I teach how models are trained to my students?</span>
 </div>
 </div>
 
@@ -188,8 +200,8 @@
   <div class="q"><span class="ask">"I teach grade 10 Lesson 2. What do I need to print, and what do I need to do before class?"</span>
   <span class="back">The full print list with the exact file names, what to project versus print, and how many of each. Then the prep steps in order, including the one that decides whether the lesson works: <b>cut the card sets ahead of class, keep the two rounds separate, and keep the second round face down.</b></span></div>
 
-  <div class="q"><span class="ask">"Should I tell students that Round 2 is rigged?"</span>
-  <span class="back"><b>No</b>, and it will tell you why in one line. It also gives you the question to ask instead, and tells you not to explain the failure yourself no matter how long the silence runs.</span></div>
+  <div class="q"><span class="ask">"Is there anything in the grade 10 Lesson 2 activity I should not reveal to my class?"</span>
+  <span class="back"><b>Yes, and it is the whole lesson.</b> That activity has a deliberate twist that only works if students discover it themselves. The assistant tells you what to withhold, what to say instead, and not to explain the outcome yourself however long the silence runs.</span></div>
 
   <div class="q"><span class="ask">"When do I give the pre-assessment?"</span>
   <span class="back">Once per unit, before the unit's first lesson, never inside a lesson. It knows which grade has a second one and when.</span></div>
@@ -214,8 +226,8 @@
   <div class="q"><span class="ask">"Give me the full exit ticket answer key for grade 11 Lesson 1."</span>
   <span class="back">The complete key, item by item, <b>including the scoring notes that are easy to miss</b>, such as which item is scored on the fit between the label and the reason rather than on the label itself.</span></div>
 
-  <div class="q"><span class="ask">"Half my class missed item 4. What now?"</span>
-  <span class="back">The reteach signal attached to that item, what the miss means about what did not land, and whether it needs fixing before the next lesson or can wait.</span></div>
+  <div class="q"><span class="ask">"Half my class missed the same exit-ticket item. What should I reteach?"</span>
+  <span class="back">The reteach signal attached to that item, what the miss tells you did not land, and whether it needs fixing before the next lesson or can wait.</span></div>
 
   <div class="q"><span class="ask">"Can students answer the exit ticket in Spanish?"</span>
   <span class="back"><b>Yes, on the open items, in every grade. We score the idea, not the English.</b></span></div>
@@ -226,7 +238,7 @@
 <!-- ============ TAB 4 ============ -->
 <div class="tabpane" id="pane-concept">
 
-<div class="ex-note"><b>This is the tab worth showing people.</b> Anyone can build a search box over lesson plans. The questions below are the ones a teacher is least likely to ask a colleague out loud, and they are exactly the ones that decide whether a lesson survives contact with a curious class.</div>
+<div class="ex-note"><b>Ask it about the subject, not just the lesson plan.</b> These are the questions a curious class produces, and the ones that are awkward to go looking for in the middle of a week. Ask them here and get an answer that matches how this curriculum teaches it.</div>
 
 <div class="qgroup">
   <div class="glabel">The mechanism</div>
@@ -240,17 +252,17 @@
   <div class="q concept"><span class="ask">"What does 'deep' actually mean in deep learning?"</span>
   <span class="back">It counts layers. Nothing more. Not profound, not wise. This is a real misconception and it is on an exit ticket.</span></div>
 
-  <div class="q concept"><span class="ask">"Should I teach that to my students?"</span>
-  <span class="back">Usually <b>no</b>, and it will say so and tell you what to say instead. It knows the difference between what a teacher should understand and what a lesson should cover.</span></div>
+  <div class="q concept"><span class="ask">"Should I teach how models are trained to my students?"</span>
+  <span class="back"><b>No</b>, and it will tell you what to say instead. It keeps a clear line between what is useful for a teacher to understand and what belongs in a 45-minute lesson.</span></div>
 </div>
 
 <div class="qgroup">
   <div class="glabel">Why it goes wrong</div>
 
-  <div class="q concept"><span class="ask">"Why does it make things up? Is it broken?"</span>
+  <div class="q concept"><span class="ask">"Why does a chatbot make things up? Is it broken?"</span>
   <span class="back"><b>No.</b> It is trained to be plausible, not to be true, and nothing inside it checks a claim against the world. A fluent false answer is the design working correctly, which is a far more useful thing for a scholar to understand than "sometimes it makes mistakes."</span></div>
 
-  <div class="q concept"><span class="ask">"Why is it so bad at counting letters or doing arithmetic?"</span>
+  <div class="q concept"><span class="ask">"Why is a chatbot so bad at counting letters or doing arithmetic?"</span>
   <span class="back">Because it predicts likely text rather than executing a procedure, and counting is a procedure.</span></div>
 
   <div class="q concept"><span class="ask">"Why do two AI tools give different answers to the same question?"</span>
@@ -263,16 +275,16 @@
 <div class="qgroup">
   <div class="glabel">The questions scholars ask that go past the lesson</div>
 
-  <div class="q concept"><span class="ask">"A student is going to ask if it's conscious. What do I say?"</span>
+  <div class="q concept"><span class="ask">"A student is going to ask whether the AI is conscious. What do I say?"</span>
   <span class="back">The move that redirects to the mechanism the class just ran by hand, plus an honest note that in the older grades this stops being a distraction and becomes the assessed question.</span></div>
 
   <div class="q concept"><span class="ask">"Does the AI learn from my students while they're chatting with it?"</span>
   <span class="back">Two separate things, kept separate. What it does inside one conversation, and what may be stored and used later, which depends on the tool and its settings.</span></div>
 
-  <div class="q concept"><span class="ask">"Can I just tell my students it works like a brain? It's easier."</span>
+  <div class="q concept"><span class="ask">"Can I just tell my students a neural network works like a brain? It's easier."</span>
   <span class="back">Use the analogy, then break it in the same breath, which is what the lessons do on purpose. It will give you the one-line correction and the teacher move that lands it in about fifteen seconds.</span></div>
 
-  <div class="q concept"><span class="ask">"Isn't it just copying what people wrote?"</span>
+  <div class="q concept"><span class="ask">"Is generative AI just copying what people already wrote?"</span>
   <span class="back">Not in the sense of retrieving and pasting; there is no stored copy to look up. It will also tell you which part of that question is genuinely unsettled rather than pretending it is closed.</span></div>
 </div>
 
@@ -332,7 +344,7 @@
   </tr>
 </table>
 
-<div class="ib-note"><b>Two answers that are correct rather than missing.</b> There is no state standards code for the two older grades, because that course is governed by its own international subject guide. And the materials for those two grades are drafts open to your feedback, not final. The assistant will tell you both rather than papering over them.</div>
+<div class="ib-note"><b>Two answers that are correct rather than missing.</b> There is <b>no TEKS code for grades 11 and 12</b>, because Theory of Knowledge is governed by the IB TOK Guide rather than by state standards. And the grade 11 and 12 materials are <b>drafts open to your feedback</b>, not final, while grade 10 is locked. The assistant states both rather than papering over them.</div>
 
 <h2>Using it at your campus</h2>
 
@@ -348,7 +360,7 @@
 </div>
 
 <footer>
-  Future Ready AI Collaborative · Teacher Assistant · v1.2, July 27, 2026 · The assistant is live on the first tab.
+  Future Ready AI Collaborative · Teacher Assistant · v1.3, July 27, 2026 · The assistant is live on the first tab.
 </footer>
 
 <script>
