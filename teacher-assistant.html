@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Teacher Assistant · Future Ready AI</title>
+<!--
+  VERSION HISTORY  (Teacher Assistant showcase page)
+
+  v1.0  2026-07-27
+     First published. Showcase only: what the assistant is, why it exists, the two
+        jobs (running the lesson, and explaining the AI content to the teacher), a
+        set of questions teachers can try, one worked excerpt, the honest limits,
+        and how access is arranged.
+
+  DELIBERATE OMISSION, do not "fix" this:
+     This page carries NO chat link and NO embed code, and it must never carry one.
+     The assistant uses no sign-in and contains the full answer keys, so the link is
+     the only access control there is. Publishing the link here would publish the
+     answer keys to the open web. The link travels privately, to named people.
+     Anonymized: no person names, no institution names, no district name.
+-->
+
+<style>
+  :root{ --green:#154734; --orange:#E87500; --mint:#5FE0B7; --ink:#202020; --soft:#5C5C56; --pale:#F2F7F4; --grey:#E5E5E0; }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Barlow","Avenir Next","Helvetica Neue",Arial,sans-serif; color:var(--ink); background:#fff; padding:28px 36px 70px; line-height:1.45;}
+  header{border-bottom:4px solid var(--green); padding-bottom:14px; margin-bottom:8px;}
+  .eyebrow{color:var(--orange); font-weight:700; letter-spacing:.12em; font-size:12px; text-transform:uppercase;}
+  h1{color:var(--green); font-size:28px; margin-top:4px;}
+  .meta{display:flex; gap:10px; align-items:center; margin-top:8px; flex-wrap:wrap;}
+  .pill{background:var(--mint); color:var(--green); font-weight:700; font-size:11.5px; padding:4px 12px; border-radius:99px;}
+  .pill.grade{background:var(--green); color:#fff;} .pill.draft{background:#FDEBD7; color:var(--orange);}
+  .meta span.src{color:var(--soft); font-size:12px;}
+  .hint{color:var(--soft); font-size:14px; margin:10px 0 18px;}
+  .tabs{display:flex; gap:8px; margin:18px 0 22px; flex-wrap:wrap;}
+  .tab{font-family:inherit; font-size:13.5px; font-weight:700; padding:9px 18px; border-radius:8px 8px 0 0; border:2px solid var(--grey); border-bottom:none; background:var(--pale); color:var(--soft); cursor:pointer;}
+  .tab.on{background:var(--green); color:#fff; border-color:var(--green);}
+  .tabpane{display:none;} .tabpane.on{display:block;}
+  h2{font-size:16px; letter-spacing:.06em; text-transform:uppercase; margin:22px 0 10px; color:var(--green);}
+  h2:first-child{margin-top:0;}
+  p{font-size:15px; margin-bottom:11px; max-width:78ch;}
+  .ex-note{background:#FDEBD7; border-left:5px solid var(--orange); border-radius:6px; padding:11px 15px; font-size:14px; margin-bottom:16px;}
+  .ib-note{background:#E2F2EA; border-left:5px solid var(--green); border-radius:6px; padding:11px 15px; font-size:14px; margin-bottom:16px;}
+
+  /* two-job cards */
+  .jobs{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:6px;}
+  .job{background:var(--pale); border-radius:8px; border-top:6px solid var(--green); padding:14px 16px;}
+  .job.two{border-top-color:var(--orange);}
+  .job h3{font-size:14px; text-transform:uppercase; letter-spacing:.05em; color:var(--green); margin-bottom:7px;}
+  .job.two h3{color:var(--orange);}
+  .job p{font-size:14px; margin-bottom:8px;} .job p:last-child{margin-bottom:0;}
+  .job .tagline{font-weight:700; color:var(--ink);}
+
+  /* question list */
+  .qgroup{margin-bottom:22px;}
+  .qgroup .glabel{font-size:11px; font-weight:700; color:var(--soft); text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px;}
+  .q{background:var(--pale); border-left:5px solid var(--green); border-radius:6px; padding:11px 14px; margin-bottom:9px;}
+  .q.concept{border-left-color:var(--orange);}
+  .q .ask{font-size:15px; font-weight:700; color:var(--green); display:block; margin-bottom:4px;}
+  .q.concept .ask{color:var(--orange);}
+  .q .back{font-size:13.5px; color:var(--soft); display:block;}
+  .q .back b{color:var(--ink);}
+
+  /* worked excerpt */
+  .excerpt{border:2px solid var(--green); border-radius:10px; overflow:hidden; margin:14px 0 6px;}
+  .excerpt .ehead{background:var(--green); color:#fff; padding:11px 15px; font-size:14px; font-weight:700;}
+  .excerpt .ehead small{display:block; font-weight:400; color:var(--mint); font-size:11.5px; margin-top:2px;}
+  .excerpt .ebody{padding:14px 16px; font-size:14.5px;}
+  .excerpt .ebody p{font-size:14.5px;} .excerpt .ebody p:last-child{margin-bottom:0;}
+  .excerpt ol{margin:0 0 11px 20px;} .excerpt ol li{font-size:14.5px; padding:2px 0;}
+  .excerpt .split{background:var(--pale); border-left:5px solid var(--orange); border-radius:6px; padding:10px 13px; margin-top:12px; font-size:14px;}
+  .excerpt .split b{color:var(--orange);}
+  .snip{color:var(--soft); font-size:12.5px; font-style:italic; margin-top:9px;}
+
+  /* will / will not */
+  table{border-collapse:collapse; width:100%; margin-bottom:14px;}
+  th,td{border:1.5px solid var(--grey); padding:9px 12px; font-size:14px; vertical-align:top; text-align:left;}
+  th{background:var(--pale); color:var(--green); font-size:12px; text-transform:uppercase; letter-spacing:.05em;}
+  td b{color:var(--green);}
+  .no td b{color:var(--orange);}
+  ul.plain{list-style:none; margin-bottom:12px;}
+  ul.plain li{font-size:15px; padding:4px 0 4px 15px; position:relative; max-width:78ch;}
+  ul.plain li::before{content:"•"; color:var(--mint); font-weight:700; position:absolute; left:0;}
+  footer{margin-top:30px; padding-top:14px; border-top:2px solid var(--grey); color:var(--soft); font-size:12.5px;}
+  @media (max-width:820px){ body{padding:20px 18px 50px;} .jobs{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Future Ready AI · a university + partner high schools collaborative</div>
+  <h1>The Teacher Assistant</h1>
+  <div class="meta">
+    <span class="pill grade">FOR TEACHERS · GRADES 10, 11, 12</span>
+    <span class="pill">v1.0 · July 27, 2026</span>
+    <span class="src">A chat assistant that answers questions about the lessons, and explains the AI content itself to the teacher delivering them.</span>
+  </div>
+</header>
+
+<div class="ex-note"><b>How to read this:</b> This page shows what the assistant does and what to ask it. It is not the assistant itself. Access is arranged through the university team, because the assistant holds the answer keys and is for teachers only.</div>
+
+<div class="tabs">
+  <button class="tab on" data-pane="pane-why">① Why it exists</button>
+  <button class="tab" data-pane="pane-lesson">② Ask it about a lesson</button>
+  <button class="tab" data-pane="pane-concept">③ Ask it about the AI itself</button>
+  <button class="tab" data-pane="pane-limits">④ Limits and access</button>
+</div>
+
+<!-- ============ TAB 1 ============ -->
+<div class="tabpane on" id="pane-why">
+
+<h2>Two problems, one answer box</h2>
+
+<p><b>The first problem is volume.</b> Each lesson arrives with a teacher guide, a slide deck, a student handout, an activity, an exit ticket, an answer key, discussion scaffolds, a glossary, and video scripts. All of it is needed. None of it is what a teacher wants at 7:50 in the morning, when the real question is "what do I print, and did I need to cut those cards last night?"</p>
+
+<p><b>The second problem is the one that matters more.</b> These lessons ask teachers to teach how machine learning works, what a weight is, why a language model invents a convincing false sentence, and how bias enters a system that holds no opinions. Many of the teachers delivering them are teaching AI for the first time and were never taught it themselves. The materials tell them what to say. They do not, on their own, make them understand it.</p>
+
+<p>Both problems have the same solution: put the whole curriculum behind a question box, and let it answer either kind of question.</p>
+
+<h2>So it does two jobs</h2>
+
+<div class="jobs">
+  <div class="job">
+    <h3>① It helps you run the lesson</h3>
+    <p class="tagline">Everything in the materials, on demand.</p>
+    <p>Objectives, the run of show at 45 and at 90 minutes, activity steps, exactly what to print and how many, exit tickets and their answer keys with reteach signals, common misconceptions and how to respond to each, differentiation and language supports, vocabulary, and what each video says.</p>
+  </div>
+  <div class="job two">
+    <h3>② It helps you understand the subject</h3>
+    <p class="tagline">This is the part teachers ask for and rarely get.</p>
+    <p>Ask it what a weight actually is, where the numbers come from, why a chatbot makes things up, or whether a neural network really works like a brain. It explains the concept to <i>you</i>, one layer deeper than the lesson asks scholars to know, and then gives you the classroom version separately.</p>
+  </div>
+</div>
+
+<div class="ib-note"><b>Why one layer deeper matters.</b> A teacher who understands exactly as much as the scholars can deliver the lesson but cannot survive the unexpected question, and the unexpected question is where these lessons live. The assistant is built so that a teacher always knows more than they need to say.</div>
+
+<h2>The design rule that makes it trustworthy</h2>
+
+<p><b>It answers only from the curriculum materials.</b> It has no general knowledge and no web access. When something is not in the materials, it says so plainly instead of guessing, and it will not invent a lesson, an activity, an exit-ticket item, a rubric line, a standard, a file name, or a runtime.</p>
+
+<p>That restraint is the whole point. An assistant that occasionally invents a plausible answer is worse than no assistant at all, because a teacher will act on it in front of a class. This one would rather tell you it does not know.</p>
+
+</div>
+
+<!-- ============ TAB 2 ============ -->
+<div class="tabpane" id="pane-lesson">
+
+<p class="hint">Real questions, and what comes back. Tell it which grade you teach, because grades 10, 11, and 12 cover the same topics at different depths; if you forget, it will ask before answering rather than guess.</p>
+
+<div class="qgroup">
+  <div class="glabel">Before class</div>
+
+  <div class="q"><span class="ask">"I teach grade 10 Lesson 2. What do I need to print, and what do I need to do before class?"</span>
+  <span class="back">The full print list with the exact file names, what to project versus print, and how many of each. Then the prep steps in order, including the one that decides whether the lesson works: <b>cut the card sets ahead of class, keep the two rounds separate, and keep the second round face down.</b></span></div>
+
+  <div class="q"><span class="ask">"Should I tell students that Round 2 is rigged?"</span>
+  <span class="back"><b>No</b>, and it will tell you why in one line. It also gives you the question to ask instead, and tells you not to explain the failure yourself no matter how long the silence runs.</span></div>
+
+  <div class="q"><span class="ask">"When do I give the pre-assessment?"</span>
+  <span class="back">Once per unit, before the unit's first lesson, never inside a lesson. It knows which grade has a second one and when.</span></div>
+</div>
+
+<div class="qgroup">
+  <div class="glabel">During class, when the plan meets the room</div>
+
+  <div class="q"><span class="ask">"I only have 45 minutes and the activity ran long. What do I cut?"</span>
+  <span class="back">It asks your grade first, because the safe cuts are different in each and are not interchangeable. Then it tells you what to drop <b>and what to protect no matter what.</b></span></div>
+
+  <div class="q"><span class="ask">"My class has no devices today. Can I still teach the prompting lesson?"</span>
+  <span class="back"><b>Yes, at full value</b>, and it tells you which pages to print instead. No lesson's 45-minute core depends on a working device. That was a design decision, not luck.</span></div>
+
+  <div class="q"><span class="ask">"A student insists a chatbot is general AI. What do I say?"</span>
+  <span class="back">The move that works: ask the scholar to name something the tool cannot do. Narrow AI always has a boundary, and finding the boundary is the proof. It will also flag this as the misconception most likely to show up on the exit ticket.</span></div>
+</div>
+
+<div class="qgroup">
+  <div class="glabel">After class</div>
+
+  <div class="q"><span class="ask">"Give me the full exit ticket answer key for grade 11 Lesson 1."</span>
+  <span class="back">The complete key, item by item, <b>including the scoring notes that are easy to miss</b>, such as which item is scored on the fit between the label and the reason rather than on the label itself.</span></div>
+
+  <div class="q"><span class="ask">"Half my class missed item 4. What now?"</span>
+  <span class="back">The reteach signal attached to that item, what the miss means about what did not land, and whether it needs fixing before the next lesson or can wait.</span></div>
+
+  <div class="q"><span class="ask">"Can students answer the exit ticket in Spanish?"</span>
+  <span class="back"><b>Yes, on the open items, in every grade. We score the idea, not the English.</b></span></div>
+</div>
+
+</div>
+
+<!-- ============ TAB 3 ============ -->
+<div class="tabpane" id="pane-concept">
+
+<div class="ex-note"><b>This is the tab worth showing people.</b> Anyone can build a search box over lesson plans. The questions below are the ones a teacher is least likely to ask a colleague out loud, and they are exactly the ones that decide whether a lesson survives contact with a curious class.</div>
+
+<div class="qgroup">
+  <div class="glabel">The mechanism</div>
+
+  <div class="q concept"><span class="ask">"I don't really understand what a weight is. Can you explain it to me?"</span>
+  <span class="back">A number for how much one input matters, anchored to the paper activity your scholars will compute by hand, with the arithmetic worked through.</span></div>
+
+  <div class="q concept"><span class="ask">"Where do the weights actually come from? Who picks the numbers?"</span>
+  <span class="back"><b>Nobody picks them.</b> It walks you through the five-step training loop, ending on the sentence that matters: that loop is what the word "learning" means here, and no understanding is involved at any point.</span></div>
+
+  <div class="q concept"><span class="ask">"What does 'deep' actually mean in deep learning?"</span>
+  <span class="back">It counts layers. Nothing more. Not profound, not wise. This is a real misconception and it is on an exit ticket.</span></div>
+
+  <div class="q concept"><span class="ask">"Should I teach that to my students?"</span>
+  <span class="back">Usually <b>no</b>, and it will say so and tell you what to say instead. It knows the difference between what a teacher should understand and what a lesson should cover.</span></div>
+</div>
+
+<div class="qgroup">
+  <div class="glabel">Why it goes wrong</div>
+
+  <div class="q concept"><span class="ask">"Why does it make things up? Is it broken?"</span>
+  <span class="back"><b>No.</b> It is trained to be plausible, not to be true, and nothing inside it checks a claim against the world. A fluent false answer is the design working correctly, which is a far more useful thing for a scholar to understand than "sometimes it makes mistakes."</span></div>
+
+  <div class="q concept"><span class="ask">"Why is it so bad at counting letters or doing arithmetic?"</span>
+  <span class="back">Because it predicts likely text rather than executing a procedure, and counting is a procedure.</span></div>
+
+  <div class="q concept"><span class="ask">"Why do two AI tools give different answers to the same question?"</span>
+  <span class="back">Different training text, different tuning, and deliberate randomness in how each next word is chosen. It will suggest showing this to a class rather than hiding it, because it makes prediction visible.</span></div>
+
+  <div class="q concept"><span class="ask">"How can a computer be biased? It has no opinions."</span>
+  <span class="back">It does not need any. The three doors bias comes through, with the one teachers and scholars both consistently forget.</span></div>
+</div>
+
+<div class="qgroup">
+  <div class="glabel">The questions scholars ask that go past the lesson</div>
+
+  <div class="q concept"><span class="ask">"A student is going to ask if it's conscious. What do I say?"</span>
+  <span class="back">The move that redirects to the mechanism the class just ran by hand, plus an honest note that in the older grades this stops being a distraction and becomes the assessed question.</span></div>
+
+  <div class="q concept"><span class="ask">"Does the AI learn from my students while they're chatting with it?"</span>
+  <span class="back">Two separate things, kept separate. What it does inside one conversation, and what may be stored and used later, which depends on the tool and its settings.</span></div>
+
+  <div class="q concept"><span class="ask">"Can I just tell my students it works like a brain? It's easier."</span>
+  <span class="back">Use the analogy, then break it in the same breath, which is what the lessons do on purpose. It will give you the one-line correction and the teacher move that lands it in about fifteen seconds.</span></div>
+
+  <div class="q concept"><span class="ask">"Isn't it just copying what people wrote?"</span>
+  <span class="back">Not in the sense of retrieving and pasting; there is no stored copy to look up. It will also tell you which part of that question is genuinely unsettled rather than pretending it is closed.</span></div>
+</div>
+
+<h2>What one of these answers looks like</h2>
+
+<div class="excerpt">
+  <div class="ehead">"Where do the weights actually come from? Who picks the numbers?"
+  <small>Abbreviated. The full answer also covers the field's terms for this, and what to do when a scholar asks.</small></div>
+  <div class="ebody">
+    <p>Nobody picks them. Here is the layer underneath what the lesson tells scholars.</p>
+    <ol>
+      <li>The weights start out as essentially random numbers. The system begins knowing nothing.</li>
+      <li>It makes a prediction on one example whose real answer is already known. Almost certainly a wrong prediction, at the start.</li>
+      <li>It measures how wrong. The gap between what it said and the right answer is a number.</li>
+      <li>It nudges every weight a little, in whichever direction would have made that gap smaller.</li>
+      <li>It repeats this millions of times, across enormous numbers of examples.</li>
+    </ol>
+    <p>Slowly, the weights settle into a configuration that gets the answer right most of the time. <b>That entire loop is what the word "learning" means in machine learning.</b> No understanding is involved at any point. It is repeated adjustment toward less wrongness.</p>
+    <p>Modern systems have billions of these numbers. There is no person who chose them and no document listing them, which is also why nobody can fully explain why a system produced one specific answer. That is an open research problem, not a gap in your knowledge.</p>
+    <div class="split"><b>In the classroom, though:</b> stop at "training data sets the weights" and point back to the earlier lesson. If a scholar asks how they get set, celebrate the question, then move on, because the arithmetic on the sheet is what has to land in that period.</div>
+  </div>
+</div>
+
+<p class="snip">Every answer ends by naming the document it came from, so a teacher who wants to check it can find the source in one step.</p>
+
+</div>
+
+<!-- ============ TAB 4 ============ -->
+<div class="tabpane" id="pane-limits">
+
+<h2>What it will and will not do</h2>
+
+<table>
+  <tr><th>It will</th><th>It will not</th></tr>
+  <tr>
+    <td><b>Ask which grade you teach</b> when the question does not say, because the three grades teach the same topics at different depths</td>
+    <td><b>Guess a grade</b>, or blend two grades into one answer</td>
+  </tr>
+  <tr>
+    <td><b>Give the full answer key</b> and the reteach signal for each item</td>
+    <td><b>Write a new exit-ticket item</b>, an extra quiz question, or a modified rubric, however politely you ask. Every item is deliberately aligned to a teaching point</td>
+  </tr>
+  <tr>
+    <td><b>Quote what a video says</b>, because every video transcript is written into its lesson document</td>
+    <td><b>Play a video</b> or hand over a file. For the files themselves, use your lesson package</td>
+  </tr>
+  <tr>
+    <td><b>Say plainly when something is not in the materials</b></td>
+    <td><b>Fill a gap with a plausible guess.</b> This is the single most important thing it will not do</td>
+  </tr>
+  <tr>
+    <td><b>Explain an AI concept as deeply as a teacher needs</b></td>
+    <td><b>State a mastery cut score</b>, because none is set yet. The score bands in the keys are for deciding what to reteach</td>
+  </tr>
+  <tr>
+    <td><b>Tell you when a video is still in production</b>, and point you to the script and slides that carry the same content</td>
+    <td><b>Produce work for a scholar to submit.</b> It is a teacher's assistant, and it says so</td>
+  </tr>
+</table>
+
+<div class="ib-note"><b>Two answers that are correct rather than missing.</b> There is no state standards code for the two older grades, because that course is governed by its own international subject guide. And the materials for those two grades are drafts open to your feedback, not final. The assistant will tell you both rather than papering over them.</div>
+
+<h2>Who it is for, and how access works</h2>
+
+<p><b>It is for teachers, and it contains the full answer keys, exit-ticket items, and rubrics.</b> That was a deliberate decision: an assistant without the keys cannot answer half of what a teacher actually asks. The consequence is that it is not for scholars, and access has to be handled accordingly.</p>
+
+<ul class="plain">
+  <li><b>It needs no sign-in and no account</b>, which is what makes it work for every teacher on any device.</li>
+  <li><b>It embeds anywhere that accepts a standard web embed</b>, so it can live in a teacher-only area of your learning platform, a staff team or channel, a teacher resource page, or a professional development session.</li>
+  <li><b>It does not go on a page scholars open</b>, and it does not go on a public page. Because there is no sign-in, wherever the link is placed <i>is</i> the access control.</li>
+  <li><b>The link is not on this page and never will be.</b> It travels privately, to named people, with the embed instructions.</li>
+</ul>
+
+<p><b>To arrange access</b>, or to ask for a version aimed at a different audience, contact the university team. Nothing is required on your side to keep it current: the content is maintained centrally and refreshed whenever the lesson materials change, and the embed code stays the same.</p>
+
+</div>
+
+<footer>
+  Future Ready AI Collaborative · Teacher Assistant showcase · v1.0, July 27, 2026 · This page describes the assistant; it is not the assistant.
+</footer>
+
+<script>
+  document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
+    document.querySelectorAll('.tabpane').forEach(x => x.classList.remove('on'));
+    t.classList.add('on'); document.getElementById(t.dataset.pane).classList.add('on');
+    window.scrollTo({top:0, behavior:'smooth'});
+  }));
+</script>
+</body>
+</html>
