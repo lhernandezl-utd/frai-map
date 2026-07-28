@@ -102,6 +102,10 @@
 
   @media (max-width:900px){ .steps3,.routes{grid-template-columns:1fr;} body{padding:20px 16px 70px;} h1{font-size:23px;} }
   @media print{ .tabs{display:none;} .tabpane{display:block !important;} }
+  .gradenav{margin-top:34px; border-top:2px solid var(--grey); padding-top:14px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+  .gradenav span{font-size:10.5px; color:var(--soft); font-weight:700; text-transform:uppercase; letter-spacing:.06em;}
+  .gradenav a{font-size:11.5px; font-weight:700; text-decoration:none; color:var(--green); background:var(--pale); border:2px solid var(--grey); padding:5px 11px; border-radius:7px;}
+  .gradenav a.here{background:var(--green); color:#fff; border-color:var(--green);}
 </style>
 </head>
 <body>
@@ -112,7 +116,7 @@
   <div class="meta">
     <span class="pill grade">A WORKED EXAMPLE · Lesson 1 in all three grades</span>
     <span class="pill draft">SUGGESTED, not required</span>
-    <span class="pill">v1.2 · July 28, 2026</span>
+    <span class="pill">v1.3 · July 28, 2026</span>
   </div>
 </header>
 
@@ -506,14 +510,14 @@
   </div>
 </div>
 
-<div style="margin-top:30px; border-top:1.5px solid var(--grey); padding-top:10px; font-size:11.5px; color:var(--soft);">
-  Course maps:
-  <a href="grade-10.html" style="color:var(--green); font-weight:700;">Grade 10 · CTE</a> ·
-  <a href="grade-11.html" style="color:var(--green); font-weight:700;">Grade 11 · TOK Year 1</a> ·
-  <a href="grade-12.html" style="color:var(--green); font-weight:700;">Grade 12 · TOK Year 2</a> ·
-  <a href="year-one-scope-and-sequence.html" style="color:var(--green); font-weight:700;">Year One scope &amp; sequence</a>
-  ·
-  <a href="teacher-assistant.html" style="color:var(--green); font-weight:700;">Ask the Teacher Assistant</a>
+<div class="gradenav">
+  <span>Program pages:</span>
+  <a href="grade-10.html">Grade 10 · CTE</a>
+  <a href="grade-11.html">Grade 11 · TOK Year 1</a>
+  <a href="grade-12.html">Grade 12 · TOK Year 2</a>
+  <a href="year-one-scope-and-sequence.html">Year One Scope &amp; Sequence</a>
+  <a class="here" href="#">How to run a lesson (this page)</a>
+  <a href="teacher-assistant.html">Ask the Teacher Assistant</a>
 </div>
 
 <script>
