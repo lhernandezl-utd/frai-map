@@ -8,6 +8,18 @@
 <!--
   VERSION HISTORY  (How to run a lesson · worked example, all three grades)
 
+  v1.10  2026-07-28
+     RENDERING BUG on the callout boxes. ".note b{display:block}" was meant to style each
+        box's opening heading, but it applied to EVERY bold inside a note, so ordinary
+        sentences shattered onto separate lines. The pre-assessment box in particular read
+        as a wall of fragments. Now only the note's own first bold is a block.
+     PRE-ASSESSMENT BOX CUT roughly in half. Its per-grade list duplicated what each grade
+        tab's "Before you teach" step already says, and its length pushed the tab strip, the
+        page's main navigation, below the fold. Same facts, two short paragraphs.
+     TIME MODEL, 90-minute row now names Route A and Route B, matching Stage 3's language,
+        so the two read as one idea at two zoom levels rather than as repetition. The top
+        section is the policy across all grades; Stage 3 is the worked example with timings.
+
   v1.9   2026-07-28
      The answer-key sentence is reframed from caveat to capability, on the author's direction. "Because it is
         written for teachers, it CAN include the answer keys" was an internal reference note
@@ -184,7 +196,12 @@
   .eltag{display:inline-block; font-size:10.5px; font-weight:700; color:var(--soft); border:1px solid var(--grey); border-radius:99px; padding:1px 7px; margin-left:5px; white-space:nowrap;}
 
   .note{border-radius:6px; padding:12px 15px; margin:14px 0; font-size:13.5px; border-left:5px solid;}
-  .note b{display:block; margin-bottom:2px;}
+  /* Only the note's OWN opening bold is a heading. Every other <b> inside a note is
+     emphasis inside a sentence and must stay inline; making them all display:block
+     shattered whole paragraphs onto separate lines. */
+  .note > b:first-child{display:block; margin-bottom:2px;}
+  .note b{display:inline;}
+  .note > b:first-child{display:block;}
   .n-green{background:var(--pale); border-color:var(--green);} .n-green b{color:var(--green);}
   .n-orange{background:#FDF3E7; border-color:var(--orange);} .n-orange b{color:var(--orange);}
 
@@ -216,7 +233,7 @@
   <div class="meta">
     <span class="pill grade">A WORKED EXAMPLE · Lesson 1 in all three grades</span>
     <span class="pill draft">SUGGESTED, not required</span>
-    <span class="pill">v1.9 · July 28, 2026</span>
+    <span class="pill">v1.10 · July 28, 2026</span>
   </div>
 </header>
 
@@ -284,7 +301,7 @@
   <tr>
     <td><b>90-minute block</b><span class="fine">Grade 10</span></td>
     <td>The same complete 45.</td>
-    <td><b>Every lesson carries a second 45 that is already written.</b> You choose: run the next lesson back to back to keep pace, or stay on this lesson and use its built-in extension to go deeper. <b>The second 45 is never required to finish the lesson.</b></td>
+    <td><b>Every lesson already carries a second 45.</b> You pick one of two routes: <b>Route A</b>, teach the next lesson back to back to keep pace, or <b>Route B</b>, stay on this lesson and use its built-in extension to go deeper. <b>The second 45 is never required to finish the lesson.</b> Each grade tab below shows both routes with their timings.</td>
   </tr>
   <tr>
     <td><b>Theory of Knowledge</b><span class="fine">Grades 11 and 12</span></td>
@@ -296,18 +313,8 @@
 
 <div class="note n-orange">
   <b>The one thing to get right in week one: the pre-assessment sits outside the 45</b>
-  It is given <b>before that unit's first lesson</b> and takes about 15 minutes. It is never part of the lesson, because folding it in would push teaching out of the period.
-  <ul class="plain">
-    <li><b>On a single 45-minute period, and in all of TOK:</b> give it on a separate day beforehand, as its own short stand-alone session. 15 plus 45 does not fit in one period.</li>
-    <li><b>On a 90-minute block (grade 10 only):</b> give it in the first 15 minutes, then teach the complete 45-minute lesson the same day. That still leaves about half an hour for the extension.</li>
-  </ul>
-  <p style="margin-top:9px"><b>How many you have differs by grade.</b> Your teacher index states your own case in full.</p>
-  <ul class="plain">
-    <li><b>Grade 10:</b> one before Lesson 1. <b>Nothing before Lessons 2 to 5.</b></li>
-    <li><b>Grade 11:</b> two, because <b>Lesson 5 opens Unit 2</b>. One before Lesson 1 and one before Lesson 5.</li>
-    <li><b>Grade 12:</b> one <b>course-covering</b> baseline before Lesson 1, because the condensed pass crosses three units in five lessons.</li>
-  </ul>
-  <p style="margin-top:9px">It is <b>your diagnostic</b>, so you know what this class already believes before you teach them. <b>It is never graded.</b></p>
+  It takes about 15 minutes and is given before a unit's first lesson, never inside the lesson, because 15 plus 45 does not fit in one period. On a single 45-minute period, and in all of TOK, give it on a separate day beforehand. On a 90-minute block in grade 10, give it in the first 15 minutes and then teach the complete 45-minute lesson the same day.
+  <p style="margin-top:8px">It is <b>your diagnostic</b>, so you walk in knowing what this class already believes, and <b>it is never graded</b>. How many you get differs by grade: grade 10, one before Lesson 1 and none before Lessons 2 to 5; grade 11, two, because Lesson 5 opens a new unit; grade 12, one baseline that covers the course. Your teacher index states your own case in full.</p>
 </div>
 
 <div class="tabs">
