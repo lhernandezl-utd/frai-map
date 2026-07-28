@@ -8,6 +8,34 @@
 <!--
   VERSION HISTORY  (How to run a lesson · worked example, all three grades)
 
+  v1.11  2026-07-28
+     TWO ELEMENT ROWS OVER-PROMISED THE VIDEOS, found by auditing the element table
+        against what is actually in the delivered packages, the night before the page was
+        used with teachers. Same class of defect v1.4 fixed for the teacher video, missed
+        in the two rows beside it.
+     1. Element 6 said "Concept videos x2 / Embedded in the deck at their play points"
+        with no production caveat. Only grade 10 Lessons 1 to 3 and Lesson 1 in grades 11
+        and 12 have concept videos; the other 10 lessons have none. A teacher opening any
+        of those 10 would have gone looking for a file that does not exist and concluded
+        the package was broken. Now states the production status, names the lessons that
+        have them as of July 2026, and says plainly that nothing is missing from a lesson
+        whose video is pending, because the deck and the script carry the same content.
+     2. Element 7 said the scenario video is "Embedded in the deck", full stop. Exactly
+        ONE scenario video exists in the whole program, grade 10 Lesson 1. Now says so,
+        and points out this element never sits inside the core 45 minutes, so a pending
+        scenario video costs the lesson nothing.
+     The per-lesson walkthroughs were already accurate and are untouched: each names the
+        one video its own deck actually contains. The defect was only in the summary table,
+        which is the row a teacher reads for a lesson OTHER than the worked example.
+     ELEMENT 3 matched to what is really in the packages. The row said "Word-wall
+        printable" and "Post the word wall", but only 3 of the 15 vocabulary files have a
+        section labelled as a word wall; the other 12 are tiered glossary tables with
+        cognates and anchors. Both are postable printables, so the fix is the wording:
+        "a printable glossary to post" and "post it where scholars can see it."
+     Everything else in the table was verified present in all 15 delivered lessons,
+        including element 11, the Teacher Guide, and every file name cited in all 15
+        prep tables.
+
   v1.10  2026-07-28
      RENDERING BUG on the callout boxes. ".note b{display:block}" was meant to style each
         box's opening heading, but it applied to EVERY bold inside a note, so ordinary
@@ -233,7 +261,7 @@
   <div class="meta">
     <span class="pill grade">A WORKED EXAMPLE · Lesson 1 in all three grades</span>
     <span class="pill draft">SUGGESTED, not required</span>
-    <span class="pill">v1.10 · July 28, 2026</span>
+    <span class="pill">v1.11 · July 28, 2026</span>
   </div>
 </header>
 
@@ -611,10 +639,10 @@
     <tr><td class="ts" style="color:var(--soft)">Before</td><td><b>15 · Pre-assessment / baseline</b></td><td>At the top of the package</td><td>Give before the first lesson, outside the 45 minutes. Your diagnostic, never a grade. How many you have differs by grade; see the time model above.</td></tr>
 
     <tr><td class="ts" style="color:var(--green)">In class</td><td><b>5 · Student-facing content</b></td><td>The deck and the scholar handout</td><td>The lesson body: hook, concept with video, guided try, independent try, close. Already chunked into 10 to 12 minute pieces.</td></tr>
-    <tr><td class="ts" style="color:var(--green)">In class</td><td><b>6 · Concept videos ×2</b></td><td>Embedded in the deck at their play points</td><td>Ask a question before you press play, then debrief against it. Captions are on, so sound is optional. They carry the technical explanation for you.</td></tr>
-    <tr><td class="ts" style="color:var(--green)">In class</td><td><b>7 · Scenario video</b></td><td>Embedded in the deck</td><td>The idea working or failing in a real moment. In grade 10 it belongs to the deeper route; in TOK it opens the debate or the next lesson.</td></tr>
+    <tr><td class="ts" style="color:var(--green)">In class</td><td><b>6 · Concept videos ×2</b></td><td>Embedded in the deck at their play points, once produced</td><td>Ask a question before you press play, then debrief against it. Captions are on, so sound is optional. They carry the technical explanation for you. <b>The videos are being produced lesson by lesson, so not every lesson has its full set yet</b>; as of July 2026 that is grade 10 Lessons 1 to 3, plus Lesson 1 in grades 11 and 12. Where one is still in production <b>nothing is missing from the lesson</b>: the deck and the video script carry the same content, and the lesson's <code>Videos</code> folder states what is there and what is coming.</td></tr>
+    <tr><td class="ts" style="color:var(--green)">In class</td><td><b>7 · Scenario video</b></td><td>Embedded in the deck, once produced</td><td>The idea working or failing in a real moment. In grade 10 it belongs to the deeper route; in TOK it opens the debate or the next lesson. <b>So far only grade 10 Lesson 1's scenario video is finished</b> (July 2026). This one never sits inside the core 45 minutes, so the lesson is complete without it. Until it lands, read the scenario script and tell it as a story.</td></tr>
     <tr><td class="ts" style="color:var(--green)">In class</td><td><b>8 · In-class activity</b></td><td>Printable, in shared resources</td><td>The hands-on practice. Scholars do or judge, never watch. <b>Check who this file is for, because it differs by grade.</b> In grade 10 it <i>is</i> the "AI or Not?" sort cards: print and cut for scholars, one set per pair, and it carries no answers. In grades 11 and 12 it is a <b>teacher copy</b> holding the case and card rationale, and the scholars' version is inside the handout.</td></tr>
-    <tr><td class="ts" style="color:var(--green)">In class</td><td><b>3 · Vocabulary / glossary</b></td><td>Word-wall printable, plus the tiered glossary in the plan</td><td>Post the word wall. Teach the terms at the point of use with an anchor example, never as a list read out at the start.</td></tr>
+    <tr><td class="ts" style="color:var(--green)">In class</td><td><b>3 · Vocabulary / glossary</b></td><td>A printable glossary to post, plus the tiered glossary in the plan</td><td>Post it where scholars can see it. Teach the terms at the point of use with an anchor example, never as a list read out at the start.</td></tr>
     <tr><td class="ts" style="color:var(--green)">In class</td><td><b>16 · Discussion scaffolds</b></td><td>Printable, teacher copy</td><td>Teacher talking points plus scholar sentence stems in four moves: claim, evidence, counter, connection. Have scholars say the stem aloud before they write.</td></tr>
     <tr><td class="ts" style="color:var(--green)">In class</td><td><b>18 · Language Support Pack</b></td><td>A section inside the Lesson Plan</td><td>Tiered glossary with cognates, sentence frames for every activity and discussion, and bilingual response options. Use them for the whole class, not only for some scholars.</td></tr>
     <tr><td class="ts" style="color:var(--green)">In class</td><td><b>9 · Going-deeper segment</b></td><td>A section inside the Lesson Plan, plus a closing slide</td><td>Grade 10: the extra depth on a 90-minute block. TOK: the knowledge-question debate, which is where the depth lives.</td></tr>
