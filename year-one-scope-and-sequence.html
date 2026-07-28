@@ -16,6 +16,7 @@
   .pill{background:var(--mint); color:var(--green); font-weight:700; font-size:11.5px; padding:4px 12px; border-radius:99px;}
   .pill.grade{background:var(--green); color:#fff;}
   .pill.draft{background:#FDEBD7; color:var(--orange);}
+  .pill.approved{background:#DFF3E7; color:var(--green); box-shadow:inset 0 0 0 2px var(--green);}
   .meta span.src{color:var(--soft); font-size:12px;}
   .hint{color:var(--soft); font-size:14px; margin:10px 0 18px;}
   .tabs{display:flex; gap:8px; margin:18px 0 22px; flex-wrap:wrap;}
@@ -97,8 +98,8 @@
   <h1>Year One Scope &amp; Sequence · Grades 10 · 11 · 12</h1>
   <div class="meta">
     <span class="pill grade">ALL THREE GRADES · one curriculum spine</span>
-    <span class="pill draft">DRAFT, for leadership review</span>
-    <span class="pill">v1.4 · July 28, 2026</span>
+    <span class="pill approved">✅ Approved by leadership · July 28, 2026</span>
+    <span class="pill">v1.5 · July 28, 2026</span>
     <span class="src">Built from the three reviewed grade maps and the program's per-grade curriculum documents</span>
   </div>
   <div class="hint">The whole first year on one screen: what every grade studies, how the three reviewed maps relate to it, and the one structural question now being decided.</div>
@@ -119,7 +120,7 @@
   <div class="legend">
     <span><span class="sw" style="background:var(--green)"></span><b>Grade 10</b>: locked, as the partner reviewed it</span>
     <span><span class="sw" style="background:#E2F2EA"></span><b>Grade 11</b>: as published, unchanged; this cohort completes the arc next year</span>
-    <span><span class="sw" style="background:#fff; border:2px solid var(--orange)"></span><b>Grade 12</b>: proposed Year One condensed pass, from the program's own draft</span>
+    <span><span class="sw" style="background:#fff; border:2px solid var(--orange)"></span><b>Grade 12</b>: Year One condensed pass, built from the program's own curriculum documents</span>
   </div>
 
   <div class="sgrid">
@@ -429,6 +430,9 @@
 
 <!--
 VERSION HISTORY
+v1.5 (2026-07-28): STATUS CHANGE: approved by leadership. The header badge moves from
+"DRAFT, for leadership review" to "Approved by leadership, July 28, 2026". No content,
+curriculum, or structure change; the badge is the only edit.
 v1.1 (2026-07-23): Defined "condensed" on the grade 12 card (whole arc at overview depth,
 nothing skipped, merged-topics example), matching the grade 12 map v0.9.1 hint.
 v1.0 (2026-07-23): Published for leadership review. Grade 12 map updated to v0.9 (Year One
