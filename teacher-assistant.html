@@ -31,6 +31,10 @@
      Tab 5: stopped being coy. TEKS and the IB TOK Guide are named, matching the
         grade maps, which already name IB and TOK on the public site.
 
+  v1.8  2026-07-28
+     Tab switching no longer jumps to the top of the page; it only pulls the tab strip
+        back into view when the strip has scrolled off the top. #pane-try untouched.
+
   v1.2  2026-07-27
      Tab 2 rewritten to state the two goals positively (everything the program
         delivers, and a specialist in the content we teach) instead of opening on
@@ -142,7 +146,7 @@
   <h1>The Teacher Assistant</h1>
   <div class="meta">
     <span class="pill grade">FOR TEACHERS · GRADES 10, 11, 12</span>
-    <span class="pill">v1.7 · July 28, 2026</span>
+    <span class="pill">v1.8 · July 28, 2026</span>
     <span class="src">A chat assistant that answers questions about the lessons, and explains the AI content itself to the teacher delivering them.</span>
   </div>
 </header>
@@ -390,11 +394,19 @@
 <script>
   var CHAT_SRC = document.getElementById('chatframe').src;
   function startOver(){ document.getElementById('chatframe').src = CHAT_SRC; }
+  var strip = document.querySelector('.tabs');
   document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
     document.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
     document.querySelectorAll('.tabpane').forEach(x => x.classList.remove('on'));
     t.classList.add('on'); document.getElementById(t.dataset.pane).classList.add('on');
-    window.scrollTo({top:0, behavior:'smooth'});
+    /* NEVER scroll to the top of the page on a tab switch. The header and the intro are
+       identical on every tab, so jumping up there throws the reader away from what they
+       just clicked. Only pull the tab strip back into view, and only when it has already
+       scrolled off the top. Instant, not smooth: a sliding correction is the same annoyance.
+       This does not touch #pane-try, which stays mounted off-screen by design. */
+    if (!strip) return;
+    var top = strip.getBoundingClientRect().top;
+    if (top < 0) window.scrollTo({top: window.scrollY + top - 12, behavior: 'auto'});
   }));
 </script>
 </body>

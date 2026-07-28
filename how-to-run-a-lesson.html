@@ -8,6 +8,14 @@
 <!--
   VERSION HISTORY  (How to run a lesson · worked example, all three grades)
 
+  v1.5   2026-07-28
+     TAB SWITCHING NO LONGER JUMPS TO THE TOP OF THE PAGE. The click handler called
+        window.scrollTo top 0 on every switch, which threw the reader back to a header
+        and intro that are identical on all four tabs. Now it only pulls the tab strip
+        back into view, and only if the strip has scrolled off the top; if the tabs are
+        already visible it does nothing. Instant rather than smooth, because a sliding
+        correction reads as the same annoyance. Same fix applied to teacher-assistant.html.
+
   v1.4   2026-07-28
      THREE ACCURACY FIXES, found on a full read-through before the page was used in
         front of teachers. All three would have sent a teacher to the wrong place.
@@ -129,7 +137,7 @@
   <div class="meta">
     <span class="pill grade">A WORKED EXAMPLE · Lesson 1 in all three grades</span>
     <span class="pill draft">SUGGESTED, not required</span>
-    <span class="pill">v1.4 · July 28, 2026</span>
+    <span class="pill">v1.5 · July 28, 2026</span>
   </div>
 </header>
 
@@ -534,12 +542,21 @@
 </div>
 
 <script>
+  var strip = document.querySelector('.tabs');
   document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
     document.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
     document.querySelectorAll('.tabpane').forEach(x => x.classList.remove('on'));
     t.classList.add('on');
     document.getElementById(t.dataset.p).classList.add('on');
-    window.scrollTo({top:0, behavior:'smooth'});
+    /* NEVER scroll to the top of the page on a tab switch. The header, the intro, the
+       three-step strip and the time model are identical on every tab, so jumping up
+       there throws the reader away from the content they just asked for.
+       Instead: only pull the tab strip back into view, and only when it has already
+       scrolled off the top. If the tabs are visible, do nothing at all. Instant, not
+       smooth, because a correction that slides reads as the same annoyance. */
+    if (!strip) return;
+    var top = strip.getBoundingClientRect().top;
+    if (top < 0) window.scrollTo({top: window.scrollY + top - 12, behavior: 'auto'});
   }));
 </script>
 </body>
