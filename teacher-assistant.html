@@ -8,6 +8,22 @@
 <!--
   VERSION HISTORY  (Teacher Assistant showcase page)
 
+  v2.1  2026-08-13
+     FIX: numbered steps in an answer had their "1." "2." markers hanging outside the
+        bubble and clipped by its edge. Markdown lists arrive with no left padding and
+        the marker sits outside the text box, so it fell off. Lists, list items and
+        headings now have their own spacing rules.
+     FIX: one reference marker still reached the screen. The rule that strips them
+        required a space or punctuation after the marker, so a marker glued straight
+        onto the next word survived, and it read as "examples.[2]Slowly". Now handled
+        in two passes: a glued marker becomes a single space so the sentence does not
+        run together, then every remaining marker is removed. Measured against a real
+        answer carrying fourteen of them: fourteen to zero, no words joined.
+     NOT changed, and deliberately: the six example questions. Rewriting them to be
+        self-contained was tested against the live assistant, three cold runs each,
+        and scored 0, 0 and 1 out of 3. The wording is not the cause, so changing it
+        would have been motion without effect.
+
   v2.0  2026-08-13
      The chat no longer runs inside a third-party iframe. The Web Chat library is
         loaded into this page and connected straight to the assistant, so the chat
@@ -157,6 +173,27 @@
   .startover:hover{background:#0e3525;}
   .chatwrap{border:2px solid var(--green); border-radius:10px; overflow:hidden; height:70vh; min-height:520px; background:var(--pale); position:relative;}
   #webchat{width:100%; height:100%;}
+  /* The assistant answers in markdown, and its numbered steps were rendering with
+     the "1." "2." markers hanging outside the bubble and clipped by its edge, because
+     the list ships with no left padding and the marker sits outside the text box.
+     Give lists room, and let long answers breathe a little. */
+  #webchat .webchat__bubble__content ol,
+  #webchat .webchat__bubble__content ul,
+  #webchat .webchat__basic-transcript__content ol,
+  #webchat .webchat__basic-transcript__content ul{
+    padding-left:26px !important; margin:9px 0 !important; list-style-position:outside !important;
+  }
+  #webchat .webchat__bubble__content li,
+  #webchat .webchat__basic-transcript__content li{
+    margin:5px 0 !important; padding-left:3px !important;
+  }
+  /* Headings inside an answer sat flush against the paragraph above them. */
+  #webchat .webchat__bubble__content h1,
+  #webchat .webchat__bubble__content h2,
+  #webchat .webchat__bubble__content h3{ margin:14px 0 7px !important; line-height:1.25 !important; }
+  #webchat .webchat__bubble__content > *:first-child{ margin-top:0 !important; }
+  #webchat .webchat__bubble__content p{ margin:0 0 9px !important; }
+  #webchat .webchat__bubble__content > *:last-child{ margin-bottom:0 !important; }
   .chatfail{display:none; padding:40px 32px; text-align:center; color:var(--soft); font-size:14.5px;}
   .chatfail.on{display:block;}
   .chatfail b{display:block; color:var(--green); font-size:16.5px; margin-bottom:9px;}
@@ -182,7 +219,7 @@
   <h1>The Teacher Assistant</h1>
   <div class="meta">
     <span class="pill grade">FOR TEACHERS · GRADES 10, 11, 12</span>
-    <span class="pill">v2.0 · August 13, 2026</span>
+    <span class="pill">v2.1 · August 13, 2026</span>
     <span class="src">A chat assistant that answers questions about the lessons, and explains the AI content itself to the teacher delivering them.</span>
   </div>
 </header>
@@ -457,13 +494,25 @@ var TOKEN_ENDPOINT =
    from, which is the pointer that is actually useful.
    Set STRIP_CITATIONS to false to show them again. */
 var STRIP_CITATIONS = true;
-var INLINE_MARKER   = /(\S)[ \t]*\[\d+\](?=[\s.,;:!?)\]]|$)/g;
 var REF_DEFINITION  = /^[ \t]*\[\d+\]:[ \t]*cite:\d+[^\n]*$/gm;
+
+/* Two passes, and the order matters.
+   GLUED catches a marker stuck straight onto the next word, "...the time.[1]That
+   entire loop...", and leaves a single space so the sentence does not run together.
+   That case is why "examples.[2]Slowly" appeared on screen: an earlier version of
+   this required whitespace or punctuation after the marker and so skipped it.
+   ANY then removes every remaining marker. (?!:) keeps a reference definition safe,
+   though REF_DEFINITION has already taken those whole lines out.
+
+   Verified against a real captured answer: 14 markers to 0, no words joined. */
+var GLUED = /(\S)[ \t]*\[\d+\](?=[A-Za-z0-9])/g;
+var ANY   = /(\S)[ \t]*\[\d+\](?!:)/g;
 
 function cleanText(t){
   if (typeof t !== "string") return t;
   return t.replace(REF_DEFINITION, "")
-          .replace(INLINE_MARKER, "$1")
+          .replace(GLUED, "$1 ")
+          .replace(ANY, "$1")
           .replace(/\n{3,}/g, "\n\n")
           .trim();
 }
