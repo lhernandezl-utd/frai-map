@@ -137,7 +137,7 @@ const STATUS_AS_OF = "August 12, 2026";
 const LESSON_STATUS = {
   "10": { 1:"box", 2:"box", 3:"box", 4:"box",  5:"box",  6:"prod", 7:"plan",
           8:"plan", 9:"plan", 10:"plan", 11:"plan", 12:"plan", 13:"plan", 14:"plan" },
-  "11": { 1:"chk", 2:"chk", 3:"chk", 4:"chk",  5:"chk",  6:"plan", 7:"plan", 8:"plan" },
+  "11": { 1:"box", 2:"box", 3:"box", 4:"box",  5:"box",  6:"plan", 7:"plan", 8:"plan" },
   "12": { 1:"box", 2:"box", 3:"box", 4:"box",  5:"box",  6:"plan", 7:"plan", 8:"plan" }
 };
 /* ---- renderer: nothing below needs editing week to week ---- */
@@ -150,6 +150,14 @@ document.addEventListener("DOMContentLoaded", function(){
                  prod:"in production", plan:"scheduled" };
   const asof = document.getElementById("asof");
   if (asof) asof.textContent = "Production status as of " + STATUS_AS_OF;
+
+  // hide any legend entry whose state no lesson currently uses, so the key never
+  // advertises a status that is not on the page
+  var used = {};
+  ["10","11","12"].forEach(function(g){ Object.values(LESSON_STATUS[g]).forEach(function(s){ used[s]=1; }); });
+  document.querySelectorAll(".stlegend span[data-state]").forEach(function(sp){
+    if (!used[sp.dataset.state]) sp.style.display = "none";
+  });
 
   document.querySelectorAll("#p1 .sgrid .c .l[data-g]").forEach(function(el){
     const s = (LESSON_STATUS[el.dataset.g] || {})[el.dataset.l] || "plan";
@@ -204,10 +212,10 @@ document.addEventListener("DOMContentLoaded", function(){
 
   <div class="stlegend">
     <b>Production status</b>
-    <span><span class="st st-box"></span>In the shared folder now, ready for your review</span>
-    <span><span class="st st-chk"></span>In the shared folder, final check before release</span>
-    <span><span class="st st-prod"></span>In production now</span>
-    <span><span class="st st-plan"></span>Scheduled, not started</span>
+    <span data-state="box"><span class="st st-box"></span>In the shared folder now, ready for your review</span>
+    <span data-state="chk"><span class="st st-chk"></span>In the shared folder, final check before release</span>
+    <span data-state="prod"><span class="st st-prod"></span>In production now</span>
+    <span data-state="plan"><span class="st st-plan"></span>Scheduled, not started</span>
   </div>
   <div class="defnote" style="background:#fff; border-left-color:var(--grey);"><b>What the chips are, and what they are not.</b> The lesson list, order, unit tags and titles below are the <b>approved sequence and have not changed</b> since leadership approved this page on July 28, 2026. The coloured chips are a <b>production status layer</b>, added August 12, 2026 and refreshed as work completes. They tell you <b>where a lesson is in production, never what a lesson contains</b>. A solid chip means the lesson is in the shared folder and openable today; a hollow chip means it is not there yet.</div>
 
