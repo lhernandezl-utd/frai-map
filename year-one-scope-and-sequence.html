@@ -134,12 +134,12 @@
        plan = scheduled, not started
      =================================================================== -->
 <script>
-const STATUS_AS_OF = "August 31, 2026";
+const STATUS_AS_OF = "November 17, 2026";
 const LESSON_STATUS = {
-  "10": { 1:"box", 2:"box", 3:"box", 4:"box",  5:"box",  6:"box",  7:"prod",
-          8:"plan", 9:"plan", 10:"plan", 11:"plan", 12:"plan", 13:"plan", 14:"plan" },
-  "11": { 1:"box", 2:"box", 3:"box", 4:"box",  5:"box",  6:"fin",  7:"prod", 8:"plan" },
-  "12": { 1:"box", 2:"box", 3:"box", 4:"box",  5:"box",  6:"fin",  7:"prod", 8:"plan" }
+  "10": { 1:"box", 2:"box", 3:"box", 4:"box",  5:"box",  6:"box",  7:"box",
+          8:"box", 9:"box", 10:"box", 11:"box", 12:"box", 13:"box", 14:"box" },
+  "11": { 1:"box", 2:"box", 3:"box", 4:"box",  5:"box",  6:"box",  7:"box", 8:"box" },
+  "12": { 1:"box", 2:"box", 3:"box", 4:"box",  5:"box",  6:"box",  7:"box", 8:"box" }
 };
 /* ---- renderer: nothing below needs editing week to week ---- */
 document.addEventListener("DOMContentLoaded", function(){
@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function(){
     <span class="pill grade">ALL THREE GRADES · one curriculum spine</span>
     <span class="pill approved">✅ Approved by leadership · July 28, 2026</span>
     <span class="pill asof" id="asof"></span>
-    <span class="pill">v1.6 · August 12, 2026</span>
+    <span class="pill">v1.7 · November 17, 2026</span>
     <span class="src">Built from the three reviewed grade maps and the program's per-grade curriculum documents</span>
   </div>
   <div class="hint">The whole first year on one screen: what every grade studies, how the three reviewed maps relate to it, and the one structural question now being decided.</div>
@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", function(){
     <span data-state="prod"><span class="st st-prod"></span>In production now</span>
     <span data-state="plan"><span class="st st-plan"></span>Scheduled, not started</span>
   </div>
-  <div class="defnote" style="background:#fff; border-left-color:var(--grey);"><b>What the chips are, and what they are not.</b> The lesson list, order, unit tags and titles below are the <b>approved sequence and have not changed</b> since leadership approved this page on July 28, 2026. The coloured chips are a <b>production status layer</b>, added August 12, 2026 and refreshed as work completes. They tell you <b>where a lesson is in production, never what a lesson contains</b>. <b>Green</b> means the lesson is in your folder and openable today. <b>Blue</b> means it is finished on our side and not yet in your folder. A <b>hollow</b> chip means it is not built yet.</div>
+  <div class="defnote" style="background:#fff; border-left-color:var(--grey);"><b>What the chips are, and what they are not.</b> The lesson list, order, unit tags and titles below are the <b>approved sequence and have not changed</b> since leadership approved this page on July 28, 2026. The coloured chips are a <b>production status layer</b>. They tell you <b>where a lesson is, never what a lesson contains</b>. <b>Green</b> means the lesson is in your folder and openable today. <b>As of November 17, 2026 every chip is green: all 30 Year One lessons are in the shared folder.</b></div>
 
   <div class="sgrid">
     <div class="h">Spine phase<small>our content arc · not the partner's unit structure</small></div>
@@ -231,24 +231,27 @@ document.addEventListener("DOMContentLoaded", function(){
     <div class="ph">Phase 1 · Foundations of AI<small>what AI is · how machines learn · neural networks · generative AI</small></div>
     <div class="c" data-grade="Grade 10">
       <span class="utag">Lands in the AI Literacy unit · curriculum Unit 1 · taught lessons</span>
+      <span class="base">◆ Whole-course pre-assessment<i>, a full period, before Lesson 1</i></span>
+      <span class="base">◆ Lessons 1 to 5 pre-assessment<i>, about 15 minutes, before Lesson 1</i></span>
       <span class="l" data-g="10" data-l="1"><b>L1</b> · What Is AI, Really?</span>
       <span class="l" data-g="10" data-l="2"><b>L2</b> · How Computers "Think" + ML Basics</span>
       <span class="l" data-g="10" data-l="3"><b>L3</b> · Neural Networks, Deep Learning &amp; Generative AI Decoded</span>
-      <span class="base">◆ Unit pre-assessment · curriculum Unit 1<i>, once before Lesson 1</i></span>
     </div>
     <div class="c" data-grade="Grade 11">
+      <span class="base">◆ Whole-course pre-assessment<i>, a full period, before Lesson 1</i></span>
+      <span class="base">◆ Lessons 1 to 5 pre-assessment, part 1<i>, before Lesson 1</i></span>
       <span class="l" data-g="11" data-l="1"><b>L1</b> · What Is AI, Really?</span>
       <span class="l" data-g="11" data-l="2"><b>L2</b> · How Computers "Think" + ML Basics</span>
       <span class="l" data-g="11" data-l="3"><b>L3</b> · Neural Networks &amp; Deep Learning, Simplified</span>
       <span class="l" data-g="11" data-l="4"><b>L4</b> · Generative AI Decoded</span>
-      <span class="base">◆ Unit pre-assessment · curriculum Unit 1<i>, once before Lesson 1</i></span>
       <span class="note">Lessons 1 to 8 are exactly the current grade 11 map, unchanged.</span>
     </div>
     <div class="c" data-grade="Grade 12">
       <span class="cnd">Condensed</span>
+      <span class="base">◆ Whole-course pre-assessment<i>, a full period, before Lesson 1</i></span>
+      <span class="base">◆ Lessons 1 to 5 pre-assessment<i>, about 15 minutes, before Lesson 1</i></span>
       <span class="l" data-g="12" data-l="1"><b>L1</b> · What Is AI + How Machines Learn</span>
       <span class="l" data-g="12" data-l="2"><b>L2</b> · Generative AI Decoded</span>
-      <span class="base">◆ Unit pre-assessment · course-covering<i>, once before Lesson 1; a condensed pass crossing three units in five lessons, so one instrument covers the sequence</i></span>
     </div>
 
     <div class="ph">Phase 2 · Using AI Effectively &amp; Responsibly<small>prompting · hallucinations · bias · privacy</small></div>
@@ -256,14 +259,17 @@ document.addEventListener("DOMContentLoaded", function(){
       <span class="utag">Lands in the AI Literacy unit · curriculum Unit 1 · taught lessons, continued</span>
       <span class="l" data-g="10" data-l="4"><b>L4</b> · Prompt Engineering 101 &amp; 201</span>
       <span class="l" data-g="10" data-l="5"><b>L5</b> · Using AI Responsibly: Hallucinations, Bias &amp; Privacy</span>
+      <span class="base">◆ Lessons 1 to 5 post-assessment<i>, any time after Lesson 5</i></span>
       <span class="l" data-g="10" data-l="6"><b>L6</b> · Capstone Prep: Investigating a Real AI Problem</span>
     </div>
     <div class="c" data-grade="Grade 11">
+      <span class="base">◆ Lessons 1 to 5 pre-assessment, part 2<i>, before Lesson 5</i></span>
       <span class="l" data-g="11" data-l="5"><b>L5</b> · Prompt Engineering 101 &amp; 201</span>
+      <span class="base">◆ Lessons 1 to 5 post-assessment<i>, two sheets in one sitting, any time after Lesson 5</i></span>
       <span class="l" data-g="11" data-l="6"><b>L6</b> · When AI Gets It Wrong: Hallucinations &amp; Fact-Checking</span>
       <span class="l" data-g="11" data-l="7"><b>L7</b> · Bias in AI</span>
       <span class="l" data-g="11" data-l="8"><b>L8</b> · Your Data, Their Model: Privacy</span>
-      <span class="base">◆ Unit pre-assessment · curriculum Unit 2<i>, before Lesson 5, which opens curriculum Unit 2</i></span>
+      <span class="base">◆ Whole-course post-assessment<i>, a full period, after Lesson 8</i></span>
     </div>
     <div class="c" data-grade="Grade 12">
       <span class="cnd">Condensed</span>
@@ -276,13 +282,13 @@ document.addEventListener("DOMContentLoaded", function(){
       <span class="utag">Lands in the AI Literacy unit · curriculum Unit 2 · project content menu</span>
       <span class="l" data-g="10" data-l="7"><b>L7</b> · Who's Responsible? Accountability + Academic Integrity</span>
       <span class="l" data-g="10" data-l="8"><b>L8</b> · Deepfakes, Synthetic Media &amp; AI Authorship + Case Study Lab</span>
-      <span class="base todo">◇ Unit pre-assessment · curriculum Unit 2<i>, before Lesson 7 · not built yet, ships with the unit</i></span>
       <span class="note">Drawn on by the capstone as needed, not standalone lectures.</span>
     </div>
     <div class="c carry" data-grade="Grade 11">Not this year, by design: this junior cohort covers ethics and society next year in grade 12, deep, exactly as the reviewed continuation plans it.</div>
     <div class="c" data-grade="Grade 12">
       <span class="cnd">Condensed</span>
       <span class="l" data-g="12" data-l="5"><b>L5</b> · Who's Responsible? Accountability &amp; Academic Integrity</span>
+      <span class="base">◆ Lessons 1 to 5 post-assessment<i>, any time after Lesson 5</i></span>
       <span class="l" data-g="12" data-l="6"><b>L6</b> · Deepfakes, Synthetic Media &amp; AI Authorship</span>
     </div>
 
@@ -295,7 +301,7 @@ document.addEventListener("DOMContentLoaded", function(){
       <span class="l" data-g="10" data-l="12"><b>L12</b> · AI and the Future of Work</span>
       <span class="l" data-g="10" data-l="13"><b>L13</b> · No-Code AI Build + Choosing the Right Tool</span>
       <span class="l" data-g="10" data-l="14"><b>L14</b> · Designing Responsible AI + The Road Ahead (Course Synthesis)</span>
-      <span class="base todo">◇ Unit pre-assessments · curriculum Units 3, 4 and 5<i>, before Lessons 9, 11 and 13 · not built yet, each ships with its unit</i></span>
+      <span class="base">◆ Whole-course post-assessment<i>, a full period, after Lesson 14</i></span>
       <span class="note">Drawn on by the capstone as needed, not standalone lectures.</span>
     </div>
     <div class="c carry" data-grade="Grade 11">Covered next year in grade 12: industries and applied skills, deep.</div>
@@ -303,19 +309,23 @@ document.addEventListener("DOMContentLoaded", function(){
       <span class="cnd">Condensed</span>
       <span class="l" data-g="12" data-l="7"><b>L7</b> · AI Across Industries &amp; the Future of Work</span>
       <span class="l" data-g="12" data-l="8"><b>L8</b> · The Road Ahead: Emerging Trends &amp; Your Role</span>
+      <span class="base">◆ Whole-course post-assessment<i>, a full period, after Lesson 8</i></span>
     </div>
   </div>
 
   <div class="stroll" id="stroll"></div>
-  <div class="defnote" style="background:#E2F2EA;"><b>The assessment layer, and exactly what is in the shared folder today.</b> Three instruments, and two of them get called a pre-assessment, which is what makes them easy to confuse. Naming them apart is the difference between a clear record and a recurring question.
+  <div class="defnote" id="assessments" style="background:#E2F2EA;"><b>The assessments, in the order a class meets them.</b> Four moments, the same in every grade. Everything in this table is in the shared folder today.
     <table class="dtable" style="margin:9px 0 4px;">
-      <tr><th>Instrument</th><th>What it is for</th><th>When</th><th style="width:23%;">In the shared folder?</th></tr>
-      <tr><td><b>Exit ticket</b><br><span class="prov">inside every lesson</span></td><td>The end-of-lesson check, five items, scored. Its answer key and rubric sit in the same lesson folder.</td><td>The last minutes of each lesson</td><td><span class="st st-box" style="margin-right:6px;"></span><b>Yes, all 15</b><br><span class="note" style="font-style:normal;">one in every delivered lesson, with its key</span></td></tr>
-      <tr><td><b>Unit pre-assessment</b><br><span class="prov">at each package root</span></td><td>The teacher's diagnostic, 5 to 15 minutes, not graded. Its items mirror that unit's own exit-ticket banks, lesson by lesson, so growth is read against the lessons actually taught.</td><td>Once, before that curriculum unit's first lesson. The ◆ markers above show where each lands</td><td><span class="st st-box" style="margin-right:6px;"></span><b>Yes, 4 instruments</b><br><span class="note" style="font-style:normal;">grade 10 one &middot; grade 11 two &middot; grade 12 one, course-covering. Each has a teacher document</span></td></tr>
-      <tr><td><b>Course pre-assessment</b> and <b>course post-assessment</b><br><span class="prov">the program instrument</span></td><td><b>The instrument the AI literacy target is measured on.</b> A matched pair: growth is read through the confidence scale, term familiarity, and six matched items that appear on both forms.</td><td>A full class period at each end. Pre before Lesson 1, <b>before any course content</b>; post after the final lesson of that grade's sequence</td><td><span class="st st-plan" style="margin-right:6px;"></span><b style="color:#8A4600;">Not yet, in any grade</b><br><span class="note" style="font-style:normal;">it ships separately, together with its scoring guide, so no teacher ever holds a form they cannot score</span></td></tr>
+      <tr><th style="width:15%;">When</th><th>What</th><th style="width:24%;">What it tells you</th><th style="width:20%;">In the shared folder</th></tr>
+      <tr><td><b>Before Lesson 1</b></td><td><b>Two pre-assessments, neither graded.</b><br>The <b>Lessons 1 to 5 pre-assessment</b>, about 15 minutes, at the top of each grade folder.<br>The <b>whole-course pre-assessment</b>, a full class period, in the Assessments folder.</td><td>Where scholars start</td><td><span class="st st-box" style="margin-right:6px;"></span><b>Yes, since August</b></td></tr>
+      <tr><td><b>End of every lesson</b></td><td>An <b>exit ticket</b>, about five minutes, with its answer key, inside each lesson folder.</td><td>Whether today's idea landed</td><td><span class="st st-box" style="margin-right:6px;"></span><b>Yes, all 30</b></td></tr>
+      <tr><td><b>After Lesson 5</b></td><td>The <b>Lessons 1 to 5 post-assessment</b>: the 15-minute pre-assessment again, with its answer key. About half of it repeats the pre-assessment word for word; the rest asks the same idea with a new example. Not graded.</td><td>What the first five lessons changed, <b>without waiting for the end of the course</b></td><td><span class="st st-box" style="margin-right:6px;"></span><b>Yes, added November 17, 2026</b></td></tr>
+      <tr><td><b>After the last lesson</b></td><td>The <b>whole-course post-assessment</b>, a full class period. Lesson 14 in grade 10, Lesson 8 in grades 11 and 12. <b>The instrument the AI literacy target is measured on.</b></td><td>Whether scholars reached AI literacy by the end of the course</td><td><span class="st st-box" style="margin-right:6px;"></span><b>Yes, since August</b></td></tr>
     </table>
-    Neither PRE-assessment sits inside a lesson's 45 minutes, by design. <b>Grade 11 correctly holds two unit pre-assessments</b>, one before Lesson 1 and one before Lesson 5: its curriculum Unit 2 runs on into Lessons 6 to 8, so a single instrument given before Lesson 1 would have to ask about content taught much later. <b>That is the unit structure working as designed, not a duplicate.</b> Grade 12 uses one course-covering instrument instead, because its condensed pass crosses three curriculum units in five lessons.</div>
-  <div class="defnote" style="background:#FDEBD7; border-left-color:var(--orange);"><b>Two layers of "unit", and they are not the same thing.</b> <b>The partner's course has one unit for this work.</b> In grade 10 it is <b>AI Literacy</b>, a unit inside the MYP Year 5 Design Capstone, and <b>all fourteen lessons land inside it</b>. In the two TOK courses the lesson-plan format carries an anchor theme rather than a numbered unit. <b>The numbered units on this page and in the package folder codes are ours</b>, a grouping of lessons by subject matter, and they are what the ◆ pre-assessment markers refer to. So <b>curriculum Unit 2 is not a second unit of the partner's course</b>; it is the next group of our lessons, still inside the same AI unit. Where the lessons sit in the partner's calendar remains the partner's decision, campus by campus.</div>
+    <b>Why after Lesson 5?</b> Because that is what it covers. The 15-minute pre-assessment was written for the first five lessons of each grade, so its post-assessment asks about the same five. A class can take it <b>any time after Lesson 5</b>; later is fine. Every lesson after that is checked by its exit ticket and by the whole-course post-assessment.<br>
+    <b>Why not a pre and a post around every lesson?</b> The exit ticket is already each lesson's own check, and a pair around each one would take teaching time a 45-minute lesson does not have. An earlier version of this page planned grade 10 pre-assessments before Lessons 7, 9, 11 and 13; they are not part of the set.<br>
+    <b>The file names.</b> Lessons 1 to 5 pair: Unit-1-Pre-Assessment and Unit-1-Post-Assessment in grade 10; the same for Unit-1 and Unit-2 in grade 11, whose pre-assessment came in two parts, so its post-assessment has two sheets given in one sitting; Course-Pre-Assessment and Course-Post-Assessment in grade 12. Whole-course pair: AI_Fundamentals_Pre_Assessment and AI_Fundamentals_Post_Assessment. <b>A one-page map of all of this, ASSESSMENT-MAP_All-Three-Grades.pdf, sits at the top of the shared folder</b>; it calls the two pairs the short pair and the long pair.</div>
+  <div class="defnote" style="background:#FDEBD7; border-left-color:var(--orange);"><b>Two layers of "unit", and they are not the same thing.</b> <b>The partner's course has one unit for this work.</b> In grade 10 it is <b>AI Literacy</b>, a unit inside the MYP Year 5 Design Capstone, and <b>all fourteen lessons land inside it</b>. In the two TOK courses the lesson-plan format carries an anchor theme rather than a numbered unit. <b>The numbered units on this page and in the package folder codes are ours</b>, a grouping of lessons by subject matter, and they are what the file names of the Lessons 1 to 5 assessments refer to (Unit-1-Pre-Assessment, for example). So <b>curriculum Unit 2 is not a second unit of the partner's course</b>; it is the next group of our lessons, still inside the same AI unit. Where the lessons sit in the partner's calendar remains the partner's decision, campus by campus.</div>
   <div class="defnote"><b>Reading the grid, and who owns what.</b> The four phases are <b>our content arc, not the partner's unit structure</b>. Each course packages the arc its own way: grade 10 wraps phases 1 and 2 into curriculum Unit 1 (the taught Lessons 1 to 6, which launch the capstone) and then draws phases 3 and 4 into the capstone as a content menu; the TOK courses deliver the phases as lessons with one knowledge question, one best-fit Knowledge Framework part, and one TOK Concept each. <b>We supply finished lessons written in the partner's own lesson-plan format (each grade map's tab ②); where each lesson sits in the partner's units and calendar is the partner's decision, campus by campus.</b></div>
 
   <h2>Same concepts, never the same lesson · worked example</h2>
@@ -518,9 +528,9 @@ document.addEventListener("DOMContentLoaded", function(){
 
   <div class="processnote"><b>What this means for production: almost nothing changes course.</b> The same source lessons feed every grade, so content is still built once and adapted. Source lessons 1 to 5 now unblock the <b>first half of all three grades</b>, including grade 12, which under the current maps could not begin until the later source lessons existed. Everything already built and delivered stays valid: the grade 10 package as reviewed, and the grade 11 lessons built from the same source content, whose opening lesson is identical in every structure on this page.</div>
 
-  <div class="processnote"><b>Source-content pipeline (August).</b> Source lessons 1 to 5 are written, and all three grades have their Lessons 1 to 5 built from them. Grade 10's Lesson 6, which closes its Unit 1 and launches the capstone, is in production now. The later source lessons, which feed phases 3 and 4 in every grade, are not yet written. Grade 10 can start on its Unit 1 alone, because phases 3 and 4 serve its capstone as a content menu that can arrive progressively across the fall; the earliest hard deadline for the later content is grade 12's second half, needed by mid senior fall.</div>
+  <div class="processnote"><b>Production (November 17, 2026).</b> All 30 Year One lessons are in the shared folder: 14 for grade 10, 8 for grade 11 and 8 for grade 12, each with its exit ticket and answer key. The Lessons 1 to 5 pre and post and the whole-course pre and post are there as well.</div>
 
-  <div class="ex-note" style="margin-top:14px;"><b>Status of this page.</b> The program's approved Year One reference. <b>The sequence is approved and fixed;</b> the production status chips on tab &#9312; are refreshed as lessons complete, and they are the current record of what is available. The grade 12 map (v0.9) reflects this structure; the grade 10 and grade 11 maps are unchanged.</div>
+  <div class="ex-note" style="margin-top:14px;"><b>Status of this page.</b> The program's approved Year One reference. <b>The sequence is approved and fixed;</b> the production status chips on tab &#9312; are the record of what is available, and every lesson is now in the shared folder. The grade 12 map (v0.9) reflects this structure; the grade 10 and grade 11 maps are unchanged.</div>
 </div>
 
 <div class="gradenav">
@@ -544,8 +554,17 @@ document.addEventListener("DOMContentLoaded", function(){
 
 <!--
 VERSION HISTORY
+v1.7 (2026-11-17): STATUS AND ASSESSMENT REFRESH. NO CHANGE to the approved sequence: every
+lesson title, number, unit tag, phase and the approval badge are identical to v1.6.
+(a) Every lesson chip is green: all 30 lessons are in the shared folder. (b) The assessment
+section is now one timeline of four moments: two pre-assessments before Lesson 1, an exit
+ticket in every lesson, the Lessons 1 to 5 post-assessment after Lesson 5, and the whole-course
+post-assessment after the last lesson. The Lessons 1 to 5 post-assessments were added to the
+shared folder on this date. The grid shows the same four moments, in order, in every grade. (c) The grade 10 pre-assessments planned
+before Lessons 7, 9, 11 and 13 are withdrawn and the page says so. (d) Stale production prose
+on tab 4 corrected.
 v1.6 (2026-08-12): TWO CHANGES, a status layer and a terminology correction.
-WHOSE UNITS (correction, audit `_AUDIT-2026-08-12_whose-units-and-which-pre-assessment.md`):
+WHOSE UNITS (correction):
 three of the four grade-10 landing tags credited OUR unit numbers to the partner ("their Unit 2",
 "their Units 3 to 5"). The partner's course has ONE unit for this work, AI Literacy inside the MYP
 Year 5 Design Capstone, and all fourteen lessons land inside it; the numbered units are OURS. All
