@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Learning Pathways for Staff · a proposal</title>
+<style>
+  :root{ --green:#154734; --orange:#E87500; --mint:#5FE0B7; --ink:#202020; --soft:#5C5C56; --pale:#F2F7F4; --grey:#E5E5E0; }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Barlow","Avenir Next","Helvetica Neue",Arial,sans-serif; color:var(--ink); background:#fff; padding:28px 36px 60px;}
+  header{border-bottom:4px solid var(--green); padding-bottom:14px; margin-bottom:8px;}
+  .eyebrow{color:var(--orange); font-weight:700; letter-spacing:.12em; font-size:12px; text-transform:uppercase;}
+  h1{color:var(--green); font-size:28px; margin-top:4px;}
+  .meta{display:flex; gap:10px; align-items:center; margin-top:8px; flex-wrap:wrap;}
+  .pill{background:var(--mint); color:var(--green); font-weight:700; font-size:11.5px; padding:4px 12px; border-radius:99px;}
+  .pill.grade{background:var(--green); color:#fff;}
+  .pill.draft{background:#FDEBD7; color:#A85400;}
+  .meta span.src{color:var(--soft); font-size:12px;}
+  .hint{color:var(--soft); font-size:14px; margin:10px 0 18px;}
+  .tabs{display:flex; gap:8px; margin:18px 0 22px; flex-wrap:wrap;}
+  .tab{font-family:inherit; font-size:13.5px; font-weight:700; padding:9px 16px; border-radius:8px 8px 0 0; border:2px solid var(--grey); border-bottom:none; background:var(--pale); color:var(--soft); cursor:pointer;}
+  .tab.on{background:var(--green); color:#fff; border-color:var(--green);}
+  .tabpane{display:none;} .tabpane.on{display:block;}
+  h2{font-size:16px; letter-spacing:.06em; text-transform:uppercase; margin-bottom:10px; color:var(--green);}
+  h3.sub{font-size:14.5px; color:var(--green); margin:24px 0 8px; text-transform:uppercase; letter-spacing:.05em;}
+  p.lead{font-size:14.5px; line-height:1.55; margin:0 0 14px; max-width:980px;}
+  .ex-note{background:#FDEBD7; border-left:5px solid var(--orange); border-radius:6px; padding:11px 15px; font-size:14px; margin-bottom:18px; line-height:1.5;}
+  .ex-note b{color:var(--green);}
+  .defnote{background:#E2F2EA; border-left:5px solid var(--green); border-radius:6px; padding:11px 15px; font-size:14px; margin-bottom:16px; line-height:1.5;}
+  .defnote b{color:var(--green);}
+  .defnote.plain{background:#fff; border-left-color:var(--grey);}
+  /* stat tiles */
+  .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin:4px 0 18px;}
+  .stat{background:var(--pale); border-radius:10px; border-top:6px solid var(--green); padding:12px 14px;}
+  .stat b{display:block; font-size:24px; color:var(--green); line-height:1.1;}
+  .stat span{display:block; font-size:12.5px; color:var(--soft); margin-top:4px; line-height:1.4;}
+  /* where staff land: one stacked bar */
+  .share{display:flex; height:30px; border-radius:8px; overflow:hidden; margin:6px 0 8px; border:2px solid var(--green);}
+  .share div{display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden;}
+  .share .s-t{background:var(--green);} .share .s-c{background:#2F7A5C;} .share .s-e{background:var(--orange);} .share .s-a{background:#8C8C84;}
+  .legend{display:flex; gap:18px; font-size:12.5px; color:var(--soft); margin-bottom:16px; flex-wrap:wrap;}
+  .sw{display:inline-block; width:12px; height:12px; border-radius:3px; vertical-align:-1px; margin-right:5px;}
+  /* the pathway grid, the same grid the Year One page uses */
+  .sgrid{display:grid; grid-template-columns:.8fr 1fr 1fr 1fr; border:2px solid var(--green); border-radius:10px; overflow:hidden; margin:8px 0 16px; background:#fff;}
+  .sgrid .h{background:var(--green); color:#fff; padding:9px 12px; font-size:12.5px; font-weight:700; text-transform:uppercase; letter-spacing:.04em;}
+  .sgrid .h small{display:block; font-weight:400; color:var(--mint); font-size:10.5px; text-transform:none; letter-spacing:0; margin-top:2px;}
+  .sgrid .ph{background:var(--pale); border-top:1.5px solid var(--grey); padding:10px 12px; font-size:13px; font-weight:700; color:var(--green);}
+  .sgrid .ph small{display:block; font-weight:400; color:var(--soft); font-size:11px; margin-top:3px; line-height:1.4;}
+  .sgrid .c{border-top:1.5px solid var(--grey); border-left:1.5px solid var(--grey); padding:8px 10px; font-size:12.5px; line-height:1.5;}
+  .sgrid .c .l{display:block; padding:1px 0 1px 19px; position:relative;}
+  .sgrid .c .l b{color:var(--green);}
+  .sgrid .c .l .st{position:absolute; left:0; top:5px;}
+  .sgrid .c.carry{background:#E2F2EA; color:var(--soft); font-size:12.5px; line-height:1.45; grid-column:span 3;}
+  .sgrid .c .lv{display:block; color:var(--orange); font-weight:700; font-size:10px; text-transform:uppercase; letter-spacing:.05em; margin-bottom:3px;}
+  .sgrid .c .who{display:block; padding:1px 0;}
+  .sgrid .c .who i{font-style:normal; color:var(--soft);}
+  .st{display:inline-block; width:11px; height:11px; border-radius:3px; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  .st-box{background:#1E8E4F;}
+  .st-plan{background:#fff; box-shadow:inset 0 0 0 2px #B4B4AC;}
+  .st-seed{background:#fff; box-shadow:inset 0 0 0 3px #1E8E4F;}
+  .sgrid .c.core{grid-column:span 3; display:grid; grid-template-columns:repeat(3,1fr); gap:1px 18px; align-content:start;}
+  .sgrid .c.core .lv{grid-column:1/-1; text-transform:none; letter-spacing:0; font-size:11.5px;}
+  .corecard{border:2px solid var(--green); border-radius:10px; margin:8px 0 18px; overflow:hidden;}
+  .corecard .hd{background:var(--green); color:#fff; padding:11px 16px 12px;}
+  .corecard .hd .kind{font-size:11px; font-weight:700; color:var(--mint); text-transform:uppercase; letter-spacing:.06em;}
+  .corecard .hd .kind .st{vertical-align:-1px;}
+  .corecard .hd h3{font-size:18px; margin-top:3px;}
+  .corecard .hd p{font-size:13.5px; margin-top:5px; line-height:1.45; color:#E2F2EA;}
+  .corecard .bd{padding:10px 16px 12px;}
+  .corecard .bd p{font-size:13.5px; line-height:1.5; margin:7px 0;}
+  .corecard .lbl{font-weight:700; color:var(--green);}
+  .lessons{width:100%; border-collapse:collapse; font-size:13.5px; margin:2px 0 8px; min-width:560px;}
+  .lessons th{text-align:left; font-size:11.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--soft); padding:5px 12px 5px 0; border-bottom:2px solid var(--grey);}
+  .lessons td{vertical-align:top; padding:8px 12px 8px 0; border-bottom:1.5px solid var(--grey); line-height:1.5;}
+  .lessons td b{color:var(--green);}
+  .roles{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:6px 0 8px;}
+  .roles div{background:var(--pale); border-radius:8px; padding:9px 12px; font-size:13px; line-height:1.45;}
+  .roles div b{display:block; color:#A85400; font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; margin-bottom:3px;}
+  .stlegend{display:flex; gap:16px; align-items:center; font-size:12px; color:var(--soft); flex-wrap:wrap; background:var(--pale); border-radius:8px; padding:9px 13px; margin:2px 0 12px;}
+  .stlegend b{color:var(--green); text-transform:uppercase; letter-spacing:.06em; font-size:10.5px;}
+  .stlegend .st{margin-right:5px; vertical-align:-1px;}
+  .dia{color:var(--orange); font-weight:700;}
+  @media(max-width:820px){
+    .sgrid{grid-template-columns:1fr;} .sgrid .c{border-left:none;} .sgrid .c.carry{grid-column:auto;}
+    .sgrid .c.core{grid-column:auto; grid-template-columns:1fr;} .roles{grid-template-columns:1fr;}
+    .sgrid .h.pathhead{display:none;}
+    .sgrid .c[data-path]::before{content:attr(data-path); display:block; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--orange); margin-bottom:5px;}
+  }
+  /* cards */
+  .lmsgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; margin:6px 0 18px;}
+  .lmscard{background:var(--pale); border-radius:10px; border-top:6px solid var(--orange); padding:15px 17px;}
+  .lmscard.primary{border-top-color:var(--green);}
+  .lmscard h3{font-size:16px; color:var(--green); margin-bottom:2px; line-height:1.3;}
+  .lmscard .kind{font-size:11.5px; font-weight:700; color:var(--soft); text-transform:uppercase; letter-spacing:.06em; margin-bottom:9px;}
+  .lmscard p{font-size:13.5px; margin-bottom:7px; line-height:1.5;}
+  .lmscard .lbl{font-weight:700; color:var(--green);}
+  .lmscard .tag{display:inline-block; font-size:10.5px; font-weight:700; padding:2px 9px; border-radius:99px; margin:0 6px 8px 0; text-transform:uppercase; letter-spacing:.04em;}
+  .tag.built{background:#1E8E4F; color:#fff;} .tag.plan{background:#fff; color:var(--soft); box-shadow:inset 0 0 0 2px #C7C7C0;}
+  .tag.shared{background:#FDEBD7; color:#A85400;}
+  .story{background:var(--pale); border-radius:10px; border-top:6px solid var(--green); padding:14px 17px; margin-bottom:14px;}
+  .story h3{font-size:14.5px; color:var(--green); margin-bottom:6px;}
+  .story .step{display:inline-block; background:var(--orange); color:#fff; font-size:10.5px; font-weight:700; padding:2px 9px; border-radius:99px; margin-bottom:8px; text-transform:uppercase; letter-spacing:.04em;}
+  .story p{font-size:13.8px; line-height:1.55; margin-bottom:7px;}
+  .story b{color:var(--green);}
+  .tblwrap{overflow-x:auto; margin:6px 0 16px;}
+  .dtable{width:100%; border-collapse:collapse; font-size:13.5px; min-width:640px;}
+  .dtable th{background:var(--green); color:#fff; text-align:left; padding:8px 11px; font-size:12.5px; text-transform:uppercase; letter-spacing:.04em;}
+  .dtable td{border-bottom:1.5px solid var(--grey); padding:8px 11px; vertical-align:top; line-height:1.5;}
+  .dtable td b{color:var(--green);}
+  .dtable td small{color:var(--soft); font-size:12px;}
+  .dtable tr.grp td{background:var(--pale); font-weight:700; color:var(--green); font-size:13px; border-bottom:2px solid var(--green);}
+  .dtable .num{white-space:nowrap; font-weight:700; color:var(--green);}
+  .pathhd{border-left:6px solid var(--green); padding:4px 0 4px 14px; margin:26px 0 12px;}
+  .pathhd h3{font-size:20px; color:var(--green);}
+  .pathhd p{font-size:13.8px; line-height:1.5; margin-top:4px; max-width:980px;}
+  .pathhd p b{color:var(--green);}
+  .lvl{font-size:13.5px; font-weight:700; color:#fff; background:var(--green); display:inline-block; padding:4px 12px; border-radius:6px; margin:14px 0 6px;}
+  .lvlcan{font-size:13.5px; line-height:1.5; color:var(--soft); margin-bottom:8px; max-width:980px;}
+  ul.keep, ul.chg{list-style:none; margin:4px 0 8px;}
+  ul.keep li, ul.chg li{font-size:13.5px; padding:3px 0 3px 18px; position:relative; line-height:1.5;}
+  ul.keep li::before{content:"\2713"; color:#1E8E4F; font-weight:700; position:absolute; left:0;}
+  ul.chg li::before{content:"\25B8"; color:var(--orange); font-weight:700; position:absolute; left:0;}
+  ul.part{list-style:none; margin:4px 0 8px;}
+  ul.part li{font-size:13.5px; padding:3px 0 3px 18px; position:relative; line-height:1.5;}
+  ul.part li::before{content:"\25D0"; color:var(--orange); font-weight:700; position:absolute; left:0;}
+  ul.keep li small, ul.chg li small, ul.part li small{color:var(--soft);}
+  .cov{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:14px; margin:6px 0 10px;}
+  .covcard{border:2px solid var(--grey); border-radius:10px; padding:11px 14px;}
+  .covcard h4{font-size:13.5px; color:var(--green); margin-bottom:4px;}
+  .covcard h4 span{font-weight:400; color:var(--soft); font-size:12px;}
+  ol.decisions{margin:4px 0 14px 20px; font-size:14px; line-height:1.6; max-width:980px;}
+  ol.decisions li{margin-bottom:9px;} ol.decisions b{color:var(--green);}
+  /* the student arc */
+  .arc{display:grid; grid-template-columns:90px 1fr; gap:6px 10px; align-items:center; margin:8px 0 6px;}
+  .arc .g{font-size:12.5px; font-weight:700; color:var(--green);}
+  .arc .row{display:flex; gap:5px; flex-wrap:wrap;}
+  .chip{font-size:11.5px; font-weight:700; padding:4px 9px; border-radius:6px; background:var(--green); color:#fff;}
+  .chip.off{background:#fff; color:var(--soft); box-shadow:inset 0 0 0 2px #C7C7C0;}
+  /* how one module runs */
+  .flow{display:grid; grid-template-columns:repeat(5,1fr); gap:0; border:2px solid var(--green); border-radius:10px; overflow:hidden; margin:8px 0 16px;}
+  .flow div{padding:11px 12px; border-left:1.5px solid var(--grey); font-size:12.8px; line-height:1.45;}
+  .flow div:first-child{border-left:none;}
+  .flow b{display:block; color:var(--green); font-size:13.5px;}
+  .flow i{display:block; font-style:normal; color:var(--orange); font-weight:700; font-size:11px; text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px;}
+  @media(max-width:820px){ .flow{grid-template-columns:1fr;} .flow div{border-left:none; border-top:1.5px solid var(--grey);} .flow div:first-child{border-top:none;} }
+  .gradenav{margin-top:34px; border-top:2px solid var(--grey); padding-top:14px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+  .gradenav span{font-size:10.5px; color:var(--soft); font-weight:700; text-transform:uppercase; letter-spacing:.06em;}
+  .gradenav a{font-size:11.5px; font-weight:700; text-decoration:none; color:var(--green); background:var(--pale); border:2px solid var(--grey); padding:5px 11px; border-radius:7px;}
+  .gradenav a.here{background:var(--green); color:#fff; border-color:var(--green);}
+  /* on a phone the two narrow segments cannot hold their labels; the legend under the bar carries the numbers */
+  @media(max-width:820px){ .share .s-e, .share .s-a{font-size:0;} }
+  @media(max-width:600px){ body{padding:18px 16px 44px;} h1{font-size:23px;} }
+  @media print{ .tab{display:none;} .tabpane{display:block !important; page-break-before:always;} .lmscard,.story,.sgrid,.covcard,.corecard{page-break-inside:avoid;} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Future Ready AI · a university + partner high schools collaborative</div>
+  <h1>AI Learning Pathways for Staff</h1>
+  <div class="meta">
+    <span class="pill grade">STAFF PROFESSIONAL LEARNING · one shared core, then three pathways</span>
+    <span class="pill draft">PROPOSAL · for discussion, nothing here is decided</span>
+    <span class="pill">v0.3 · November 18, 2026</span>
+    <span class="src">Built from the partner&rsquo;s own analysis of staff roles and our first outline of the pathways</span>
+  </div>
+  <div class="hint">What we propose to teach staff about AI after the foundations course they already take: a shared core for every role, then practice in each role&rsquo;s own work and tool. Who it is for, why it is shaped this way, every module and its lessons, and what we would like to decide together.</div>
+</header>
+
+<div class="ex-note"><b>The idea in one paragraph.</b> Staff already start with the partner&rsquo;s foundations course on AI literacy and ethics. This page proposes what comes after it. First, <b>one shared core of 7 short modules that every role takes</b>: how to ask well, how to check a draft, what information may go in, and how to judge and respond. No tool is named in the core. Then <b>three pathways, one for each kind of work</b>, where staff practice their own tasks in their own tool, and a few go on to lead. Every module teaches one skill, has the learner practice it on their own work, and ends with a task from their real job. <b>The first core module is built as a working sample, for all three roles. Everything else on this page is a plan.</b></div>
+
+<div class="defnote"><b>What we would like from our next conversation.</b> Three answers: <b>(1)</b> whether this shape, a shared core and then three pathways by kind of work, matches how you see your staff, and what you would move; <b>(2)</b> whether &ldquo;Foundations&rdquo; in the role analysis is this common level; <b>(3)</b> whether the first three core modules are the right place to start. Tab &#9319; has these and the questions that can wait. Tab &#9313; is the reasoning, and tab &#9314; is the core, lesson by lesson.</div>
+
+<div class="tabs">
+  <button class="tab on" data-pane="p1">&#9312; At a Glance</button>
+  <button class="tab" data-pane="p2">&#9313; Why This Shape</button>
+  <button class="tab" data-pane="p3">&#9314; The Core</button>
+  <button class="tab" data-pane="p4">&#9315; Pathway by Pathway</button>
+  <button class="tab" data-pane="p5">&#9316; Tools and Data</button>
+  <button class="tab" data-pane="p6">&#9317; The Student Course</button>
+  <button class="tab" data-pane="p7">&#9318; Inside a Module</button>
+  <button class="tab" data-pane="p8">&#9319; To Decide Together</button>
+</div>
+
+<div class="tabpane on" id="p1">
+  <h2>&#9312; At a Glance · one start, one shared core, three pathways</h2>
+  <div class="stats">
+    <div class="stat"><b>14</b><span>role groups in the partner&rsquo;s role analysis, which together cover every staff role</span></div>
+    <div class="stat"><b>7</b><span>core modules that every role takes, with no tool named. The first 3 are what we propose to build first</span></div>
+    <div class="stat"><b>3 + 1</b><span>three pathways for role practice, plus one short awareness step for staff who need only the basics</span></div>
+    <div class="stat"><b>24</b><span>modules in all; 9 are shared, written once and used by more than one pathway</span></div>
+    <div class="stat"><b>1</b><span>core module built so far, as a working sample for all three roles (Core 1). Checked by an automated run on our side; no learner has used it yet</span></div>
+    <div class="stat"><b>45 min</b><span>about, per module: about 40 minutes online, then a short task in real work that week. The core is about 5&frac14; hours</span></div>
+  </div>
+  <h3 class="sub" style="margin-top:6px;">Where staff land after the core</h3>
+  <div class="share" role="img" aria-label="Share of staff in each pathway"><div class="s-t" style="width:54.5%">Teachers 54.5%</div><div class="s-c" style="width:29.4%">Campus 29.4%</div><div class="s-e" style="width:6.000000000000001%" title="Central office and executive leaders 6.0%">6.0%</div><div class="s-a" style="width:10.1%" title="Awareness step 10.1%">10.1%</div></div>
+  <div class="legend"><span><span class="sw" style="background:var(--green)"></span><b>Teachers</b> 54.5% of staff</span><span><span class="sw" style="background:#2F7A5C"></span><b>Campus leaders and staff</b> 29.4%</span><span><span class="sw" style="background:var(--orange)"></span><b>Central office and executive leaders</b> 6.0%</span><span><span class="sw" style="background:#8C8C84"></span><b>Awareness step only</b> 10.1%</span></div>
+  <div class="stlegend"><b>Build status</b><span><span class="st st-box"></span>Built as a working sample, for all three roles</span><span><span class="st st-seed"></span>One lesson exists for teachers, inside an earlier sample</span><span><span class="st st-plan"></span>Planned, not built</span><span><span class="dia">&#9670;</span> Shared: written once, with a role picker</span></div>
+  <div class="sgrid">
+    <div class="h">Step<small>the same order for every role</small></div>
+    <div class="h pathhead">Teachers<small>54.5% of staff · after the core: 7 modules and the pathway challenge, about 6&frac14; hours</small></div>
+    <div class="h pathhead">Campus leaders and staff<small>29.4% of staff · after the core: 6 modules and the pathway challenge, about 5&frac12; hours</small></div>
+    <div class="h pathhead">Central office and executive leaders<small>6.0% of staff · after the core: 7 modules and the pathway challenge, about 6&frac14; hours</small></div>
+    <div class="ph">Who it is for<small>role groups from the partner&rsquo;s analysis, with their share of all staff</small></div>
+    <div class="c" data-path="Teachers"><span class="who"><b>Classroom teachers, general education</b> <i>39.9%</i></span><span class="who"><b>Instructional support and curriculum</b> <i>14.6%</i></span></div>
+    <div class="c" data-path="Campus leaders and staff"><span class="who"><b>Campus leadership</b> <i>5.1%</i></span><span class="who"><b>Special education and related services</b> <i>13.2%</i></span><span class="who"><b>Student support and well-being</b> <i>5.1%</i></span><span class="who"><b>College and career advising</b> <i>1.7%</i></span><span class="who"><b>Operations and front office</b> <i>4.3%</i></span></div>
+    <div class="c" data-path="Central office and executive leaders"><span class="who"><b>Executive leadership</b> <i>0.4%</i></span><span class="who"><b>Finance, legal and business</b> <i>1.2%</i></span><span class="who"><b>Talent and human resources</b> <i>1.3%</i></span><span class="who"><b>Technology and data</b> <i>1.4%</i></span><span class="who"><b>Enrollment, marketing and external affairs</b> <i>1.7%</i></span></div>
+    <div class="ph">Start<small>before anything on this page</small></div>
+    <div class="c carry"><b style="color:var(--green)">The foundations course on AI literacy and ethics.</b> Already in place at the partner, about 25 minutes. It introduces what AI is, responsible use and a prompt method. Everything here begins after it and builds on it.</div>
+    <div class="ph">The core, part 1<small>everyday skills · every role · no tool named · about 2&frac14; hours</small></div>
+    <div class="c core"><span class="lv">Everyday skills · Three modules for every role, in this order: what you ask, what goes in, what comes out. We propose to build these first.</span><span class="l"><span class="st st-box" title="Built as a working sample, for all three roles"></span><b>1</b> · Ask Well: From a Vague Request to a Useful Draft <span class="dia" title="Shared module">&#9670;</span></span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>2</b> · Keep It Safe: What Goes In, and Where <span class="dia" title="Shared module">&#9670;</span></span><span class="l"><span class="st st-seed" title="One lesson exists for teachers, inside an earlier sample"></span><b>3</b> · Check It Before You Use It <span class="dia" title="Shared module">&#9670;</span></span></div>
+    <div class="ph">The core, part 2<small>judgment · every role · no tool named · about 3 hours</small></div>
+    <div class="c core"><span class="lv">Judgment · Four modules offered to every role, alongside role practice. Which of them each group must take is a question for the partner.</span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>4</b> · When AI Goes Wrong: Fix It, Report It, Learn From It <span class="dia" title="Shared module">&#9670;</span></span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>5</b> · Real or Made? Verify Before You Act <span class="dia" title="Shared module">&#9670;</span></span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>6</b> · Fair by Design: Bias in What AI Drafts <span class="dia" title="Shared module">&#9670;</span></span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>7</b> · Agents and Helpers: What to Hand Off, What to Keep <span class="dia" title="Shared module">&#9670;</span></span></div>
+    <div class="ph">Practice in your role<small>your own tasks, in your own tool</small></div>
+    <div class="c" data-path="Teachers"><span class="lv">Plan, adapt and give feedback</span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>1</b> · Make It Fit: Scaffolds, Leveled Texts and Language Support</span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>2</b> · Messages That Sound Like You</span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>3</b> · Feedback That Stays Yours</span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>4</b> · AI and Academic Integrity in Your Classroom</span></div>
+    <div class="c" data-path="Campus leaders and staff"><span class="lv">Communicate, and decide with care</span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>1</b> · Campus Communications With AI</span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>2</b> · Meetings, Notes and Summaries</span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>3</b> · AI Assists, a Person Decides</span><span class="l" style="color:var(--soft);"><span class="st st-plan"></span>Two add-ons proposed: compliance; sensitive data</span></div>
+    <div class="c" data-path="Central office and executive leaders"><span class="lv">Everyday work, with care</span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>1</b> · Drafts, FAQs and Summaries From What You Can Share</span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>2</b> · Data With Care: Spreadsheets, Reports and Charts</span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>3</b> · Managing People With AI: What May Assist, What May Not Decide</span></div>
+    <div class="ph">Lead<small>build a helper, lead others, govern</small></div>
+    <div class="c" data-path="Teachers"><span class="lv">Build and lead</span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>5</b> · Teach It Once: A Helper for the Task You Repeat Most <span class="dia" title="Shared module">&#9670;</span></span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>6</b> · Teaching With AI in Your Subject</span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>7</b> · Lead AI Learning on Your Team <span class="dia" title="Shared module">&#9670;</span></span></div>
+    <div class="c" data-path="Campus leaders and staff"><span class="lv">Lead AI on your campus</span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>4</b> · Teach It Once: A Helper for the Task You Repeat Most <span class="dia" title="Shared module">&#9670;</span></span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>5</b> · From Data to Decisions: Summaries a Person Checks</span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>6</b> · Lead AI Learning on Your Team <span class="dia" title="Shared module">&#9670;</span></span></div>
+    <div class="c" data-path="Central office and executive leaders"><span class="lv">Executive leadership</span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>4</b> · Teach It Once: A Helper for the Task You Repeat Most <span class="dia" title="Shared module">&#9670;</span></span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>5</b> · Strategy: Where AI Earns Its Place</span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>6</b> · Choosing and Buying AI: Vendors, Data and Risk</span><span class="l"><span class="st st-plan" title="Planned, not built"></span><b>7</b> · Governing AI: Oversight, Policy and Accountability</span></div>
+    <div class="ph">Pathway challenge<small>about 60 minutes, reviewed against a short rubric</small></div>
+    <div class="c" data-path="Teachers"><b style="color:var(--green)">One Lesson, Improved With AI</b><br>A real lesson improved with AI, with the disclosure line, the five-point check you ran and a short reflection, reviewed by a campus AI lead or coach against a short rubric.</div>
+    <div class="c" data-path="Campus leaders and staff"><b style="color:var(--green)">One Campus Routine, Improved With AI</b><br>A real campus routine improved with AI, with the check the team keeps, reviewed against a short rubric.</div>
+    <div class="c" data-path="Central office and executive leaders"><b style="color:var(--green)">One Process, Improved With AI</b><br>A real process improved with AI, with the check the team keeps and its value measured, reviewed against a short rubric.</div>
+  </div>
+  <div class="defnote"><b>The awareness step, for 10.1% of staff.</b> The role analysis sets a different goal for two groups. For <b>facilities, nutrition and transportation</b> (8.6%): acceptable-use basics in about 30 minutes, on a phone, bilingual, as a short huddle or a video. For <b>contractors and interns</b> (1.5%): a self-paced module on acceptable use. This is not a pathway and it is <b>not designed yet</b>. Tab &#9319; asks whether the foundations course is meant to reach these groups.</div>
+  <div class="defnote plain"><b>How to read this page.</b> Tab &#9313; is the reasoning: the role groups, their everyday tasks and the level each one should reach. Tab &#9314; is the core, module by module and lesson by lesson. Tab &#9315; opens each pathway. Tab &#9316; shows where tools come in. Tab &#9317; shows where staff and scholars learn the same ideas. Tab &#9318; shows how one module runs, using the sample. Tab &#9319; is the list for our next conversation.</div>
+  <div class="defnote plain"><b>Five terms this page uses.</b> <b>Role picker:</b> a short question at the start of a module that asks the learner&rsquo;s role, then shows that role&rsquo;s examples and practice task. <b>Tool card:</b> the one page of a module that is specific to a tool; everything else is tool-neutral. <b>Helper:</b> a saved set of instructions and files in the learner&rsquo;s AI tool that drafts a task they repeat. <b>Five-point check:</b> five questions to ask of any AI draft before using it: does it fit the purpose, are the facts right, do the sources exist, is it fair, is the language right. <b>Pathway challenge:</b> the piece of real work, improved with AI, that closes a pathway.</div>
+</div>
+
+<div class="tabpane" id="p2">
+  <h2>&#9313; Why This Shape · what the role analysis told us</h2>
+  <div class="defnote"><b>What the partner&rsquo;s role analysis gives us, and what it leaves open.</b> It sorts every staff role into <b>14 role groups</b> by daily work and by how sensitive their information is. For each group it names the everyday tasks AI could help with (65 in all), a primary tool, how far the training should go, the data rule, and how the group prefers to learn. <b>It does not name the courses:</b> no module, outline or sequence. That part is what this page proposes.</div>
+  <div class="lmsgrid">
+    <div class="story"><span class="step">Reason 1</span><h3>The same skills come first, whatever the job</h3><p>A teacher, a registrar and a finance analyst use different tools on different tasks, but all three need to <b>ask well, check a draft, and know what information may go in</b>. Taught once, as a shared core, those skills reach every role, and they do not depend on any one tool.</p></div>
+    <div class="story"><span class="step">Reason 2</span><h3>Practical from the first module</h3><p>The core is not a theory course. The foundations course already gives the ideas. Each core module is <b>one skill, practiced on the learner&rsquo;s own task</b>, with examples for their role. Tab &#9314; shows every lesson and what the learner does in it.</p></div>
+    <div class="story"><span class="step">Reason 3</span><h3>Then the work decides the examples</h3><p>The everyday tasks in the role analysis cluster by where the work happens: <b>a classroom</b> (lesson materials, feedback, family messages), <b>a campus</b> (communication, records, decisions about scholars) and <b>a central office</b> (reports, hiring, budgets, strategy). So role practice splits into three pathways.</p></div>
+    <div class="story"><span class="step">Reason 4</span><h3>It builds on what the partner already has</h3><p>The foundations course asks each learner about their kind of work: <b>teacher</b>, <b>campus staff</b> or <b>central office</b>. The core and the pathways use that same choice, so staff meet one system. The partner&rsquo;s AI guidebook also calls for role-specific guidance in its yearly staff training.</p></div>
+    <div class="story"><span class="step">Reason 5</span><h3>Not everyone goes the whole way</h3><p>The role analysis sets a different finish line for each group, and most groups stop before the top. A shared core means <b>the first modules we build serve every role</b>, not one pathway at a time. How much of the core each group must take is the partner&rsquo;s call.</p></div>
+  </div>
+  <h3 class="sub">The 14 role groups, sorted into the pathways</h3>
+  <p class="lead">The tasks, the level and the format are the role analysis&rsquo;s own wording, lightly shortened. The sorting into pathways is our proposal. Every group on a pathway takes the core first.</p>
+  <div class="tblwrap"><table class="dtable">
+    <tr><th style="width:21%">Role group</th><th style="width:8%">Share of staff</th><th>What they would use AI for</th><th style="width:17%">How far the training goes</th><th style="width:17%">How they prefer to learn</th></tr>
+    <tr class="grp"><td colspan="5">Teachers · 54.5% of staff</td></tr>
+    <tr><td><b>Classroom teachers, general education</b><br><small>Pre-K, primary and secondary teachers</small></td><td class="num">39.9%</td><td>Lesson plans and differentiated materials; rubric feedback on student work; quizzes and exit tickets; reading-level adjustment; parent emails</td><td>Foundations to Practitioner</td><td>PLC sessions by grade band (Pre-K / Primary / Secondary)</td></tr>
+    <tr><td><b>Instructional support and curriculum</b><br><small>Intervention specialists, aides, tutors, residents, instructional coaches, curriculum specialists, multilingual and testing coordinators</small></td><td class="num">14.6%</td><td>Intervention materials; translated and scaffolded texts; unit and assessment development; coaching feedback; standards-aligned practice items</td><td>Foundations (aides/tutors) to Advanced (curriculum)</td><td>Role-based breakouts (aides vs. curriculum team)</td></tr>
+    <tr class="grp"><td colspan="5">Campus leaders and staff · 29.4% of staff</td></tr>
+    <tr><td><b>Campus leadership</b><br><small>Campus directors and deans</small></td><td class="num">5.1%</td><td>Observation feedback write-ups; data-meeting prep; family letters and newsletters; PD agenda design; discipline documentation summaries</td><td>Practitioner to Champion</td><td>Leadership cohort workshop</td></tr>
+    <tr><td><b>Special education and related services</b><br><small>Special education teachers and aides, diagnosticians, school psychologists, speech and occupational therapists, coordinators</small></td><td class="num">13.2%</td><td>IEP goal and present-levels drafts; progress-monitoring summaries; accommodated/modified materials; evaluation report drafts; parent-friendly explanations</td><td>Practitioner + Compliance module</td><td>Special education workshop</td></tr>
+    <tr><td><b>Student support and well-being</b><br><small>Counselors, nurses and health services, the well-being team</small></td><td class="num">5.1%</td><td>SEL lesson and group-session plans; resource/referral lists; family outreach drafts; health communication templates</td><td>Foundations + Sensitive Data module</td><td>Small-group workshop</td></tr>
+    <tr><td><b>College and career advising</b><br><small>College and career counselors and their program leads</small></td><td class="num">1.7%</td><td>College essay coaching; scholarship and program research; FAFSA guides; career pathway materials; employer outreach</td><td>Practitioner</td><td>Team workshop</td></tr>
+    <tr><td><b>Operations and front office</b><br><small>Campus operations directors, office managers, receptionists, attendance and reporting specialists, registrars</small></td><td class="num">4.3%</td><td>Family communications and translation; schedules and calendars; spreadsheet attendance reports; SOPs and checklists; email triage</td><td>Foundations</td><td>Hands-on lab</td></tr>
+    <tr class="grp"><td colspan="5">Central office and executive leaders · 6.0% of staff</td></tr>
+    <tr><td><b>Executive leadership</b><br><small>Chiefs and senior directors</small></td><td class="num">0.4%</td><td>Board memos and decks; strategic plan drafts; policy analysis; meeting synthesis; donor and grant narratives</td><td>Advanced (Leadership)</td><td>Executive briefing + 1:1 coaching</td></tr>
+    <tr><td><b>Finance, legal and business</b><br><small>Accountants, auditors, payroll, finance analysts, legal and administration</small></td><td class="num">1.2%</td><td>Spreadsheet variance analysis and formulas; budget narratives; reconciliation support; policy/contract summaries; audit prep</td><td>Practitioner</td><td>Hands-on spreadsheet lab</td></tr>
+    <tr><td><b>Talent and human resources</b><br><small>Human resources, recruiters and the talent teams</small></td><td class="num">1.3%</td><td>Job posts and interview guides; onboarding plans; policy questions and answers drafts; recruitment campaigns; survey summaries</td><td>Practitioner</td><td>Team workshop</td></tr>
+    <tr><td><b>Technology and data</b><br><small>Technology staff, data analysts, the state reporting team</small></td><td class="num">1.4%</td><td>Scripts and automation; data analysis and dashboards; help-desk knowledge-base articles; state reporting data validation; AI governance and tool setup</td><td>Advanced / Champion (trainers and admins)</td><td>Advanced lab + train-the-trainer</td></tr>
+    <tr><td><b>Enrollment, marketing and external affairs</b><br><small>Enrollment coordinators, marketing, external affairs, family experience, development</small></td><td class="num">1.7%</td><td>Campaigns and social content; grant proposals and reports; donor communications; bilingual enrollment outreach; event plans</td><td>Practitioner</td><td>Team workshop</td></tr>
+    <tr class="grp"><td colspan="5">Awareness step only · 10.1% of staff</td></tr>
+    <tr><td><b>Facilities, nutrition and transportation</b><br><small>Custodians, cafeteria and kitchen staff, drivers, facilities staff</small></td><td class="num">8.6%</td><td>Translate notices; safety checklists; work-order descriptions; menu and inventory lists; simple emails</td><td>Awareness (30 min, mobile-friendly)</td><td>Short huddle or video, bilingual</td></tr>
+    <tr><td><b>Contractors and interns</b><br><small>Contractors, paid interns and recruitment interns</small></td><td class="num">1.5%</td><td>Drafting and research within their assignment</td><td>Awareness (acceptable use)</td><td>Self-paced module</td></tr>
+  </table></div>
+  <h3 class="sub">The role analysis&rsquo;s level words, and ours</h3>
+  <p class="lead">The role analysis uses five level words and two add-ons. This is how we read them. The second row is a real question for the partner.</p>
+  <div class="tblwrap"><table class="dtable">
+    <tr><th style="width:15%">The role analysis says</th><th style="width:35%">Who it sends there</th><th>In this proposal, as we read it</th></tr>
+    <tr><td><b>Awareness</b></td><td>Facilities, nutrition and transportation; contractors and interns</td><td>The awareness step: acceptable-use basics. About 30 minutes, phone-friendly and bilingual for the first group; a self-paced module for the second. Not designed yet</td></tr>
+    <tr><td><b>Foundations</b></td><td>Where teachers start; aides and tutors; student support; operations and front office</td><td><b>We read this as the common level:</b> the foundations course staff already take, plus the core on this page. Is that what the role analysis intended? It is question 2 in tab &#9319;</td></tr>
+    <tr><td><b>Practitioner</b></td><td>Where teachers finish; special education; college and career; finance; human resources; enrollment and marketing; where campus leaders start</td><td>Practice in your role: the practice level of each pathway</td></tr>
+    <tr><td><b>Advanced</b></td><td>Executives; the curriculum team; technology and data</td><td>The Lead level. For the executive team it can also run as three facilitated briefings. For technology and data, the hands-on technical work the role analysis lists (scripts, automation, training others) is not in our outline yet</td></tr>
+    <tr><td><b>Champion</b></td><td>Where campus leaders finish; the technology and data trainers and administrators</td><td>The people who lead others: the shared module <i>Lead AI Learning on Your Team</i>, and reviewing colleagues&rsquo; pathway challenges</td></tr>
+    <tr><td><b>Two add-ons</b></td><td>A compliance module for special education; a sensitive data module for student support</td><td>Two specialty modules beside role practice on the Campus pathway, written with the partner&rsquo;s own specialists and legal team. Not in our outline yet</td></tr>
+  </table></div>
+  <div class="defnote plain"><b>Whichever way &ldquo;Foundations&rdquo; is meant, the build order is the same:</b> the core comes first, because every role takes it.</div>
+  <h3 class="sub">Two placements the partner may want to change</h3>
+  <div class="tblwrap"><table class="dtable">
+    <tr><th style="width:24%">Role group</th><th>Where we placed it, and why</th><th>The other option</th></tr>
+    <tr><td><b>Special education and related services</b><br><small>13.2% of staff</small></td><td><b>Campus pathway.</b> Its information is the most sensitive in the role analysis, and its primary tool is the one named for student information. The Teachers pathway stays open to special education teachers through its role picker</td><td>The Teachers pathway, with the compliance add-on. Most of this group teaches or supports a classroom</td></tr>
+    <tr><td><b>Operations and front office</b><br><small>4.3% of staff</small></td><td><b>Campus pathway.</b> Its role practice (campus communications; meetings and summaries) matches the work of a campus office</td><td>The Central pathway, because their tool and their tasks look like office work</td></tr>
+  </table></div>
+  <div class="defnote plain"><b>A split we considered and did not choose: by tool.</b> Sorting staff by their primary tool and its data rule would make each pathway one tool and one rule, which is simpler to build. We kept the split by kind of work because it is the choice staff already make in the foundations course, and because tools enter only at role practice, through a tool card (tab &#9316;).</div>
+  <div class="ex-note"><b>The cost of our choice, stated plainly.</b> At role practice, each pathway holds more than one tool and more than one data rule, and the Campus pathway holds the most. A module would open by asking the learner&rsquo;s role and then show only that role&rsquo;s tool card and data rule. <b>That mechanism is half built:</b> the sample module does it for the examples and the practice task of three roles; a tool card and a data rule by role are designed, not built. Campus is also the least settled pathway: special education, counseling, and college and career advising are specialist work, and tab &#9315; shows that fewer than half of their tasks have a planned module. Whether Campus should be one pathway or two is a question for the partner.</div>
+</div>
+
+<div class="tabpane" id="p3">
+  <h2>&#9314; The Core · seven modules for every role, lesson by lesson</h2>
+  <div class="defnote"><b>What the core is.</b> 7 modules that every role on a pathway takes after the foundations course, about 5&frac14; hours in all. <b>By the end of the core, any staff member can</b> ask an AI tool for a useful draft, check it before anyone else sees it, decide what information may go in, test a draft for fairness, verify before acting, respond when something goes wrong, and say what they would and would not hand to an agent. Each module has three lessons, one hands-on challenge, a four-question check, and a task to use that week. <b>No tool is named:</b> the practice is done in the approved AI tool the learner already has, on work that needs no personal information. Every on-screen activity uses a fixed set of examples chosen for the learner&rsquo;s role, so the course can check the answer. <b>Five of the seven hands-on challenges are done in the AI tool;</b> the two about verifying and about responding to an incident are routines a person writes down.</div>
+  <div class="stlegend"><b>Build status</b><span><span class="st st-box"></span>Built as a working sample, for all three roles</span><span><span class="st st-seed"></span>One lesson exists for teachers, inside an earlier sample</span><span><span class="st st-plan"></span>Planned, not built</span><span><span class="dia">&#9670;</span> Shared: written once, with a role picker</span></div>
+  <div class="lvl">The core, part 1 · Everyday skills</div>
+  <div class="lvlcan">Three modules for every role, in this order: what you ask, what goes in, what comes out. We propose to build these first.</div>
+  <div class="corecard" id="core-1">
+    <div class="hd"><div class="kind"><span class="st st-box" title="Built as a working sample, for all three roles"></span> &nbsp;Core 1 · shared by all three pathways</div><h3>Ask Well: From a Vague Request to a Useful Draft</h3><p>By the end, a learner can turn a one-line request into a prompt that returns a usable first draft, steer that draft, and keep the prompt for next time.</p></div>
+    <div class="bd">
+      <div class="tblwrap" style="margin:0;"><table class="lessons">
+        <tr><th style="width:21%">Lesson</th><th style="width:44%">The idea</th><th>What the learner does on the screen</th></tr>
+        <tr><td><b>1 · Start from your task</b></td><td>An AI tool knows nothing about your task until you say it: who it is for, what you need and in what form. The five parts from the foundations course (context, role, action, format, tone), now on a real task.</td><td>A sample task for your role, with eight details: sort each into &ldquo;needed for this task&rdquo; or &ldquo;leave it out&rdquo;, then watch them become a prompt.</td></tr>
+        <tr><td><b>2 · Ask for options, then choose</b></td><td>A first answer is a draft, not the answer. Ask for three versions, say what to change, and choose.</td><td>A scripted practice chat, not your own tool yet: send three follow-ups and pick the best of four options. One of them has a detail that is not true.</td></tr>
+        <tr><td><b>3 · Keep what works</b></td><td>A prompt that worked is worth keeping. Saved as a template with blanks, the next request takes a minute.</td><td>Turn the finished prompt into a template and mark the blanks.</td></tr>
+      </table></div>
+      <p><span class="lbl">Hands-on challenge, by role</span> (about 15 minutes, on the learner&rsquo;s own work):</p>
+      <div class="roles"><div><b>Teachers</b>Three exit ticket questions at different levels for next week&rsquo;s lesson, steered once</div><div><b>Campus</b>A notice, a checklist or an agenda you owe this week (for example a family notice, a front-office checklist, a meeting agenda), from facts you supply, steered once</div><div><b>Central</b>A summary, an FAQ or a procedure note for a process you own (for example a payroll calendar note, a help-desk answer, an enrollment FAQ), from facts you supply, steered once</div></div>
+      <p><span class="lbl">Put it to work, every role:</span> Keep the result as a draft until you have reviewed it. Save the prompt as your first template</p>
+      <p><span class="lbl">Check, four questions:</span> What to leave out · what fixes a general answer · how to steer a draft · what to save as a template</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> Prompt Engineering 101 and 201 <i>(G10 L4 · G11 L5 · G12 L3)</i></p>
+      <p><span class="lbl">Also:</span> Core 1 opens with a four-minute set-up: using an approved AI tool, signing in with a work account, starting a new chat, and what to do when the tool says no.</p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 03, 06, 07, 08, 11. <b>Built as a working sample, for all three roles,</b> in the format of the foundations course.</p>
+    </div>
+  </div>
+  <div class="corecard" id="core-2">
+    <div class="hd"><div class="kind"><span class="st st-plan" title="Planned, not built"></span> &nbsp;Core 2 · shared by all three pathways</div><h3>Keep It Safe: What Goes In, and Where</h3><p>By the end, a learner can decide, before pasting anything, what may go into which tool.</p></div>
+    <div class="bd">
+      <div class="tblwrap" style="margin:0;"><table class="lessons">
+        <tr><th style="width:21%">Lesson</th><th style="width:44%">The idea</th><th>What the learner does on the screen</th></tr>
+        <tr><td><b>1 · What is protected</b></td><td>Every role handles information that is not theirs to share: about scholars, about employees, about the organization.</td><td>Six examples from your role: sort each into one of the three kinds.</td></tr>
+        <tr><td><b>2 · Which tool may hold what</b></td><td>Approved and unapproved tools are not the same place. Share only what the task needs, and check which tool the task belongs in.</td><td>Six tasks from your role: sort each into fine in an approved tool, fine once the personal details are taken out, or never in an unapproved tool.</td></tr>
+        <tr><td><b>3 · When unsure, ask</b></td><td>Nobody has to guess. Know the question to ask and who answers it, including when there is no approved tool for the task.</td><td>Three &ldquo;can I paste this?&rdquo; moments: choose go, strip the details, or ask first.</td></tr>
+      </table></div>
+      <p><span class="lbl">Hands-on challenge, by role</span> (about 15 minutes, on the learner&rsquo;s own work):</p>
+      <div class="roles"><div><b>Teachers</b>Rewrite one real request so that it works with no scholar&rsquo;s name and no scholar&rsquo;s plan in it, run it, and confirm the result is still useful</div><div><b>Campus</b>Rewrite one real request with a placeholder in place of every name and every record detail, run it, and confirm the result is still useful</div><div><b>Central</b>Rewrite one real request so that it works with no budget, contract or personnel detail in it, run it, and confirm the result is still useful</div></div>
+      <p><span class="lbl">Put it to work, every role:</span> Keep a one-week log of your own AI use: which tool, what went in</p>
+      <p><span class="lbl">Check, four questions:</span> The three kinds of protected information · what a task really needs · approved and unapproved tools · when to ask</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> Your Data, Their Model: Privacy <i>(G11 L8)</i> · Using AI Responsibly <i>(G10 L5)</i> &nbsp;·&nbsp; <span class="lbl">Concept videos we already have:</span> <i>Before you paste</i>, <i>Where your data goes</i></p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 07, 06. In our first outline this was a Campus module. Every role needs it, so it moves to the core.</p>
+    </div>
+  </div>
+  <div class="corecard" id="core-3">
+    <div class="hd"><div class="kind"><span class="st st-seed" title="One lesson exists for teachers, inside an earlier sample"></span> &nbsp;Core 3 · shared by all three pathways</div><h3>Check It Before You Use It</h3><p>By the end, a learner can catch what an AI draft gets wrong before anyone else reads it.</p></div>
+    <div class="bd">
+      <div class="tblwrap" style="margin:0;"><table class="lessons">
+        <tr><th style="width:21%">Lesson</th><th style="width:44%">The idea</th><th>What the learner does on the screen</th></tr>
+        <tr><td><b>1 · Why it sounds right and is wrong</b></td><td>An AI tool writes what is likely to come next. The writing itself does not check the facts, so it can invent a date, a quote or a source, and still sound sure.</td><td>Three confident statements from an AI draft: find the invented one, and say what you would check.</td></tr>
+        <tr><td><b>2 · The five-point check</b></td><td>Five questions for any draft: does it fit the purpose, are the facts right, do the sources exist, is it fair, is the language right.</td><td>An AI draft with five problems: find each one and name the check that catches it.</td></tr>
+        <tr><td><b>3 · Open the source</b></td><td>A summary is only as good as the source behind it. Even when a tool shows links or footnotes, open them: it can cite a page that does not say that. A second AI tool is not a source.</td><td>A draft makes two claims and cites one short source: open it, and find the claim the source does not support.</td></tr>
+      </table></div>
+      <p><span class="lbl">Hands-on challenge, by role</span> (about 15 minutes, on the learner&rsquo;s own work):</p>
+      <div class="roles"><div><b>Teachers</b>Run the five-point check on the three exit ticket questions you drafted in Core 1, before a scholar sees them</div><div><b>Campus</b>Run the five-point check on the draft you made in Core 1: every date, name and number against its source</div><div><b>Central</b>Run the five-point check on the summary or note you made in Core 1: open the document and check three claims</div></div>
+      <p><span class="lbl">Put it to work, by role:</span> <i>Teachers:</i> Use one question in class that week; note in your lesson plan what the check caught · <i>Campus:</i> Use it only after the check; note what it caught · <i>Central:</i> Share it with a note of what you corrected</p>
+      <p><span class="lbl">Check, four questions:</span> Why a fluent draft can be wrong · the five points · what counts as a source · what to do with a claim you cannot confirm</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> When AI Gets It Wrong <i>(G11 L6 · G12 L4)</i> · Using AI Responsibly <i>(G10 L5)</i> &nbsp;·&nbsp; <span class="lbl">Concept video we already have:</span> <i>Check it before you send it</i></p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 06, 03. The teacher version of its second lesson, with its short video, already exists, inside an earlier sample module.</p>
+    </div>
+  </div>
+  <div class="lvl">The core, part 2 · Judgment</div>
+  <div class="lvlcan">Four modules offered to every role, alongside role practice. Which of them each group must take is a question for the partner.</div>
+  <div class="corecard" id="core-4">
+    <div class="hd"><div class="kind"><span class="st st-plan" title="Planned, not built"></span> &nbsp;Core 4 · shared by all three pathways</div><h3>When AI Goes Wrong: Fix It, Report It, Learn From It</h3><p>By the end, a learner can take the right first three steps when an AI mistake has already gone out.</p></div>
+    <div class="bd">
+      <div class="tblwrap" style="margin:0;"><table class="lessons">
+        <tr><th style="width:21%">Lesson</th><th style="width:44%">The idea</th><th>What the learner does on the screen</th></tr>
+        <tr><td><b>1 · What can go wrong</b></td><td>Three kinds of incident: a wrong fact that went out, information pasted where it should not be, a decision that leaned on AI.</td><td>Sort six incidents by kind.</td></tr>
+        <tr><td><b>2 · The first hour: fix it, tell someone, write it down</b></td><td>What happens in the first hour matters most: correct what went out, tell the person who needs to know, and keep a short record.</td><td>Put the first steps of an incident in order.</td></tr>
+        <tr><td><b>3 · Who to contact</b></td><td>The partner&rsquo;s guidebook names who hears first for each kind of incident.</td><td>Match four incidents to who hears first.</td></tr>
+      </table></div>
+      <p><span class="lbl">Hands-on challenge, by role</span> (about 15 minutes, on the learner&rsquo;s own work):</p>
+      <div class="roles"><div><b>Teachers</b>Walk through a fictional incident, a wrong fact in a handout scholars already have, and write your first three steps</div><div><b>Campus</b>Walk through a fictional incident, a wrong date in a family message that already went out, and write your first three steps</div><div><b>Central</b>Walk through a fictional incident, a sensitive file pasted into an unapproved tool, and write your first three steps</div></div>
+      <p><span class="lbl">Put it to work, by role:</span> <i>Teachers:</i> Save the steps and the partner&rsquo;s contacts where you will find them · <i>Campus:</i> Save the steps and the partner&rsquo;s contacts where your team will find them · <i>Central:</i> Save the steps and the partner&rsquo;s contacts where your team will find them</p>
+      <p><span class="lbl">Check, four questions:</span> Kinds of incident · the first three steps · who hears first · what to write down</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> Using AI Responsibly <i>(G10 L5)</i></p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 07, 10, 11. A shared module in our first outline, where it closed the first level of each pathway.</p>
+    </div>
+  </div>
+  <div class="corecard" id="core-5">
+    <div class="hd"><div class="kind"><span class="st st-plan" title="Planned, not built"></span> &nbsp;Core 5 · shared by all three pathways</div><h3>Real or Made? Verify Before You Act</h3><p>By the end, a learner can treat a surprising image, clip or voice message as unverified until a second channel confirms it.</p></div>
+    <div class="bd">
+      <div class="tblwrap" style="margin:0;"><table class="lessons">
+        <tr><th style="width:21%">Lesson</th><th style="width:44%">The idea</th><th>What the learner does on the screen</th></tr>
+        <tr><td><b>1 · What synthetic media can do now</b></td><td>Voices, images and video can be made, not recorded, and quality no longer gives them away.</td><td>Five common beliefs about AI-made media: mark each one true or false.</td></tr>
+        <tr><td><b>2 · What you can and cannot spot</b></td><td>Looking harder is not a reliable test, and a familiar name or number can be faked too. What helps is confirming through something you already trust.</td><td>Two images: choose what you would check, not which one is fake.</td></tr>
+        <tr><td><b>3 · Verify through a second channel</b></td><td>Before you act on something urgent or surprising, confirm the request itself through a channel you already trust: call back on a number you already have, or ask in person.</td><td>An urgent message arrives: choose the second channel.</td></tr>
+      </table></div>
+      <p><span class="lbl">Hands-on challenge, by role</span> (about 15 minutes, on the learner&rsquo;s own work):</p>
+      <div class="roles"><div><b>Teachers</b>Check one image or clip before you use it in class, and plan two minutes on how you checked it, for scholars</div><div><b>Campus</b>Write a verification routine for an image or voice message about a campus incident</div><div><b>Central</b>Write the second-channel check for an urgent payment or data request</div></div>
+      <p><span class="lbl">Put it to work, by role:</span> <i>Teachers:</i> Use the routine on the next image or clip you show · <i>Campus:</i> Share it with your front office · <i>Central:</i> Share it with your team</p>
+      <p><span class="lbl">Check, four questions:</span> What can be made today · why looking harder is not a test · the second channel · when to stop and report</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> Deepfakes, Synthetic Media and AI Authorship <i>(G10 L8 · G12 L6)</i> &nbsp;·&nbsp; <span class="lbl">Concept video we already have:</span> <i>Made, not filmed</i></p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 05, 06, 07, 08. A shared module in our first outline, where it sat in the middle level of each pathway.</p>
+    </div>
+  </div>
+  <div class="corecard" id="core-6">
+    <div class="hd"><div class="kind"><span class="st st-plan" title="Planned, not built"></span> &nbsp;Core 6 · shared by all three pathways</div><h3>Fair by Design: Bias in What AI Drafts</h3><p>By the end, a learner can test an AI draft for bias, and keep the decision with a person.</p></div>
+    <div class="bd">
+      <div class="tblwrap" style="margin:0;"><table class="lessons">
+        <tr><th style="width:21%">Lesson</th><th style="width:44%">The idea</th><th>What the learner does on the screen</th></tr>
+        <tr><td><b>1 · Where bias gets in</b></td><td>AI learns from what people wrote, so it repeats their patterns: who is named, who is assumed, who is left out.</td><td>An AI draft with three planted assumptions: find them.</td></tr>
+        <tr><td><b>2 · Same prompt, two names</b></td><td>A fairness test anyone can run: change one detail and compare the two results.</td><td>Two drafts that differ only by a name: mark what changed besides the name.</td></tr>
+        <tr><td><b>3 · Keep the decision with a person</b></td><td>AI can write the draft. A person owns the decision, and can say why.</td><td>Sort four uses into &ldquo;AI can draft this&rdquo; and &ldquo;a person decides this&rdquo;.</td></tr>
+      </table></div>
+      <p><span class="lbl">Hands-on challenge, by role</span> (about 15 minutes, on the learner&rsquo;s own work):</p>
+      <div class="roles"><div><b>Teachers</b>Run one prompt for two fictional scholars who differ only by name; compare the results</div><div><b>Campus</b>Compare AI drafts about two fictional scholars for the same letter</div><div><b>Central</b>Test a screening or ranking prompt with two fictional applicants who differ only by name</div></div>
+      <p><span class="lbl">Put it to work, by role:</span> <i>Teachers:</i> Review one set of your materials: whose names, places and examples appear? · <i>Campus:</i> Review one campus template for fairness · <i>Central:</i> Review one process where AI could rank people</p>
+      <p><span class="lbl">Check, four questions:</span> Where bias gets in · how to test a draft for it · what a person must decide · what to do with an unfair draft</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> Bias in AI <i>(G11 L7)</i> · Using AI Responsibly <i>(G10 L5)</i> &nbsp;·&nbsp; <span class="lbl">Concept video we already have:</span> <i>How bias gets in</i></p>
+      <p><span class="lbl">Also:</span> In every role, run each prompt twice: an AI tool does not answer the same way every time, so one comparison proves little.</p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 03, 06. A shared module in our first outline, where it sat in the middle level of each pathway.</p>
+    </div>
+  </div>
+  <div class="corecard" id="core-7">
+    <div class="hd"><div class="kind"><span class="st st-plan" title="Planned, not built"></span> &nbsp;Core 7 · shared by all three pathways</div><h3>Agents and Helpers: What to Hand Off, What to Keep</h3><p>By the end, a learner can tell a tool that answers from a tool that acts, and decide what they would and would not hand to it.</p></div>
+    <div class="bd">
+      <div class="tblwrap" style="margin:0;"><table class="lessons">
+        <tr><th style="width:21%">Lesson</th><th style="width:44%">The idea</th><th>What the learner does on the screen</th></tr>
+        <tr><td><b>1 · Answer, draft, act</b></td><td>The foundations course names three kinds of AI: AI that predicts, AI that produces, and AI that acts by carrying out steps on its own. This lesson is about the third.</td><td>Sort six everyday tools and tasks by what the AI is doing.</td></tr>
+        <tr><td><b>2 · What to hand off, what to keep</b></td><td>A routine is a chain of steps. Hand a step to an agent only when it can be undone and a person sees the result before it goes anywhere. The check and the decision stay with a person.</td><td>One routine in five steps: mark the step an agent could draft and the check a person keeps.</td></tr>
+        <tr><td><b>3 · Before you let it act</b></td><td>Three questions first: what can it reach, what can it change, and how would you know if it went wrong. Some uses need a review before anyone tries them.</td><td>Three proposals for an agent: choose fine to try, ask for a review before trying, or not for an agent.</td></tr>
+      </table></div>
+      <p><span class="lbl">Hands-on challenge, by role</span> (about 15 minutes, on the learner&rsquo;s own work):</p>
+      <div class="roles"><div><b>Teachers</b>Map one weekly classroom routine and mark the step you would hand off. Then have your AI tool try that one step, and note what a person still has to check</div><div><b>Campus</b>Map one weekly campus routine and mark the step you would hand off. Then have your AI tool try that one step, and note what a person still has to check</div><div><b>Central</b>Map one recurring report or request (for example a monthly enrollment or attendance report) and mark the step you would hand off. Then have your AI tool try that one step, and note what a person still has to check</div></div>
+      <p><span class="lbl">Put it to work, every role:</span> Share the map with one colleague and ask what they would keep</p>
+      <p><span class="lbl">Check, four questions:</span> Answering and acting · the step to hand off · the check a person keeps · uses to have reviewed before trying</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> AI and the Future of Work <i>(G10 L12)</i> · AI Across Industries and the Future of Work <i>(G12 L7)</i> &nbsp;·&nbsp; <span class="lbl">Concept video we already have:</span> <i>Automation, augmentation, discovery</i></p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, section 06. In our first outline this was a Central module. Agents now reach every role, so it moves to the core. No agent is built here; building a helper comes later, in <i>Teach It Once</i>.</p>
+    </div>
+  </div>
+  <div class="ex-note"><b>What is written and what is not.</b> This tab is an outline: module titles, lessons, the activity in each lesson and the practice task for each role. <b>Core 1 is built as a working sample, for all three roles</b> (tab &#9318;); no learner and no partner reviewer has used it. One lesson of Core 3 exists in a teacher version, inside an earlier sample. Everything else in the core still has to be written and reviewed.</div>
+</div>
+
+<div class="tabpane" id="p4">
+  <h2>&#9315; Pathway by Pathway · role practice, the Lead level, and what is still open</h2>
+  <div class="stlegend"><b>Build status</b><span><span class="st st-box"></span>Built as a working sample, for all three roles</span><span><span class="st st-seed"></span>One lesson exists for teachers, inside an earlier sample</span><span><span class="st st-plan"></span>Planned, not built</span><span><span class="dia">&#9670;</span> Shared: written once, with a role picker</span><span>Every pathway starts after the core (tab &#9314;)</span></div>
+  <div class="pathhd" id="path-t"><h3>Teachers</h3><p><b>Who:</b> Classroom teachers from pre-K to secondary, and the instructional support around them: intervention specialists, aides, tutors, residents, coaches and the curriculum team.</p><p><b>Where it aims:</b> A teacher who uses AI every week to plan, differentiate and give feedback faster, checks every draft before it reaches a scholar, and teaches scholars to do the same.</p><p><b>Length after the core:</b> 7 modules and the pathway challenge, about 6&frac14; hours. With the core, about 11&frac12; hours.</p></div>
+  <div class="lvl">Practice in your role · Plan, adapt and give feedback</div>
+  <div class="lvlcan">By the end of this level, a teacher can use AI to draft and adapt classroom materials from their own lesson, write to families in their own voice, draft feedback they then make their own, and set clear AI expectations for scholars.</div>
+  <div class="lmsgrid">
+    <div class="lmscard"><div class="kind">Teachers 1</div><h3>Make It Fit: Scaffolds, Leveled Texts and Language Support</h3><div style="margin-top:7px;"><span class="tag plan">Planned</span></div>
+      <p><span class="lbl">Lessons:</span> Same objective, different paths · Leveled texts and graphic organizers · Language support, the right way</p>
+      <p><span class="lbl">Hands-on challenge:</span> Turn one text you teach into a leveled version and a graphic organizer, with no scholar&rsquo;s name or plan in the prompt</p>
+      <p><span class="lbl">Put it to work:</span> Use it with one group; note what helped</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> None. A staff-only work skill</p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 06, 07</p></div>
+    <div class="lmscard"><div class="kind">Teachers 2</div><h3>Messages That Sound Like You</h3><div style="margin-top:7px;"><span class="tag plan">Planned</span></div>
+      <p><span class="lbl">Lessons:</span> First draft from your facts · Your voice, your accuracy · Translation and disclosure</p>
+      <p><span class="lbl">Hands-on challenge:</span> Draft a family message about an upcoming unit from facts you supply, make it yours, add a short disclosure line</p>
+      <p><span class="lbl">Put it to work:</span> Send one real message after your own review; translate only within an approved platform</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> None. A staff-only work skill</p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 06, 08</p></div>
+    <div class="lmscard"><div class="kind">Teachers 3</div><h3>Feedback That Stays Yours</h3><div style="margin-top:7px;"><span class="tag plan">Planned</span></div>
+      <p><span class="lbl">Lessons:</span> A rubric that says what you mean · Feedback drafts, reviewed and personalized · Where AI feedback stops</p>
+      <p><span class="lbl">Hands-on challenge:</span> Build a rubric for an upcoming task, ask for feedback on a fictional sample, rewrite it in your voice</p>
+      <p><span class="lbl">Put it to work:</span> Use the rubric on one real task; personalize every comment before a scholar sees it</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> Who&rsquo;s Responsible? <i>(G10 L7 · G12 L5)</i></p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 06, 03</p></div>
+    <div class="lmscard"><div class="kind">Teachers 4</div><h3>AI and Academic Integrity in Your Classroom</h3><div style="margin-top:7px;"><span class="tag plan">Planned</span></div>
+      <p><span class="lbl">Lessons:</span> The partner&rsquo;s grade bands · Label every assignment · Disclosure that builds trust</p>
+      <p><span class="lbl">Hands-on challenge:</span> Rewrite one assignment with its AI label and the disclosure line it expects</p>
+      <p><span class="lbl">Put it to work:</span> Share the label with scholars and explain why</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> Who&rsquo;s Responsible? <i>(G10 L7 · G12 L5)</i></p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 05, 08</p></div>
+  </div>
+  <div class="lvl">Lead · Build and lead</div>
+  <div class="lvlcan">By the end of this level, a teacher can build a reusable helper for their most repeated task, design an AI activity for scholars in their subject, and help colleagues do the same.</div>
+  <div class="lmsgrid">
+    <div class="lmscard"><div class="kind">Teachers 5</div><h3>Teach It Once: A Helper for the Task You Repeat Most</h3><div style="margin-top:7px;"><span class="tag plan">Planned</span><span class="tag shared">&#9670; Shared</span></div>
+      <p><span class="lbl">Lessons:</span> Standing instructions and files · Build one helper · Test it, then keep checking</p>
+      <p><span class="lbl">Hands-on challenge:</span> Build a helper that drafts from your own templates; test it on three cases</p>
+      <p><span class="lbl">Put it to work:</span> Use it for two weeks; note every fix you make</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> No-Code AI Build + Choosing the Right Tool <i>(G10 L13)</i></p><p><span class="lbl">Concept video we already have:</span> <i>Teach it once</i></p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 06, 07</p></div>
+    <div class="lmscard"><div class="kind">Teachers 6</div><h3>Teaching With AI in Your Subject</h3><div style="margin-top:7px;"><span class="tag plan">Planned</span></div>
+      <p><span class="lbl">Lessons:</span> What scholars may do, by grade band · An AI activity with a learning objective · Assess the thinking, not the tool</p>
+      <p><span class="lbl">Hands-on challenge:</span> Design one scholar AI activity: its label, its objective and how you will assess it</p>
+      <p><span class="lbl">Put it to work:</span> Teach it once; bring one scholar example to your team</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> Designing Responsible AI + The Road Ahead <i>(G10 L14)</i></p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 05, 06</p></div>
+    <div class="lmscard"><div class="kind">Teachers 7</div><h3>Lead AI Learning on Your Team</h3><div style="margin-top:7px;"><span class="tag plan">Planned</span><span class="tag shared">&#9670; Shared</span></div>
+      <p><span class="lbl">Lessons:</span> Coach one colleague · Team norms from the AI guidebook · Run a short share and collect what works</p>
+      <p><span class="lbl">Hands-on challenge:</span> Plan a ten-minute share for your team around one task you improved</p>
+      <p><span class="lbl">Put it to work:</span> Run it; collect one idea from each colleague</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> None. A staff-only work skill</p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 06, 05, 09</p></div>
+  </div>
+  <div class="defnote plain"><b>Pathway challenge · One Lesson, Improved With AI</b> (about 60 minutes). A real lesson improved with AI, with the disclosure line, the five-point check you ran and a short reflection, reviewed by a campus AI lead or coach against a short rubric.</div>
+  <h3 class="sub">The role analysis against this pathway · a first pass</h3>
+  <div class="legend"><span><b style="color:#1E8E4F">&#10003;</b> a planned module would serve this task</span><span><b style="color:var(--orange)">&#9680;</b> a planned module serves it in part</span><span><b style="color:var(--orange)">&#9656;</b> open: no module in the outline yet</span></div>
+  <div class="cov">
+    <div class="covcard"><h4>Classroom teachers, general education <span>· 3 of 5 tasks have a planned module, 2 more in part</span></h4>
+      <ul class="keep"><li>Rubric feedback on student work <small>· Teachers 3</small></li><li>Reading-level adjustment <small>· Teachers 1</small></li><li>Parent emails <small>· Teachers 2</small></li></ul>
+      <ul class="part"><li>Lesson plans and differentiated materials <small>· Teachers 1, in part: differentiated materials; planning a lesson has no module of its own</small></li><li>Quizzes and exit tickets <small>· Core 1, Core 3, in part: exit ticket questions are the teacher practice task of the core</small></li></ul>
+    </div>
+    <div class="covcard"><h4>Instructional support and curriculum <span>· 1 of 5 tasks have a planned module, 3 more in part</span></h4>
+      <ul class="keep"><li>Intervention materials <small>· Teachers 1</small></li></ul>
+      <ul class="part"><li>Translated and scaffolded texts <small>· Teachers 1, in part: scaffolded texts; translation follows the AI guidebook&rsquo;s own rule</small></li><li>Unit and assessment development <small>· Teachers 3, Teachers 6, in part: the assessment half, not unit design</small></li><li>Coaching feedback <small>· Teachers 7, in part: coaching a colleague, not writing the feedback</small></li></ul>
+      <ul class="chg"><li>Standards-aligned practice items <small>· open: needs its own challenge</small></li></ul>
+    </div>
+  </div>
+  <div class="pathhd" id="path-c"><h3>Campus leaders and staff</h3><p><b>Who:</b> Campus directors and deans; special education and related services; counselors, nurses and the well-being team; college and career advising; campus operations and the front office.</p><p><b>Where it aims:</b> A campus team that uses AI to communicate, plan and run routines faster, keeps every decision about a scholar or an employee with a person, and leads a campus where AI use is safe and fair.</p><p><b>Length after the core:</b> 6 modules and the pathway challenge, about 5&frac12; hours. With the core, about 10&frac34; hours.</p></div>
+  <div class="lvl">Practice in your role · Communicate, and decide with care</div>
+  <div class="lvlcan">By the end of this level, a campus staff member can draft communications, agendas and summaries from facts they supply, check every fact, and keep every decision about a scholar or an employee with a person.</div>
+  <div class="lmsgrid">
+    <div class="lmscard"><div class="kind">Campus 1</div><h3>Campus Communications With AI</h3><div style="margin-top:7px;"><span class="tag plan">Planned</span></div>
+      <p><span class="lbl">Lessons:</span> First draft from your facts · Your campus voice · Translation and disclosure</p>
+      <p><span class="lbl">Hands-on challenge:</span> A first draft of a family newsletter section from facts you supply; check every fact; add your campus&rsquo;s voice</p>
+      <p><span class="lbl">Put it to work:</span> Use it for the next real communication, after your own review</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> None. A staff-only work skill</p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 06, 08</p></div>
+    <div class="lmscard"><div class="kind">Campus 2</div><h3>Meetings, Notes and Summaries</h3><div style="margin-top:7px;"><span class="tag plan">Planned</span></div>
+      <p><span class="lbl">Lessons:</span> Agendas that work · Summaries you can trust · Open every source</p>
+      <p><span class="lbl">Hands-on challenge:</span> Summarize three articles for a leadership meeting, then open each one and check the summary against it</p>
+      <p><span class="lbl">Put it to work:</span> Use it for your next team meeting</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> When AI Gets It Wrong <i>(G11 L6 · G12 L4)</i></p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 06, 08</p></div>
+    <div class="lmscard"><div class="kind">Campus 3</div><h3>AI Assists, a Person Decides</h3><div style="margin-top:7px;"><span class="tag plan">Planned</span></div>
+      <p><span class="lbl">Lessons:</span> The first rule · Uses that need review first · The line that stays with a person</p>
+      <p><span class="lbl">Hands-on challenge:</span> Map one campus decision: what AI may draft, what needs review, and the decision that stays with a person</p>
+      <p><span class="lbl">Put it to work:</span> Share the map with your team</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> Who&rsquo;s Responsible? <i>(G10 L7 · G12 L5)</i></p><p><span class="lbl">Concept video we already have:</span> <i>Who is in the loop</i></p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 03, 06</p></div>
+    <div class="lmscard"><div class="kind">Campus · proposed add-ons</div><h3>Compliance, for special education · Sensitive data, for student support</h3><div style="margin-top:7px;"><span class="tag plan">Not designed</span></div><p>Two specialty modules the role analysis asks for. They are legal and compliance topics, so we would not write them alone (tab &#9316;).</p></div>
+  </div>
+  <div class="lvl">Lead · Lead AI on your campus</div>
+  <div class="lvlcan">By the end of this level, a campus leader can build a helper for a weekly routine, read AI data summaries critically, and lead AI norms and learning on their campus.</div>
+  <div class="lmsgrid">
+    <div class="lmscard"><div class="kind">Campus 4</div><h3>Teach It Once: A Helper for the Task You Repeat Most</h3><div style="margin-top:7px;"><span class="tag plan">Planned</span><span class="tag shared">&#9670; Shared</span></div>
+      <p><span class="lbl">Lessons:</span> Standing instructions and files · Build one helper · Test it, then keep checking</p>
+      <p><span class="lbl">Hands-on challenge:</span> A helper for the weekly campus update</p>
+      <p><span class="lbl">Put it to work:</span> Use it for two weeks; note every fix</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> No-Code AI Build + Choosing the Right Tool <i>(G10 L13)</i></p><p><span class="lbl">Concept video we already have:</span> <i>Teach it once</i></p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 06, 07</p></div>
+    <div class="lmscard"><div class="kind">Campus 5</div><h3>From Data to Decisions: Summaries a Person Checks</h3><div style="margin-top:7px;"><span class="tag plan">Planned</span></div>
+      <p><span class="lbl">Lessons:</span> Aggregate, not individual · Check every number · Analytics that need review</p>
+      <p><span class="lbl">Hands-on challenge:</span> Turn an aggregate, de-identified campus report into three findings and one question; check every number</p>
+      <p><span class="lbl">Put it to work:</span> Use it in your next data meeting</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> AI in Healthcare: Diagnosis, Discovery and Risk <i>(G10 L9)</i></p><p><span class="lbl">Concept video we already have:</span> <i>Two ways of being wrong</i></p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 06, 07</p></div>
+    <div class="lmscard"><div class="kind">Campus 6</div><h3>Lead AI Learning on Your Team</h3><div style="margin-top:7px;"><span class="tag plan">Planned</span><span class="tag shared">&#9670; Shared</span></div>
+      <p><span class="lbl">Lessons:</span> Coach one colleague · Team norms from the AI guidebook · Run a short share and collect what works</p>
+      <p><span class="lbl">Hands-on challenge:</span> Plan a 20-minute staff segment on one AI routine your campus will adopt</p>
+      <p><span class="lbl">Put it to work:</span> Run it at a staff meeting</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> None. A staff-only work skill</p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 06, 05, 09</p></div>
+  </div>
+  <div class="defnote plain"><b>Pathway challenge · One Campus Routine, Improved With AI</b> (about 60 minutes). A real campus routine improved with AI, with the check the team keeps, reviewed against a short rubric.</div>
+  <h3 class="sub">The role analysis against this pathway · a first pass</h3>
+  <div class="legend"><span><b style="color:#1E8E4F">&#10003;</b> a planned module would serve this task</span><span><b style="color:var(--orange)">&#9680;</b> a planned module serves it in part</span><span><b style="color:var(--orange)">&#9656;</b> open: no module in the outline yet</span></div>
+  <div class="cov">
+    <div class="covcard"><h4>Campus leadership <span>· 3 of 5 tasks have a planned module</span></h4>
+      <ul class="keep"><li>Data-meeting prep <small>· Campus 5</small></li><li>Family letters and newsletters <small>· Campus 1</small></li><li>PD agenda design <small>· Campus 2, Campus 6</small></li></ul>
+      <ul class="chg"><li>Observation feedback write-ups <small>· open</small></li><li>Discipline documentation summaries <small>· open: sensitive information</small></li></ul>
+    </div>
+    <div class="covcard"><h4>Special education and related services <span>· 1 of 5 tasks have a planned module, 1 more in part</span></h4>
+      <ul class="keep"><li>Accommodated/modified materials <small>· Teachers 1, in the Teachers pathway</small></li></ul>
+      <ul class="part"><li>Parent-friendly explanations <small>· Campus 1, in part: family communication in general</small></li></ul>
+      <ul class="chg"><li>IEP goal and present-levels drafts <small>· open: the compliance add-on</small></li><li>Progress-monitoring summaries <small>· open: the compliance add-on</small></li><li>Evaluation report drafts <small>· open: the compliance add-on</small></li></ul>
+    </div>
+    <div class="covcard"><h4>Student support and well-being <span>· 1 of 4 tasks have a planned module, 1 more in part</span></h4>
+      <ul class="keep"><li>Family outreach drafts <small>· Campus 1</small></li></ul>
+      <ul class="part"><li>Health communication templates <small>· Campus 1, in part: family communication in general</small></li></ul>
+      <ul class="chg"><li>SEL lesson and group-session plans <small>· open</small></li><li>Resource/referral lists <small>· open</small></li></ul>
+    </div>
+    <div class="covcard"><h4>College and career advising <span>· 0 of 5 tasks have a planned module, 1 more in part</span></h4>
+      <ul class="part"><li>Scholarship and program research <small>· Campus 2, in part: its open-every-source routine</small></li></ul>
+      <ul class="chg"><li>College essay coaching <small>· open</small></li><li>FAFSA guides <small>· open</small></li><li>Career pathway materials <small>· open</small></li><li>Employer outreach <small>· open</small></li></ul>
+    </div>
+    <div class="covcard"><h4>Operations and front office <span>· 1 of 5 tasks have a planned module, 1 more in part</span></h4>
+      <ul class="keep"><li>Family communications and translation <small>· Campus 1</small></li></ul>
+      <ul class="part"><li>SOPs and checklists <small>· Campus 4, in part: a helper for a repeated task</small></li></ul>
+      <ul class="chg"><li>Schedules and calendars <small>· open</small></li><li>Spreadsheet attendance reports <small>· open: student records</small></li><li>Email triage <small>· open</small></li></ul>
+    </div>
+  </div>
+  <div class="pathhd" id="path-e"><h3>Central office and executive leaders</h3><p><b>Who:</b> Central office teams (finance and legal, human resources, technology and data, enrollment, marketing and external affairs) and the executive team.</p><p><b>Where it aims:</b> Central office teams that do routine work faster and more consistently with AI, and executives who connect AI to the partner&rsquo;s priorities, buy it carefully and govern it. The Lead level is the executive level, open to anyone.</p><p><b>Length after the core:</b> 7 modules and the pathway challenge, about 6&frac14; hours. With the core, about 11&frac12; hours.</p></div>
+  <div class="lvl">Practice in your role · Everyday work, with care</div>
+  <div class="lvlcan">By the end of this level, a central office staff member can draft, summarize and report from documents that may be shared, check every number, and mark every place where a person must review work that affects people.</div>
+  <div class="lmsgrid">
+    <div class="lmscard"><div class="kind">Central 1</div><h3>Drafts, FAQs and Summaries From What You Can Share</h3><div style="margin-top:7px;"><span class="tag plan">Planned</span></div>
+      <p><span class="lbl">Lessons:</span> What may go in · First drafts that save an hour · Reviewed before it goes out</p>
+      <p><span class="lbl">Hands-on challenge:</span> Draft an internal FAQ for a process you own, from a non-sensitive document</p>
+      <p><span class="lbl">Put it to work:</span> Publish it after review</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> None. A staff-only work skill</p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 06, 07</p></div>
+    <div class="lmscard"><div class="kind">Central 2</div><h3>Data With Care: Spreadsheets, Reports and Charts</h3><div style="margin-top:7px;"><span class="tag plan">Planned</span></div>
+      <p><span class="lbl">Lessons:</span> Public, aggregate, sensitive · Budget and contract data stay out of unapproved tools · Check every number</p>
+      <p><span class="lbl">Hands-on challenge:</span> Turn a public or aggregate dataset into a chart and three findings; check each number</p>
+      <p><span class="lbl">Put it to work:</span> Use it in a real report</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> When AI Gets It Wrong <i>(G11 L6 · G12 L4)</i></p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 06, 07</p></div>
+    <div class="lmscard"><div class="kind">Central 3</div><h3>Managing People With AI: What May Assist, What May Not Decide</h3><div style="margin-top:7px;"><span class="tag plan">Planned</span></div>
+      <p><span class="lbl">Lessons:</span> The partner&rsquo;s employment table · Drafts that a person reviews · What never goes into an unapproved tool</p>
+      <p><span class="lbl">Hands-on challenge:</span> Draft a job description or onboarding outline; mark every place a person must review</p>
+      <p><span class="lbl">Put it to work:</span> Use it with the hiring manager or your team</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> Who&rsquo;s Responsible? <i>(G10 L7)</i></p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, section 06</p></div>
+  </div>
+  <div class="lvl">Lead · Executive leadership</div>
+  <div class="lvlcan">By the end of this level, a leader can tie an AI use to a priority with its cost, value and risk measured, take a vendor product through the partner&rsquo;s review, and govern AI use in their area.</div>
+  <div class="lmsgrid">
+    <div class="lmscard"><div class="kind">Central 4</div><h3>Teach It Once: A Helper for the Task You Repeat Most</h3><div style="margin-top:7px;"><span class="tag plan">Planned</span><span class="tag shared">&#9670; Shared</span></div>
+      <p><span class="lbl">Lessons:</span> Standing instructions and files · Build one helper · Test it, then keep checking</p>
+      <p><span class="lbl">Hands-on challenge:</span> A helper for the report or message you produce every week</p>
+      <p><span class="lbl">Put it to work:</span> Use it for two weeks; note every fix</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> No-Code AI Build + Choosing the Right Tool <i>(G10 L13)</i></p><p><span class="lbl">Concept video we already have:</span> <i>Teach it once</i></p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 06, 07</p></div>
+    <div class="lmscard"><div class="kind">Central 5</div><h3>Strategy: Where AI Earns Its Place</h3><div style="margin-top:7px;"><span class="tag plan">Planned</span></div>
+      <p><span class="lbl">Lessons:</span> Start from a priority, not a tool · Cost, value and risk against today&rsquo;s baseline · Leading the change</p>
+      <p><span class="lbl">Hands-on challenge:</span> For one priority in your area, write the AI use, its cost, one measure of value against today&rsquo;s baseline, and one risk</p>
+      <p><span class="lbl">Put it to work:</span> Bring it to your leadership team</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> AI in Business, Marketing and Creative Industries <i>(G10 L10)</i></p><p><span class="lbl">Concept video we already have:</span> <i>What it was built to optimize</i></p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 04, 06</p></div>
+    <div class="lmscard"><div class="kind">Central 6</div><h3>Choosing and Buying AI: Vendors, Data and Risk</h3><div style="margin-top:7px;"><span class="tag plan">Planned</span></div>
+      <p><span class="lbl">Lessons:</span> What a vendor&rsquo;s AI does with your data · The review the partner&rsquo;s technology and legal teams give a new tool · Questions to ask before you sign</p>
+      <p><span class="lbl">Hands-on challenge:</span> Take one product you are considering through a vendor review checklist</p>
+      <p><span class="lbl">Put it to work:</span> Send the checklist with your next request to IT</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> Your Data, Their Model: Privacy <i>(G11 L8)</i></p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 06, 07</p></div>
+    <div class="lmscard"><div class="kind">Central 7</div><h3>Governing AI: Oversight, Policy and Accountability</h3><div style="margin-top:7px;"><span class="tag plan">Planned</span></div>
+      <p><span class="lbl">Lessons:</span> How the partner governs AI · Policy language, with Legal review · Equity: who gains, who is left out</p>
+      <p><span class="lbl">Hands-on challenge:</span> Draft the AI section of one procedure in your area, marked for Legal review</p>
+      <p><span class="lbl">Put it to work:</span> Take it through review</p>
+      <p><span class="lbl">Scholars learn the idea in:</span> Designing Responsible AI + The Road Ahead <i>(G10 L14)</i> · The Road Ahead <i>(G12 L8)</i></p>
+      <p style="color:var(--soft); font-size:12.5px;">Rests on the partner&rsquo;s AI guidebook, sections 04, 06, 10</p></div>
+  </div>
+  <div class="defnote plain"><b>For the executive team,</b> the Lead level can also run as three 45-minute briefings, co-led with the partner&rsquo;s technology and legal teams, if they are willing.</div>
+  <div class="defnote plain"><b>Pathway challenge · One Process, Improved With AI</b> (about 60 minutes). A real process improved with AI, with the check the team keeps and its value measured, reviewed against a short rubric.</div>
+  <h3 class="sub">The role analysis against this pathway · a first pass</h3>
+  <div class="legend"><span><b style="color:#1E8E4F">&#10003;</b> a planned module would serve this task</span><span><b style="color:var(--orange)">&#9680;</b> a planned module serves it in part</span><span><b style="color:var(--orange)">&#9656;</b> open: no module in the outline yet</span></div>
+  <div class="cov">
+    <div class="covcard"><h4>Executive leadership <span>· 0 of 5 tasks have a planned module, 4 more in part</span></h4>
+      <ul class="part"><li>Board memos and decks <small>· Central 1, in part: first drafts from what can be shared</small></li><li>Strategic plan drafts <small>· Central 5, in part: the case for one AI use, not the plan itself</small></li><li>Policy analysis <small>· Central 7, in part: AI policy language, not policy analysis in general</small></li><li>Meeting synthesis <small>· Campus 2, in part: the same skill, in the Campus pathway</small></li></ul>
+      <ul class="chg"><li>Donor and grant narratives <small>· open</small></li></ul>
+    </div>
+    <div class="covcard"><h4>Finance, legal and business <span>· 0 of 5 tasks have a planned module, 2 more in part</span></h4>
+      <ul class="part"><li>Spreadsheet variance analysis and formulas <small>· Central 2, in part: charts and findings, not formulas</small></li><li>Policy/contract summaries <small>· Central 1, Central 2, in part: policy summaries; contracts stay out of unapproved tools</small></li></ul>
+      <ul class="chg"><li>Budget narratives <small>· open</small></li><li>Reconciliation support <small>· open</small></li><li>Audit prep <small>· open</small></li></ul>
+    </div>
+    <div class="covcard"><h4>Talent and human resources <span>· 3 of 5 tasks have a planned module, 1 more in part</span></h4>
+      <ul class="keep"><li>Job posts and interview guides <small>· Central 3</small></li><li>Onboarding plans <small>· Central 3</small></li><li>Policy questions and answers drafts <small>· Central 1</small></li></ul>
+      <ul class="part"><li>Survey summaries <small>· Central 2, in part: findings from aggregate data</small></li></ul>
+      <ul class="chg"><li>Recruitment campaigns <small>· open</small></li></ul>
+    </div>
+    <div class="covcard"><h4>Technology and data <span>· 2 of 5 tasks have a planned module, 1 more in part</span></h4>
+      <ul class="keep"><li>Help-desk knowledge-base articles <small>· Central 1</small></li><li>AI governance and tool setup <small>· Central 6, Central 7</small></li></ul>
+      <ul class="part"><li>Data analysis and dashboards <small>· Central 2, in part: charts and findings, no dashboard</small></li></ul>
+      <ul class="chg"><li>Scripts and automation <small>· open</small></li><li>State reporting data validation <small>· open</small></li></ul>
+    </div>
+    <div class="covcard"><h4>Enrollment, marketing and external affairs <span>· 0 of 5 tasks have a planned module, 1 more in part</span></h4>
+      <ul class="part"><li>Bilingual enrollment outreach <small>· Campus 1, in part: the same pattern, in the Campus pathway</small></li></ul>
+      <ul class="chg"><li>Campaigns and social content <small>· open</small></li><li>Grant proposals and reports <small>· open</small></li><li>Donor communications <small>· open</small></li><li>Event plans <small>· open</small></li></ul>
+    </div>
+  </div>
+  <div class="ex-note" style="margin-top:18px;"><b>What this first pass shows.</b> The role analysis lists 59 everyday tasks for the twelve role groups on a pathway. <b>15 have a planned module that would serve them, 18 have one in part, and 26 are open.</b> By pathway: Teachers 4 of 10 (5 more in part); Campus 6 of 24 (4 more in part); Central 5 of 25 (9 more in part). So the Teachers pathway is the closest to complete as an outline. <b>Campus has the most open tasks</b>, and Central has the most partial matches and no communications or fundraising module at all. The core is counted only where its practice task is the task itself. <b>This is a first pass, and &ldquo;planned&rdquo; means planned:</b> it compares the wording of each task with the titles and challenges of modules that are not built. The full coverage map is the next piece of work, and each open task becomes a new hands-on challenge, a role variant of a module, or a new module.</div>
+</div>
+
+<div class="tabpane" id="p5">
+  <h2>&#9316; Tools and Data · the core is tool-neutral, tools come in at role practice</h2>
+  <div class="defnote"><b>The design rule.</b> The <b>core</b> names no tool: how to ask well, how to check a draft and what information never goes into an AI tool hold whatever the tool is, so the core survives a change of tools and does not wait for the tool list. A tool appears only at <b>role practice</b>, where the hands-on challenge is done in the tool the learner actually has, through a short <b>tool card</b> for their role. If a tool changes, only the card changes.</div>
+  <div class="ex-note"><b>Kinds of tool, not product names.</b> The role analysis names five tools and says who gets each one. That list is the partner&rsquo;s working list, and this page is public, so the table shows <b>the kind of tool</b> and leaves the product names to the partner. <b>No module names a product until the partner&rsquo;s technology team confirms the list</b>; the sample module says &ldquo;the approved AI tool you already have&rdquo; for that reason.</div>
+  <div class="tblwrap"><table class="dtable">
+    <tr><th style="width:26%">Kind of tool in the role analysis</th><th>What the role analysis uses it for</th><th style="width:34%">Who gets it</th></tr>
+    <tr><td><b>Office-suite AI assistant, chat only</b></td><td>Everyday drafting, summarizing, questions and answers, translation. General work only</td><td>All staff (baseline)</td></tr>
+    <tr><td><b>Office-suite AI assistant, inside the office apps</b></td><td>AI inside documents, spreadsheets, slides, email and meetings, working from the organization&#x27;s own files</td><td>Leaders and office-heavy roles (finance, HR, IT, operations directors)</td></tr>
+    <tr><td><b>General AI assistant, education edition</b></td><td>Teaching, learning, student support and analysis. The tool the role analysis names for work that involves student information</td><td>Instructional, special education, counseling, college and career, campus leaders, data team</td></tr>
+    <tr><td><b>General AI assistant, edition for organizational work</b></td><td>Fundraising, grants, communications, marketing, strategy and operations. Organizational information only</td><td>Executive, External Affairs, Marketing, Finance, HR</td></tr>
+    <tr><td><b>Classroom AI extension for teachers</b></td><td>Lesson materials, feedback on student work, differentiation, reading-level adjustments</td><td>Teachers, intervention staff, aides, coaches</td></tr>
+  </table></div>
+  <div class="defnote plain"><b>What the core needs.</b> The role analysis gives every staff member the first kind of tool in this table as a baseline. If that holds, the whole core can be practiced in it, because no core challenge needs personal information. That is one more reason the core can start before the rest of the list is settled.</div>
+  <h3 class="sub">Which kind of tool leads in each pathway, at role practice</h3>
+  <p class="lead">From the primary tool the role analysis names for each role group. A pathway with more than one line is a pathway whose role practice needs more than one tool card.</p>
+  <div class="lmsgrid">
+    <div class="lmscard primary"><h3>Teachers</h3><div class="kind">primary tool, by role group</div><p><span class="lbl">Classroom AI extension for teachers:</span> classroom teachers, general education; instructional support and curriculum</p></div>
+    <div class="lmscard primary"><h3>Campus leaders and staff</h3><div class="kind">primary tool, by role group</div><p><span class="lbl">General AI assistant, education edition:</span> campus leadership; special education and related services; student support and well-being; college and career advising</p><p><span class="lbl">Office-suite AI assistant: inside the apps for directors and managers, chat only for others:</span> operations and front office</p></div>
+    <div class="lmscard primary"><h3>Central office and executive leaders</h3><div class="kind">primary tool, by role group</div><p><span class="lbl">Office-suite AI assistant, inside the office apps:</span> executive leadership; finance, legal and business; talent and human resources; technology and data</p><p><span class="lbl">General AI assistant, edition for organizational work:</span> enrollment, marketing and external affairs</p></div>
+    <div class="lmscard"><h3>Awareness step</h3><div class="kind">primary tool, by role group</div><p><span class="lbl">Office-suite AI assistant, chat only:</span> facilities, nutrition and transportation</p><p><span class="lbl">Office-suite AI assistant, chat only, if an account is issued:</span> contractors and interns</p></div>
+  </div>
+  <h3 class="sub">How a module handles tools and data</h3>
+  <ul class="keep" style="max-width:980px;">
+    <li><b>Tool practice comes from the maker&rsquo;s own documentation,</b> quoted and linked, so staff learn each tool the way its maker teaches it and the card stays current when the tool changes. Where a maker offers its own training, the tool card points to it and does not repeat it.</li>
+    <li><b>The partner&rsquo;s rules are shown as the partner&rsquo;s rules,</b> cited to the section of the AI guidebook they come from, and kept apart from good practice. A screen never presents good practice as a rule.</li>
+    <li><b>Every hands-on challenge uses the learner&rsquo;s own work, with fictional names.</b> The course cannot see the AI tool, and says so; the learner checks their own result against a short list.</li>
+  </ul>
+  <h3 class="sub">Where the data rule is strictest: two add-on modules</h3>
+  <div class="lmsgrid">
+    <div class="lmscard"><h3>Compliance, for special education</h3><div class="kind">proposed add-on · not designed yet</div><p>The role analysis marks this group&rsquo;s information as the most sensitive: individualized education program and evaluation material, a person signing off every formal document, and no AI decision about eligibility.</p></div>
+    <div class="lmscard"><h3>Sensitive data, for student support</h3><div class="kind">proposed add-on · not designed yet</div><p>For counselors, nurses and the well-being team: counseling notes, health records and crisis details never go into an AI tool, and AI is not used for clinical or crisis decisions.</p></div>
+  </div>
+  <div class="defnote plain"><b>These two are legal and compliance topics.</b> We would not write them alone. We would ask the partner&rsquo;s own specialists and legal team to shape and review them, and how much review they can give is theirs to say.</div>
+</div>
+
+<div class="tabpane" id="p6">
+  <h2>&#9317; The Student Course · same ideas, a different job</h2>
+  <div class="defnote"><b>Does the staff plan align with what scholars learn?</b> <b>19 of the 24 staff modules</b> rest on an idea scholars also meet in the grade 10 to 12 AI course, and all 7 core modules do, so a teacher and a class can use the same words. But a staff module is <b>not a student lesson run again</b>. Scholars learn how AI works and how to judge it. Staff learn to do their own job with it, under the partner&rsquo;s rules, in the tools they have been given. The remaining 5 modules are work skills with no student counterpart.</div>
+  <h3 class="sub">Which student lessons lend an idea to a staff module</h3>
+  <p class="lead">A filled lesson lends its idea to at least one staff module: <b>19 of the 30 Year One lessons</b>. The full student sequence is on the <a href="year-one-scope-and-sequence.html" style="color:var(--green); font-weight:700;">Year One Scope and Sequence</a> page.</p>
+  <div class="arc">
+    <div class="g">Grade 10</div><div class="row"><span class="chip off" title="What Is AI, Really?">L1</span><span class="chip off" title="How Computers &quot;Think&quot; + ML Basics">L2</span><span class="chip off" title="Neural Networks, Deep Learning and Generative AI Decoded">L3</span><span class="chip" title="Prompt Engineering 101 and 201">L4</span><span class="chip" title="Using AI Responsibly: Hallucinations, Bias and Privacy">L5</span><span class="chip off" title="Capstone Prep: Investigating a Real AI Problem">L6</span><span class="chip" title="Who&#x27;s Responsible? Accountability + Academic Integrity">L7</span><span class="chip" title="Deepfakes, Synthetic Media and AI Authorship + Case Study Lab">L8</span><span class="chip" title="AI in Healthcare: Diagnosis, Discovery and Risk">L9</span><span class="chip" title="AI in Business, Marketing and Creative Industries">L10</span><span class="chip off" title="AI Accelerating Science: Research, Climate and Discovery">L11</span><span class="chip" title="AI and the Future of Work">L12</span><span class="chip" title="No-Code AI Build + Choosing the Right Tool">L13</span><span class="chip" title="Designing Responsible AI + The Road Ahead (Course Synthesis)">L14</span></div>
+    <div class="g">Grade 11</div><div class="row"><span class="chip off" title="What Is AI, Really?">L1</span><span class="chip off" title="How Computers &quot;Think&quot; + ML Basics">L2</span><span class="chip off" title="Neural Networks and Deep Learning, Simplified">L3</span><span class="chip off" title="Generative AI Decoded">L4</span><span class="chip" title="Prompt Engineering 101 and 201">L5</span><span class="chip" title="When AI Gets It Wrong: Hallucinations and Fact-Checking">L6</span><span class="chip" title="Bias in AI">L7</span><span class="chip" title="Your Data, Their Model: Privacy">L8</span></div>
+    <div class="g">Grade 12</div><div class="row"><span class="chip off" title="What Is AI + How Machines Learn">L1</span><span class="chip off" title="Generative AI Decoded">L2</span><span class="chip" title="Prompt Engineering: Using AI Effectively">L3</span><span class="chip" title="When AI Gets It Wrong: Hallucinations, Bias and Privacy">L4</span><span class="chip" title="Who&#x27;s Responsible? Accountability and Academic Integrity">L5</span><span class="chip" title="Deepfakes, Synthetic Media and AI Authorship">L6</span><span class="chip" title="AI Across Industries and the Future of Work">L7</span><span class="chip" title="The Road Ahead: Emerging Trends and Your Role">L8</span></div>
+  </div>
+  <div class="legend"><span><span class="sw" style="background:var(--green)"></span>Lends an idea to a staff module</span><span><span class="sw" style="background:#fff; border:2px solid #C7C7C0"></span>Not used in the staff pathways</span></div>
+  <div class="tblwrap"><table class="dtable">
+    <tr><th style="width:21%">The idea</th><th style="width:34%">Where scholars learn it</th><th>Where staff use it</th></tr>
+    <tr><td><b>Asking well</b><br><small>Framing a request, steering a draft</small></td><td>Grade 10, Lesson 4 · Prompt Engineering 101 and 201<br>Grade 11, Lesson 5 · Prompt Engineering 101 and 201<br>Grade 12, Lesson 3 · Prompt Engineering: Using AI Effectively</td><td><b>Ask Well</b> <small>(Core 1)</small></td></tr>
+    <tr><td><b>Using AI responsibly</b><br><small>Invented facts, bias and privacy in one frame</small></td><td>Grade 10, Lesson 5 · Using AI Responsibly: Hallucinations, Bias and Privacy</td><td><b>Keep It Safe</b> <small>(Core 2)</small><br><b>Check It Before You Use It</b> <small>(Core 3)</small><br><b>When AI Goes Wrong</b> <small>(Core 4)</small><br><b>Fair by Design</b> <small>(Core 6)</small></td></tr>
+    <tr><td><b>When AI gets it wrong</b><br><small>Checking facts, opening the source</small></td><td>Grade 11, Lesson 6 · When AI Gets It Wrong: Hallucinations and Fact-Checking<br>Grade 12, Lesson 4 · When AI Gets It Wrong: Hallucinations, Bias and Privacy</td><td><b>Check It Before You Use It</b> <small>(Core 3)</small><br><b>Meetings, Notes and Summaries</b> <small>(Campus 2)</small><br><b>Data With Care</b> <small>(Central 2)</small></td></tr>
+    <tr><td><b>Bias</b><br><small>Where it gets in and how to test for it</small></td><td>Grade 11, Lesson 7 · Bias in AI</td><td><b>Fair by Design</b> <small>(Core 6)</small></td></tr>
+    <tr><td><b>Privacy</b><br><small>Where your data goes</small></td><td>Grade 11, Lesson 8 · Your Data, Their Model: Privacy</td><td><b>Keep It Safe</b> <small>(Core 2)</small><br><b>Choosing and Buying AI</b> <small>(Central 6)</small></td></tr>
+    <tr><td><b>Who is responsible</b><br><small>Accountability and academic integrity</small></td><td>Grade 10, Lesson 7 · Who&#x27;s Responsible? Accountability + Academic Integrity<br>Grade 12, Lesson 5 · Who&#x27;s Responsible? Accountability and Academic Integrity</td><td><b>Feedback That Stays Yours</b> <small>(Teachers 3)</small><br><b>AI and Academic Integrity in Your Classroom</b> <small>(Teachers 4)</small><br><b>AI Assists, a Person Decides</b> <small>(Campus 3)</small><br><b>Managing People With AI</b> <small>(Central 3)</small></td></tr>
+    <tr><td><b>Real or made</b><br><small>Deepfakes and synthetic media</small></td><td>Grade 10, Lesson 8 · Deepfakes, Synthetic Media and AI Authorship + Case Study Lab<br>Grade 12, Lesson 6 · Deepfakes, Synthetic Media and AI Authorship</td><td><b>Real or Made? Verify Before You Act</b> <small>(Core 5)</small></td></tr>
+    <tr><td><b>Two ways of being wrong</b><br><small>Reading a result with care, from the healthcare lesson</small></td><td>Grade 10, Lesson 9 · AI in Healthcare: Diagnosis, Discovery and Risk</td><td><b>From Data to Decisions</b> <small>(Campus 5)</small></td></tr>
+    <tr><td><b>AI in an organization</b><br><small>Where AI earns its place</small></td><td>Grade 10, Lesson 10 · AI in Business, Marketing and Creative Industries</td><td><b>Strategy</b> <small>(Central 5)</small></td></tr>
+    <tr><td><b>AI and the future of work</b><br><small>Which step AI takes, which a person keeps</small></td><td>Grade 10, Lesson 12 · AI and the Future of Work<br>Grade 12, Lesson 7 · AI Across Industries and the Future of Work</td><td><b>Agents and Helpers</b> <small>(Core 7)</small></td></tr>
+    <tr><td><b>Building without code</b><br><small>A helper for a repeated task, choosing the right tool</small></td><td>Grade 10, Lesson 13 · No-Code AI Build + Choosing the Right Tool</td><td><b>Teach It Once</b> <small>(Teachers 5, Campus 4, Central 4)</small></td></tr>
+    <tr><td><b>Designing responsible AI</b><br><small>Governance, and the road ahead</small></td><td>Grade 10, Lesson 14 · Designing Responsible AI + The Road Ahead (Course Synthesis)<br>Grade 12, Lesson 8 · The Road Ahead: Emerging Trends and Your Role</td><td><b>Teaching With AI in Your Subject</b> <small>(Teachers 6)</small><br><b>Governing AI</b> <small>(Central 7)</small></td></tr>
+  </table></div>
+  <div class="lmsgrid">
+    <div class="lmscard primary"><h3>What carries over</h3><div class="kind">reused, not rebuilt</div><p><span class="lbl">The ideas and their vocabulary.</span> Checking a draft, testing for bias, verifying through a second channel, keeping the decision with a person.</p><p><span class="lbl">The concept videos.</span> The program&rsquo;s library of short concept videos already holds <b>10 that fit 9 of these modules</b>, for example <i>How bias gets in</i>, <i>Where your data goes</i> and <i>Check it before you send it</i>. They could be reused once they are cleared for use outside the university.</p><p><span class="lbl">The teaching pattern.</span> One idea at a time, practice before the check, and a task taken back to real work.</p></div>
+    <div class="lmscard"><h3>What does not carry over</h3><div class="kind">student-only</div><p><span class="lbl">How AI works.</span> The opening lessons on what AI is, how machines learn, neural networks and generative AI. For staff, the foundations course covers the basics, and the core builds on it.</p><p><span class="lbl">Two grade 10 lessons.</span> Capstone preparation, which is the scholar&rsquo;s own project, and AI in scientific research.</p></div>
+    <div class="lmscard"><h3>What is new for staff</h3><div class="kind">no student counterpart</div><p><b>Make It Fit</b> <small>(Teachers 1)</small><br><b>Messages That Sound Like You</b> <small>(Teachers 2)</small><br><b>Campus Communications With AI</b> <small>(Campus 1)</small><br><b>Drafts, FAQs and Summaries From What You Can Share</b> <small>(Central 1)</small><br><b>Lead AI Learning on Your Team</b> <small>(Teachers 7, Campus 6)</small></p><p style="margin-top:8px;">Plus the two proposed add-ons, the awareness step, and every tool card.</p></div>
+  </div>
+  <div class="defnote plain"><b>Why the connection matters.</b> A teacher who takes <i>Fair by Design</i> and then teaches <i>Bias in AI</i> is using one set of ideas in both rooms. Each module in tabs &#9314; and &#9315; names the student lesson that carries its idea.</div>
+</div>
+
+<div class="tabpane" id="p7">
+  <h2>&#9318; Inside a Module · how one runs, and the sample we built</h2>
+  <div class="flow">
+    <div><i>1 minute</i><b>Goals</b>Three goals, each starting with a verb, checked off before the first lesson.</div>
+    <div><i>About 20 minutes</i><b>Three lessons</b>One idea per lesson, each with one thing to do on the screen: sort, steer a draft, find what is wrong.</div>
+    <div><i>About 15 minutes</i><b>Hands-on challenge</b>Done in the learner&rsquo;s own AI tool, on their own lesson or task, with a step-by-step guide and a prompt builder.</div>
+    <div><i>3 minutes</i><b>Check</b>Four questions, three right to pass, a one-line reason after each, retry until passed.</div>
+    <div><i>That week</i><b>Put it to work</b>Use it in class or in the office and note what changed. Best in team or planning time.</div>
+  </div>
+  <div class="lmsgrid">
+    <div class="lmscard primary"><h3>Ask Well: From a Vague Request to a Useful Draft</h3><div class="kind">the sample · Core 1 · all three roles · checked on our side</div>
+      <p><span class="lbl">Welcome, goals and role.</span> Three goals to check off, then one question: teacher, campus staff or central office. The answer sets every example and the practice task.</p>
+      <p><span class="lbl">Set-up.</span> Four things before a first prompt: an approved tool, the work account, a new chat for a new task, and what to do when the tool says no.</p>
+      <p><span class="lbl">Lesson 1 · Start from your task.</span> The learner sorts eight details into &ldquo;needed for this task&rdquo; or &ldquo;leave it out&rdquo;, then sees them as a structured prompt.</p>
+      <p><span class="lbl">Lesson 2 · Ask for options, then choose.</span> A practice chat with a written script: three follow-ups, then four options, one of which has a detail that is not true.</p>
+      <p><span class="lbl">Lesson 3 · Keep what works.</span> For six parts of the prompt, the learner decides &ldquo;make it a blank&rdquo; or &ldquo;keep it as written&rdquo;, and the template appears.</p>
+      <p><span class="lbl">Hands-on challenge.</span> A prompt builder for the learner&rsquo;s own task, steps for their own AI tool, and a self-check list.</p>
+      <p><span class="lbl">Check, then before you go.</span> Four questions, three takeaways, the task for that week, and what is planned next.</p></div>
+    <div class="lmscard"><h3>How it is built</h3><div class="kind">format and tracking</div>
+      <p><span class="lbl">Same format as the foundations course.</span> One package for the partner&rsquo;s professional learning platform (SCORM 2004, 4th Edition, the standard package format such platforms read), with the same look, navigation and tracking, so staff meet one system.</p>
+      <p><span class="lbl">One role picker, three roles.</span> The same choice the foundations course asks for. A teacher drafts exit ticket questions, a campus office drafts a notice to families, a central office team drafts an internal FAQ.</p>
+      <p><span class="lbl">Length.</span> 24 slides, about 45 minutes, self-paced. A learner can stop and resume, and comes back to the same slide with the same role.</p>
+      <p><span class="lbl">Completion.</span> Complete when every part is done; passed when the check is passed. A learner is never marked failed.</p>
+      <p><span class="lbl">Access.</span> Every activity works with a keyboard and on a phone; nothing is drag only. All names and scenarios are fictional. One small page, with no video.</p></div>
+    <div class="lmscard"><h3>Where it stands</h3><div class="kind">honest status</div>
+      <p><span class="lbl">Built, and checked by an automated run.</span> The run takes the whole module from start to finish in each of the three roles, at desktop and phone widths, and checks the record it would send to a learning platform. No learner has used it yet.</p>
+      <p><span class="lbl">Reviewed on our side only.</span> Four reviews before anyone at the partner saw it: against the partner&rsquo;s AI guidebook, by three kinds of learner, for accuracy and teaching design, and for tracking and accessibility. It is not yet tested in the partner&rsquo;s platform, and it is not in the partner&rsquo;s hands.</p>
+      <p><span class="lbl">Shown directly, not posted here.</span> The sample is written for the partner by name, so we would show it at the meeting or send it directly. We would like the partner&rsquo;s comments on it before we build another.</p>
+      <p><span class="lbl">One scenario for each role.</span> A nurse, a counselor or a recruiter picks the nearest of three roles today. More role examples are content, not new code.</p>
+      <p><span class="lbl">An earlier sample exists too.</span> <i>Plan with AI: Practice for Every Scholar</i> was built for teachers before this shape. It holds the teacher version of one lesson of Core 3.</p></div>
+  </div>
+  <div class="defnote plain"><b>Mostly live, with the online module as the core.</b> In the role analysis, twelve of the fourteen role groups prefer a live format: workshops, team sessions, labs, briefings. So we propose that each module also comes with <b>a one-page facilitator sheet</b>, so a team session, a workshop or a lab can run from it. Who leads those sessions is a question in tab &#9319;.</div>
+</div>
+
+<div class="tabpane" id="p8">
+  <h2>&#9319; To Decide Together · for our next conversation</h2>
+  <div class="defnote"><b>What we propose to build first, in order.</b>
+    <ol class="decisions" style="margin-top:8px; margin-bottom:2px;">
+      <li><b>The core, part 1:</b> <i>Ask Well</i>, <i>Keep It Safe</i>, <i>Check It Before You Use It</i>. Every role takes them, no tool is named, and the first one is already built as a working sample.</li>
+      <li><b>The core, part 2:</b> the four judgment modules.</li>
+      <li><b>Practice in your role, Teachers first.</b> Teachers are the largest group (54.5% of staff).</li>
+      <li><b>The awareness step,</b> once we know how those groups are reached.</li>
+      <li><b>The two add-on modules,</b> with the partner&rsquo;s specialists and legal team.</li>
+      <li><b>The Lead level last.</b> It serves the fewest people.</li>
+    </ol></div>
+  <h3 class="sub">Three questions that decide the next step</h3>
+  <ol class="decisions">
+    <li><b>Does this shape match how you see your staff:</b> a shared core for every role, then three pathways by kind of work? What would you move? Campus is the one we are least sure of: should special education, counseling, and college and career advising stay inside it, or become a pathway of their own?</li>
+    <li><b>Is &ldquo;Foundations&rdquo; in the role analysis this common level?</b> We read it as the foundations course staff already take, plus the core. If it means the existing course alone, the core becomes the first part of role training. Either way it decides how far student support, operations and front office, and the aides and tutors go.</li>
+    <li><b>We propose to start with the first three core modules. Do you agree,</b> and roughly how many people would take them first?</li>
+  </ol>
+  <h3 class="sub">Questions about the role analysis</h3>
+  <ol class="decisions" start="4">
+    <li><b>Is the tool list final?</b> Has the partner&rsquo;s technology team confirmed it, and are the tools assigned to the groups the list names? Does the partner&rsquo;s agreement with each tool&rsquo;s maker include training from the maker? If it does, our modules would point to it for the tool steps and not repeat it.</li>
+    <li><b>Who leads the live sessions</b> the role analysis describes, and would a facilitator sheet for each module help them?</li>
+    <li><b>Where does special education belong:</b> with teachers or with campus staff? And who at the partner could shape and review the compliance and sensitive data modules?</li>
+    <li><b>Is the foundations course meant to reach the awareness groups,</b> on a phone and in two languages? Should any other module exist in a second language?</li>
+    <li><b>Which of the open tasks in tab &#9315; matter most to you?</b> They set what we outline next.</li>
+  </ol>
+  <h3 class="sub">Questions about running the pathways</h3>
+  <ol class="decisions" start="9">
+    <li><b>Who could review the sample module,</b> who approves a module before it goes into the professional learning platform, and who keeps modules current when a tool or the AI guidebook changes?</li>
+    <li><b>How much staff time is realistic,</b> and how much of the core should every role take? Part 1 of the core is about 2&frac14; hours, the whole core about 5&frac14;, and a whole pathway with the core about 10&frac34; to 11&frac12;. We would rather cut than have staff not finish.</li>
+    <li><b>Who reviews a pathway challenge?</b> The outline says a campus AI lead or coach; that is the partner&rsquo;s choice.</li>
+    <li><b>Where does video live:</b> inside each package, or on a platform the partner hosts?</li>
+    <li><b>Do the pathways count</b> as professional development hours, as the yearly AI training the guidebook describes, or both? Does a badge mark each level?</li>
+    <li><b>What evidence of impact does the partner want:</b> completion, check results, a short staff survey?</li>
+  </ol>
+  <h3 class="sub">What we changed after reading the role analysis</h3>
+  <ul class="chg" style="max-width:980px;">
+    <li><b>A shared core.</b> Our first outline put prompting, checking and data safety inside single pathways. They are now one core that every role takes first.</li>
+    <li><b>Tool cards.</b> Our first outline named no tool. At role practice, the hands-on challenge would become specific to each role group&rsquo;s tool, once the partner confirms the list.</li>
+    <li><b>A finish line for each role group,</b> instead of everyone taking a whole pathway.</li>
+    <li><b>Two add-on modules</b> (special education compliance; sensitive data for student support) and <b>one awareness step.</b></li>
+    <li><b>A facilitator sheet for each module,</b> because most role groups prefer to learn live.</li>
+    <li><b>A list of open tasks</b> (tab &#9315;) that our outline does not cover yet, most of them in the Campus and Central pathways.</li>
+  </ul>
+  <div class="ex-note" style="margin-top:14px;"><b>Status of this page.</b> A proposal for discussion. The core, the pathways, the placements and the build order are open to change after the conversation, and nothing here is a commitment on either side. <b>One core module exists, as a working sample; nothing else on this page is built, and no dates are set.</b></div>
+</div>
+
+<div class="gradenav">
+  <span>Program pages:</span>
+  <a class="here" href="#">AI Learning Pathways for Staff (this page)</a>
+  <a href="year-one-scope-and-sequence.html">Student course · Year One Scope &amp; Sequence</a>
+</div>
+
+<script>
+  const tabs=[...document.querySelectorAll('.tab')];
+  function show(id){
+    const t=tabs.find(x=>x.dataset.pane===id); if(!t) return;
+    tabs.forEach(x=>x.classList.remove('on'));
+    document.querySelectorAll('.tabpane').forEach(p=>p.classList.remove('on'));
+    t.classList.add('on'); document.getElementById(id).classList.add('on');
+  }
+  tabs.forEach(t=>t.addEventListener('click',()=>{ show(t.dataset.pane); history.replaceState(null,'','#tab'+t.dataset.pane.slice(1)); }));
+  if(/^#tab[1-8]$/.test(location.hash)) show('p'+location.hash.slice(4));
+</script>
+<!--
+VERSION HISTORY
+v0.3 (2026-11-18): The first core module is built as a working sample, for all three roles; the page says so.
+v0.2 (2026-11-18): One shared core for every role, then three pathways. The core is written out lesson by lesson.
+v0.1 (2026-11-18): First draft, for discussion.
+-->
+</body>
+</html>
